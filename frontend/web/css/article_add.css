@@ -1,0 +1,91 @@
+.add-board {
+	background: #f50c0c;
+}
+.navbar-nav li {
+    transition: 0.5s ease-out;
+}
+.navbar-nav li:hover {
+    background-color: #f34723;
+}
+.redactor-toolbar {
+	z-index: 1;
+}
+#selectBox_cat {
+	margin-top: -10px;
+}
+#selectBox_cat select, #selectBox_region select {
+    margin-top: 10px;
+}
+#selectBox_region select, #selectBox_cat select {
+    float: none;
+    width: 100%;
+    max-width: 300px;
+}
+.add-left-body {
+    background: #FFF;
+    padding: 20px;
+    display: table;
+    width: 100%;
+    min-height: 300px;
+}
+.di-h1 {
+    background: #FFF;
+    padding-left: 20px;
+    padding-bottom: 0;
+    padding-top: 10px;
+}
+.add_al {
+    padding: 5px;
+    margin: 0;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 300px;
+    display: table;
+    margin-top: 10px;
+    display: table;
+    margin-right: 21%;
+    width: 100%;
+}
+
+
+.moder_panel {
+    padding: 15px;
+    background: #fdfdfd;
+    box-shadow: 3px 3px 10px #ccc;
+    background-color: #fdfdfd;
+    margin-bottom: 20px;
+	width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+#blog-status_id, #blog-active {
+    display: grid;
+    padding: 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}
+
+#article-status {
+    display: grid;
+    padding: 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}
+
+.moder_panel label {
+    float: left;
+    width: 40%;
+    padding-right: 17px;
+    text-align: right;
+    padding-top: 7px;
+    font-weight: normal;
+}
+.moder_panel input[type=text] {
+    display: grid;
+    width: 50%;
+}
+
+#article-status label {
+    text-align: left;
+    width: 100%;
+}

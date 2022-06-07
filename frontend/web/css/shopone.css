@@ -1,0 +1,253 @@
+.label::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+.add-board {
+	background: #4e03e7;
+}
+.navbar-nav li {
+    transition: 0.5s ease-out;
+}
+.grafik {
+	max-width: 340px;
+	text-align: center;
+	margin: auto;
+	font-size: 13px;
+	font-family: inherit;
+}
+.grafik table tr td:first-child {
+	width: 100px;
+}
+.one-body {
+	    background: #fff;
+}
+.edit {
+	padding: 0;
+	margin-bottom: 30px;
+}
+.edit a {
+	display: table;
+    width: 50%;
+    float: left;
+    text-align: center;
+	padding: 3px 0;
+	color: #FFF;
+}
+.update {
+    background: #92d379;
+}
+.del {
+	background: #cc4545;
+}
+.di-h1 {
+    background: #FFF;
+    padding-left: 15px;
+    font-size: 19px;
+    border-bottom: 0px;
+    padding-top: 10px;
+
+}
+.di-h1 h1 {
+	font-size: 20px;
+}
+.grafik table tr td:nth-child(3n) {
+	width: 100px;
+}
+.grafik table tr td {
+vertical-align: middle;
+}
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #f3f3f3;
+}
+.grafik table tr td div { 
+ font-size: 12px;
+ color: #adadad;
+}
+
+.opacity {
+	opacity: 0.5;
+}
+.logo {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.lSSlideWrapper {
+	    height: 450px;
+}
+span.h3 {
+	font-size: 15px;
+	font-weight: 600;
+}
+.content {
+    color: #676767;
+    line-height: 25px;
+}
+.tab-shop {
+	margin-bottom: 20px;
+}
+.tab-content {
+	/*    margin-top: -1px;
+    border: 1px solid #ccc;
+     
+    padding: 10px;*/
+}
+
+
+.hr_add {
+    font-size: 16px;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    color: #b2790d;
+}
+.hr_add.graf-info {
+	margin-top: 15px;
+}
+
+.com , .comment {
+  box-shadow: 0 0 5px #ccc;
+}
+.comment_body {
+    /* padding: 20px; */
+    display: table;
+    width: 100%;
+    padding-left: 10px;
+}
+
+
+*,:after,:before{box-sizing:border-box}
+section#smile{text-align:center}
+.checkbox-smile{position:relative;display:inline-block}
+.checkbox-smile label{position:relative;display:inline-block;color: #f9a06b;}
+.checkbox-smile label:before,.checkbox-smile label:after{content:'\f119';font-family:"Font Awesome 6 Pro";-webkit-font-feature-settings:normal;font-feature-settings:normal;font-weight:400;line-height:1;text-rendering:auto;font-size:40px;display:block}
+.checkbox-smile label:after{content:'\d7';font-size:22px}
+.checkbox-smile input{position:absolute;left:0;top:0;width:100%;height:100%;z-index:5;opacity:0;cursor:pointer}
+.checkbox-smile input:checked + label{color:#4BD865}
+.checkbox-smile input:checked + label:before{content:'\f118'}
+.checkbox-smile input:checked + label:after{content:'\2713'}
+.vote td {
+	width: 33.3%;
+	text-align: center;
+}
+.vote span {
+    margin-bottom: 10px;
+    display: block;
+	font-size: 13px;
+    border-bottom: 1px solid #f3f3f3;
+}
+.ocen {
+	font-size: 11px;
+	text-align: left;
+}
+.good {
+  color: green;
+}
+.bad {
+  color: #f78989;
+}
+.vote .form-group {
+	margin-bottom: 0;
+}
+.vote span.man {
+border: 0px;
+display: contents;
+}
+.vote-go {
+	width: 100%;
+    opacity: 0.8;
+    padding: 3px;
+}
+
+.non-vote {
+	color: #e88282;
+}
+
+.notepad-act-plus {
+	padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    height: auto;
+    display: block;
+}
+
+.cat-board-body {
+    height: 150px;
+    background: #FFF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #f3f3f3;
+	box-shadow: 0px 0px 6px rgba(0,0,0,.1);
+}
+.shop-go {
+	width: 100%;
+	padding: 5px;
+	text-align: center;
+	display: block;
+	margin-bottom: 20px;
+	background-color: red;
+}
+.opacityyes {
+	opacity: 0.3;
+}
+@media(max-width:1000px) {
+   .lSSlideWrapper {
+	    height: 330px;
+   } 
+}
+
+@media(max-width:480px) {
+   .lSSlideWrapper {
+	    height: 195px;
+   } 
+
+}
+
+.add_chex {
+    display: table;
+    float: right;
+    width: 100%;
+	margin-top: 40px;
+}
+.add_chex #carbuyer-private_payment, .add_chex #carbuyer1-private_payment {
+    border: 1px solid #eaeaea;
+    display: table;
+    padding: 7px 10px 5px 10px;
+    border-radius: 3px;
+}
+
+.add_chex label {
+	display: block;
+	font-weight: 400;
+}
+.collapse-dis {
+	margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fbfbfb;
+}
+.add_chex div.help-block {
+   border: 0px;
+}
+.cart  {
+    white-space: nowrap; 
+}
+
+
+.alert-none {
+	display: none
+}
+.alert-warning1 {
+    color: #f5f5f5;
+    font-weight: 600;
+}
+.alert-warning1:hover {
+    color: #d6f430;
+    transition: 1s;
+}

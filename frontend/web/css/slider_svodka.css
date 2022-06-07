@@ -1,0 +1,17 @@
+.false_window {
+    background-size: contain;
+}
+.lSSlideWrapper {
+    height: 250px;
+}
+@media(min-width:992px) {
+   .lSSlideWrapper {
+	    height: 380px;
+   } 
+}
+@media(max-width:480px) {
+   .lSSlideWrapper {
+	    height: 200px;
+   } 
+
+}

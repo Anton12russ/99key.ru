@@ -1,0 +1,95 @@
+.add-board {
+    background: #39bb8d;
+}
+
+.navbar-nav li {
+    transition: 0.5s ease-out;
+}
+
+}
+.art-body {
+	background: #FFF;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.art-body .art-img img, .art-body .art-img iframe { 
+ max-height: 400px;
+ margin-bottom: 20px;
+ max-width: 100%;
+}
+.art-img {
+  text-align: center;
+}
+.title a {
+	color: var(--color--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: color 200ms ease-out;
+    line-height: 24px;
+}  
+.title h2 {  
+   margin-top: 0;
+   font-size: 20px;
+}
+.date_add {
+    text-align: right;
+    color: #828282;
+    /* display: table; */
+    /* float: right; */
+    font-size: 13px;
+    border-top: 1px solid #f6f6f6;
+    padding-top: 5px;
+    margin-bottom: 15px;
+}
+
+.text-art img {
+    max-width: 100%;
+    max-height: auto;
+}
+
+
+.like i {
+    font-size: 20px;
+    color: #f1a754;
+    cursor: pointer;
+}
+.like_divs {
+    display: flex;
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+}
+
+.man  {
+   line-height: 27px;
+    margin-left: 5px;
+    color: #8a8a8a;
+
+}
+
+.likes {
+    font-size: 20px;
+    color: #f1a754;
+
+}
+.nostatus {
+    background-color: #fcf8e3;
+    border: 1px solid #faebcc;
+}
+.more-text {
+	background: #39bb8d;
+    margin: 5px;
+    display: table;
+    padding: 5px 15px 5px 15px;
+    color: #FFF;
+    border-radius: 3px;
+	cursor: pointer;
+    transition: 0.5s ease-out;
+}
+.more-text:hover {
+    box-shadow: 0 0 10px #3eba3a;
+    text-decoration: none;
+    color: #fff;
+}

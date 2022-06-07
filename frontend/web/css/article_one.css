@@ -1,0 +1,123 @@
+.add-board {
+	background: #f50c0c;
+}
+.navbar-nav li {
+    transition: 0.5s ease-out;
+}
+.navbar-nav li:hover {
+    background-color: #f34723;
+}
+.one-body {
+	background: #FFF;
+	padding: 14px;
+}
+.h1 {
+	margin: 0px;
+}
+.text-art img {
+    max-width: 100%;
+    max-height: auto;
+}
+.di-h1 {
+    background: #fff;
+    padding-left: 20px;
+    padding-top: 15px;
+}
+.popup {
+	position: fixed;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	display:none;
+	text-align:center;
+	z-index: 1030;
+}
+
+.popup_bg {
+	background:rgba(0, 0, 0, 0.83);
+	position:absolute;
+	z-index:1;
+	height:100%;
+	width:100%;
+}
+
+
+.popup_img {
+	position: relative;
+	margin:0 auto;
+	z-index: 2;
+	max-height:94%;
+	max-width:94%;
+	margin: 2% 0 0 0;
+}
+.text-art img {
+	cursor: zoom-in;
+}
+.close-s {
+position: absolute;
+    z-index: 1030;
+    right: 20px;
+    top: 10px;
+    color: #FFF;
+    font-size: 30px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.like{    
+    font-size: 20px;
+	color: #f1a754;
+	cursor: pointer;
+}
+
+.like_div{
+	display: flex;
+	/* float: right; */
+	position: absolute;
+	/* top: -30px; */
+	bottom: 16px;
+    right: 14px;
+    z-index: 1;
+}
+.manlike {
+    line-height: 27px;
+    margin-left: 5px;
+    color: #8a8a8a;
+}
+.pubdate {
+    font-size: 13px;
+    color: #b3b3b3;
+}
+h1 {
+	margin-bottom: 0px;
+}
+.author {
+	font-size: 13px;
+    color: #b3b3b3;
+}
+
+.edit {
+    padding: 0;
+	max-width: 300px;
+    margin-bottom: 30px;
+	margin-bottom: 40px;
+}
+.edit a {
+    display: table;
+    width: 50%;
+    float: left;
+    text-align: center;
+    padding: 3px 0;
+    color: #FFF;
+}
+.update {
+    background: #92d379;
+}
+.del {
+    background: #cc4545;
+}
+
+.active_one {
+	 background: #ad96b5;
+}

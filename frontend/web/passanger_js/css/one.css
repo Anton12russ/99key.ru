@@ -1,0 +1,95 @@
+.edit {
+	max-width: 400px;
+	display: table;
+	padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+	margin-bottom: -20px;
+}
+.edit a {
+    display: inline-block;
+	width: 100%;
+}
+.del-alert {
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+}
+.edit button {
+float: left;	
+}
+.rows-edit {
+	    margin-bottom: 20px;
+}
+.rows-edit input {
+	float: left;
+	margin-right: 10px;
+}
+
+
+.rows-edit {
+    margin-bottom: 40px;
+}
+
+.edit a {
+	opacity: 0.5;
+}
+.edit .alert{
+	padding: 5px;
+    text-align: center;
+}
+.opac-lm {
+    opacity: 0.4;
+}
+
+
+@media(max-width:720px) {
+
+	.padd-h1 img {
+       width: 100%;
+	}
+	
+}
+summary::-webkit-details-marker{display:none;}
+summary::-moz-list-bullet{list-style-type:none;}
+summary::marker{display:none;} 
+summary {
+   display:inline-block;
+   padding: 3px 15px 3px 15px;
+   font-size: 14px;
+   background-color: #81bf81;
+    color:#fff;
+    border-radius: 3px;
+   cursor: pointer;
+   position: relative;
+}
+summary:before {
+  right: .1em;
+  top: .4em;
+  background: url(/img/arrow.png) no-repeat 50% 50% / 1em 1em;
+  width: 1em;
+  height: 1em;  
+  content: "";
+  position: absolute;
+  transition: transform .5s;
+}
+details[open] > summary:before {
+  transform: rotateZ(90deg);
+}
+summary ~ * {
+   padding:0 1em 0 1em;
+}
+details[open] summary ~ *{ 
+  animation: sweep .5s ease-in-out;
+}
+@keyframes sweep {
+  0%    {opacity: 0;}
+  100%  {opacity: 1;}
+}
+summary:focus {
+  outline:0;
+}
+details{
+  display:block;
+  margin-bottom: .5rem;
+}

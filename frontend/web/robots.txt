@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://99key.ru/sitemap.xml  # указываем роботу на файл sitemap для сайта

@@ -1,0 +1,99 @@
+
+.serv-block {
+    background: #FFF;
+    padding: 14px;
+}
+.serv-block h3 {
+	margin-top: 10px;
+	font-size: 14px;
+}
+.serv-bo-href {
+    height: 155px;
+    margin-bottom: 10px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.serv-bo-href {
+	position: relative;
+}
+.serv-bo-href a.img_a {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.serv-bo-cat {
+font-size: 12px;
+    color: #777;
+    height: 35px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.serv-bo-price {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    display: table;
+    width: 100%;
+}
+
+
+.cena-fon {
+    padding: 2px;
+    display: table;
+    background: #f34723;
+    color: #FFF;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 4px;
+}
+
+
+.main-right .carousel-control.left, .carousel-control.right {
+background-image: none;	
+height: 150px;
+}
+
+.main-right .carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+	    top: 60%;
+}
+.serv-h3 {
+    background: #FFF;
+    padding: 10px;
+    padding-top: 7px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #eaeaea;
+    font-weight: bold;
+}
+
+.serv-h3 .fa.main.fa-bar-chart {
+    color: #f53f93;
+}
+
+.serv-h3 .fa.main {
+    font-size: 18px;
+}
+.fa.main.fa-fire {
+    color: #ffac00;
+    font-size: 18px;
+}
+.fastsale {
+    width: 10%;
+    padding: 0px 2px 4px 0px;
+}
+.carousel-border{
+	border-left: 2px solid red;
+	border-right: 2px solid red;
+	border-bottom: 2px solid red;
+	border-radius: 0px 0px 5px 5px;
+	box-shadow: 0px 3px 10px #e80028;
+
+}
+.serv-border{
+	border: 2px solid #ff0000;
+	border-bottom: 1px solid #ff0000;
+	border-radius: 5px 5px 0px 0px;
+	box-shadow: 0 0 10px #e80028;
+}    

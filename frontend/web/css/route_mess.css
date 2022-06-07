@@ -1,0 +1,238 @@
+.messenger {
+ 
+    background: #FFF;
+    width: 100%;
+    height: 100%;
+	overflow-y: auto;
+	position: relative;
+}
+.route_all {
+	height: 80px;
+    border-bottom: 1px solid #f6f6f6;
+    padding: 10px;
+    display: table;
+    width: 100%;
+	position: relative;
+}
+.images-rout {
+	width: 80px;
+    height: 100%;
+	min-height: 60px;
+    float: left;
+    background-size: 100%;
+	
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.body-rout {
+	padding-left: 90px;
+}
+.author-rout i {
+	    color: #a6a7ab;
+		margin-right: 5px;
+}
+.author-rout {
+	margin-bottom: 3px;
+}
+
+.rout-rout {
+	display: table;
+    padding: 1px 5px;
+    font-size: 11px;
+    margin-bottom: 3px;
+    color: #FFF;
+}
+.board-rout {
+    background: #0b72b8;
+}
+
+.shop-rout {
+	background: #ee8e44;
+}
+.art-rout {
+	background: #50b726;
+}
+
+.new-rout {
+	position: absolute;
+    float: right;
+    right: 0;
+    top: 10px;
+	border-radius: 20px;
+	padding: 2px 4px;
+	background: #8dc53e;
+    color: #FFF;
+	font-size: 12px;
+}
+.navbar-default {
+	display: none;
+}
+
+.mess-header .route_all {
+	cursor: auto;
+}
+.mess-header  {
+background: #f5f5f5;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+}
+.mess_all {
+    position: absolute;
+    padding-top: 80px;
+    top: 0;
+    height: 100%;
+    padding-bottom: 50px;
+    width: 100%;
+}
+.from-mess {
+    display: table;
+    background: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+	float: right;
+}
+.too-mess {
+	display: table;
+    background: #d9f3ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.mess-div {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+	display: table;
+	position: relative;
+}
+.too-div {
+	text-align: left;
+}
+
+.from-div {
+	text-align: right;
+
+}
+
+.date-mess {
+    width: 100%;
+	color: #949494;
+    font-size: 11px;
+    margin-top: 3px;
+	position: absolute;
+    bottom: -20px;
+	display: none;
+}
+.mess-div:hover  .date-mess {
+    display: block;
+
+}
+.from-div .date-mess {
+  float: right;
+}
+.aut-mess {
+    overflow: hidden;
+}
+.mess-als-div {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+	padding-left: 15px;
+    padding-right: 15px;
+}
+.mess-form {
+position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 53px;
+    /* left: 2%; */
+    background: #f5f5f5;
+    padding: 10px;
+}
+.field-message-text {
+	width: 80%;
+	float: right;
+}
+.help-block-error {
+    padding: 0;
+    margin: 0;
+}
+.mess-form input,.mess-form button {
+
+    border-radius: 0;
+}
+.mess-form button {
+	width: 20%;
+}
+.mess-form .form-group {
+	margin-bottom: 0;
+}
+.mess-header .new-rout {
+	right: 10px;
+}
+.loads {
+width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    color: #337ab7;
+    text-decoration: underline;
+	cursor: pointer;
+}
+
+.mess_all .pagination {
+	float: right;
+}
+.pagin {
+padding-bottom: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    display: table;
+    width: 100%;
+}
+.mess_all.none {
+	padding-bottom: 20px;
+	padding-top: 100px;
+}
+.mess-form button {
+	float: right;
+}
+.close-mess {
+	padding-top: 120px;
+}
+.close-act {
+    position: absolute;
+    z-index: 1;
+    margin-top: 100px;
+    /* margin-left: 10px; */
+    color: #408acc;
+    cursor: pointer;
+    width: 100%;
+    border-bottom: 1px solid #e8e8e8;
+    padding-left: 10px;
+}
+
+.a-absolute {
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.ine-u {
+    margin-left: 5px;
+    font-size: 11px;
+    color: #ccc;
+    padding-left: 5px;
+    border-left: 1px solid #ccc;
+}
+.author-rout i.online{
+	    color: #50b726;
+}
+.ine-um {
+font-size: 11px;
+color: #ccc;
+}
+.name-board {
+	height: 20px;
+    overflow: hidden;
+}

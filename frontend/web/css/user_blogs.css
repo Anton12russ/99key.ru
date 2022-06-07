@@ -1,0 +1,77 @@
+.cat-board-body {
+    transition: 0.5s ease-out;
+}
+.active-ads {
+    transition: 0.5s ease-out;
+    box-shadow: 0px 0px 6px rgb(0 0 0 / 10%);
+}
+.cat-board-body:hover {
+    box-shadow: 0 0 0px #ffffff;
+}
+.active-ads:hover {
+    box-shadow: 0 0 10px #4c5aff;
+}
+.all-bo-notepad {
+    top: -27px;
+}
+
+summary::-webkit-details-marker{display:none;}
+summary::-moz-list-bullet{list-style-type:none;}
+summary::marker{display:none;} 
+summary {
+   display:inline-block;
+   padding: 3px 15px 3px 15px;
+   font-size: 14px;
+   background-color: #5bc0de;
+    color:#fff;
+    border-radius: 3px;
+   cursor: pointer;
+   position: relative;
+   transition: 0.5s ease-out;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+summary:before {
+  right: .1em;
+  top: .4em;
+  background: url(../img/arrow.png) no-repeat 50% 50% / 1em 1em;
+  width: 1em;
+  height: 1em;  
+  content: "";
+  position: absolute;
+  transition: transform .5s;
+}
+details[open] > summary:before {
+  transform: rotateZ(90deg);
+}
+summary ~ * {
+   padding:0 1em 0 1em;
+}
+details[open] summary ~ *{ 
+  animation: sweep .5s ease-in-out;
+}
+@keyframes sweep {
+  0%    {opacity: 0;}
+  100%  {opacity: 1;}
+}
+summary:focus {
+  outline:0;
+}
+details{
+  display:block;
+  margin-bottom: .5rem;
+}
+summary:hover {
+    box-shadow: 0 0 10px #5bc0de;
+}
+.services{
+    margin-top: 5px;
+}
+.fa-rocket-launch {
+    color: #e72900;
+}

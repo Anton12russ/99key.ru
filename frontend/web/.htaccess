@@ -1,0 +1,11 @@
+RewriteEngine on
+php_flag display_errors off
+php_flag display_startup_errors off
+
+
+# если это папка или файл, открываем его
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+ 
+# в противном случае перенаправляем на index.php
+RewriteRule . index.php

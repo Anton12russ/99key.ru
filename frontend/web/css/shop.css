@@ -1,0 +1,137 @@
+.alert-left {
+    float: left;
+    width: 30%;
+    height: 20px;
+}
+.mb-max {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    margin-top: -10px;
+}
+.alert-domen {
+	padding-top: 3px;
+	color: green;
+	float: left;
+    width: 70%;	
+	font-size: 12px;
+}
+.add-board {
+	background: #4e03e7;
+}
+
+.graf-table {
+	width: 70%;
+}
+.graf-table input {
+	max-width: 100px;
+	float: left;
+	width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+.obed {
+    display: flex;
+
+}
+.di-h1 {
+    background: #FFF;
+    padding-left: 20px;
+    margin-bottom: -30px;
+    padding-bottom: 0;
+    padding-top: 10px;
+}
+.table-bordered > tbody > tr > td.obed{
+	border: none;
+	border-bottom: 1px solid #ddd;
+}
+.obed input {
+	width: 100%;
+	
+}
+.obed .form-group {
+	  max-width: 70px;
+}
+  
+.obed span {
+display: block;
+    width: 40px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.opacity {
+	opacity: 0.3;
+}
+.price {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+.minus {
+	color: #FFF;
+    font-weight: 600;
+    font-size: 17px;
+}
+.logo {
+	max-width: 200px;
+	margin-bottom: 20px;
+	float: left;
+}
+.logo .input-group.file-caption-main {
+	display: none;
+}
+.logo .add-front {
+	width: 100%;
+}
+
+.logo .krajee-default.file-preview-frame {
+	 margin: 0px;
+}
+
+.logo  .file-sortable .file-drag-handle {
+	    cursor: default;
+}
+
+.logo .krajee-default.file-preview-frame .kv-file-content {
+	    height: auto;
+}
+
+.logo .file-drop-zone-title {
+	padding: 25px 10px;
+}
+
+[role="radiogroup"] {
+   display: grid;
+   padding: 10px;
+   border: 1px solid #e8e8e8;
+   border-radius: 3px;
+}
+[role="radiogroup"] label {
+	    text-align: left;
+}
+.moder_panel {
+    padding: 15px;
+    background: #fdfdfd;
+    box-shadow: 3px 3px 10px #ccc;
+    background-color: #fdfdfd;
+	margin-bottom: 20px;
+}
+.moder_panel h3 {
+	margin-top: 0px;
+}
+
+.user-moder {
+	padding: 10px;
+    background: #7db4e4;
+    color: #FFF;
+    border-radius: 3px;
+    display: table;
+    margin: auto;
+    min-width: 50%;
+}
+#shop-сhoice_pay label {
+	width: 100%;
+}

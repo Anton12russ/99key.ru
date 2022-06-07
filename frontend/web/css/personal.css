@@ -1,0 +1,414 @@
+.navbar-nav li {
+    transition: 0.5s ease-out;
+}
+.navbar-nav li:hover {
+    background-color: #f34723;
+    transition: 0.5s ease-out;
+}
+.sum {
+	max-width: 200px;
+	width: 100%;
+}
+.center {
+	text-align: center;
+}
+.center input {
+    margin: auto;
+	
+}
+.colvo {
+    font-size: 13px;
+    display: table;
+    margin-top: 5px;
+    padding: 2px 5px;
+    color: #FFF;
+	display: inline-flex;
+	line-height: 25px;
+	border-radius: 3px;
+}
+.colvo input {
+	margin-left: 5px;
+	margin-right: 5px;
+	max-height: 25px;
+}
+.logo_pay { 
+    width: 200px;
+    height: 55px;
+    padding: 7px 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 3px;
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.logo_pay a { 
+width: 100%;	
+height: 100%;
+    display: block;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.body-logo-pay {
+width: 100%;	
+display: table;	
+}
+
+.breadcrumb {
+    background: #FFF;
+	margin-bottom: 10px;
+}
+
+.rilght-mini-filter {
+	float: left;
+}
+.mini-filter {
+    border-top: 0px;
+    border-bottom: 1px solid #f6f6f6;
+    margin-top: 0px;
+    padding-top: 0;
+    padding-left: 0px;
+}
+.balance_menu {
+	text-align: center;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.menu_user {
+	padding: 15px;
+    list-style-type: none;
+    background: #FFF;
+    margin-top: 10px;
+    display: table;
+    width: 100%;
+    border-radius: 3px;
+}
+
+.menu_user li { 
+padding: 3px;
+	border-bottom: 1px solid #f6f6f6;
+}
+.fa.fa-times {
+    line-height: 35px;
+    float: left;
+    color: #f35b5b;
+}
+.exit button {
+	padding-left: 5px;
+}
+
+.person-body {
+    background: #FFF;
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 4px;
+    display: table;
+    width: 100%;
+}
+.active a {
+ color: #ce9b9b;
+}
+.services .top  {
+    border: 1px solid #88c33f;
+    padding: 4px;
+    text-align: center;
+    color: #96c33f;
+    border-radius: 3px;
+}
+ .services  .top a {
+	   color: #96c33f;
+	   text-decoration: none;
+ }
+ 
+ 
+ .services .block  {
+    border: 1px solid #ffac00;
+    padding: 4px;
+    text-align: center;
+    color: #ffac00;
+    border-radius: 3px;
+}
+ .services  .block a {
+	   color: #ffac00;
+	   text-decoration: none;
+ }
+  .services .bright  {
+    border: 1px solid #f50c0c;
+    padding: 4px;
+    text-align: center;
+    color: #f50c0c;
+    border-radius: 3px;
+}
+ .services  .bright a {
+	   color: #f50c0c;
+	   text-decoration: none;
+ }
+
+.active-ads {
+	border-bottom: 1px solid #f6f6f6;
+}
+.cat-board-body {
+	    height: 170px;
+}
+
+.services{
+	display: block;
+   margin-bottom: 10px;
+}
+
+.services .tooltip.top .tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px 10px 0;
+    border-top-color: #FFF;
+}
+.services .top .tooltip-inner {
+    max-width: 300px;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #ccc;
+    color: #525252;
+    text-align: left;
+    padding-left: 15px;
+	font-size: 14px;
+}
+.services .tooltip.in {
+	opacity: 1;
+	border: 0;
+}
+.activ {
+	display: block;
+	margin-bottom: 10px;
+}
+
+
+.chex input {
+	min-width: 10px;
+	margin-right: 5px;
+	margin-left: 10px;
+	margin-top: 6px;
+}
+.chex label {
+	margin-bottom: 3px;
+}
+.chex-input {
+    background: #006d72;
+}
+.chex label {
+    font-weight: normal;
+}
+
+.act {
+	margin-top: 10px;
+    padding-bottom: 10px;
+	border-bottom: 1px solid #f6f6f6;
+}
+.act span { 
+ color: #337ab7;
+ cursor: pointer;
+}
+.act button {
+	margin-left: 10px;
+}
+.act span:hover { 
+ text-decoration: underline;
+}
+.person-body form {
+	width: 100%;
+}
+
+
+.chex {
+	font-size: 13px;
+}
+.chex div {
+	padding-left: 0;
+}
+.chex div.update  {
+	line-height: 27px;
+	background: #b6d54d;
+    text-align: center;
+    padding-right: 0;
+}
+.chex div.update a  {
+	    color: #FFF;
+}
+
+.edit {
+    padding: 0;
+    max-width: 300px;
+    margin-bottom: 30px;
+    margin-bottom: 40px;
+	opacity: 0.7;
+}
+.edit a {
+    display: table;
+    width: 50%;
+    float: left;
+    text-align: center;
+    padding: 3px 0;
+    color: #FFF;
+	font-size: 13px;
+}
+.update {
+    background: #a0a0a0;
+}
+.del {
+    background: #616060;
+}
+.status .alert {
+    display: table;
+    padding: 3px 10px;
+}
+
+.chat_iframe iframe {
+	width: 100%;
+	height: 500px;
+	border: 0;
+	background: url(/uploads/images/preloader.gif) no-repeat;
+    background-position: center center;
+}
+.car-shop-user {
+	min-width: 100px;
+	padding: 3px;
+}
+.panel-heading-car {
+	padding: 3px;
+    text-align: center;
+}
+.panel-body {
+	border-top: 1px solid #ccc;
+}
+.time_disput {
+	color: #a5a5a5;
+	font-size: 13px;
+}
+.mess_disput {
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+	padding-top: 10px;
+}
+.mess_disput img {
+	max-width: 100%;
+}
+
+.add_chex div {
+
+    display: table;
+    padding: 7px 10px 5px 10px;
+    border-radius: 3px;
+}
+
+.add_chex label {
+    padding-top: 0;
+    width: 100%;
+    text-align: left;
+    display: flow-root;
+    float: none;
+}
+
+.person-body .add_chex input {
+	min-width: auto;
+}
+
+.alert_user .form-group {
+	margin-bottom: 0;
+}
+.alert_user .help-block {
+display: none;
+}
+
+.alert_user label {
+	font-weight: normal;
+}
+.services a {
+    border: 1px solid;
+    padding: 3px;
+    border-radius: 3px;
+}
+.span-colvo {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+.input-colvo {
+	display: none;
+}
+.colvo:hover > .span-colvo {
+	display: none;
+}
+.colvo:hover > .input-colvo {
+	display: block;
+}
+#img-preview {
+	cursor: pointer;
+	width: 150px;
+	max-height: 150px;
+}
+#uploadform-imagefile {
+	display: none;
+}
+.field-uploadform-imagefile {
+	    text-align: center;
+}
+.delet-slider {
+font-size: 18px;
+cursor: pointer;
+}
+.ui-state-default img {
+	cursor: move;
+}
+
+
+
+.tbox {
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0px 5px 10px #ccc;
+    padding-top: 0px
+}
+
+
+.menu-top-ul .fa-times {
+	    float: left;
+    margin-top: 0px;
+    height: 10px;
+    line-height: 10px;
+	    color: #000
+}
+
+.menu-top-ul  .logout {
+	padding-top: 0;
+	margin-left: 0;
+    padding-left: 5px;
+	color: #000;
+}
+
+
+
+
+.reserv-span {
+    font-size: 18px;
+    color: #d9534f;
+    text-transform: uppercase;
+    box-shadow: 1px 0px 10px #878787;
+    padding: 5px;
+    border: 1px solid;
+}
+
+
+
+@media(max-width:720px) {
+  .cat-board-body {
+    height: 190px;
+  }
+  	.all_img {
+height: 120px;
+	}
+}

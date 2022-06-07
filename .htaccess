@@ -1,0 +1,38 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+</IfModule>
+ 
+<IfModule mod_rewrite.c>
+ # если /install, то в install
+    RewriteCond %{REQUEST_URI} ^/(install)
+    RewriteRule ^install/assets/(.*)$ install/web/assets/$1 [L]
+    RewriteRule ^install/css/(.*)$ install/web/css/$1 [L]
+    RewriteRule ^install/js/(.*)$ install/web/js/$1 [L]
+    RewriteCond %{REQUEST_URI} !^/install/web/(assets|js|css|js)/
+    RewriteCond %{REQUEST_URI} ^/(install)
+    RewriteRule ^.*$ install/web/index.php [L]
+
+    # если /admin, то в backend
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+	RewriteRule ^uploads/(.*)$ uploads/$1 [L]
+	RewriteRule ^images_all/(.*)$ images_all/$1 [L]
+	RewriteRule ^assest_all/(.*)$ assest_all/$1 [L]
+    RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+    RewriteRule ^admin/js/(.*)$ backend/web/js/$1 [L]
+    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|js|css|js)/
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^.*$ backend/web/index.php [L]
+    RewriteCond %{REQUEST_URI} ^/(assets|css|js|images)
+    RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+    RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
+    RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
+    RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
+    RewriteRule ^(.*)$ frontend/web/$1 [L]
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|js)/
+    RewriteCond %{REQUEST_URI} !index.php
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ frontend/web/index.php
+</IfModule>

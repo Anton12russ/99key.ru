@@ -1,0 +1,60 @@
+.add-board {
+	background: #4e03e7;
+}
+
+.false_window {
+    width: 100%;
+    height: 100%;
+	background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.lSSlideWrapper {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 390px;
+}
+#imageGallery {
+	height: 100%;
+	list-style-type: none;
+}
+.lSSlideOuter .lightSlider > *,  .lSSlideOuter .lSGallery li {
+    float: left;
+	height: 100%;
+}
+.author_one {
+	font-size: 17px;
+}
+.lSAction > a.lSPrev {
+	height: 100%;
+    top: 0;
+    left: 0;
+	margin-top: 0;
+}
+.lSAction > a.lSNext {
+	height: 100%;
+    top: 0;
+    right: 0;
+	margin-top: 0;
+}
+.lSAction > a {
+	background-repeat: no-repeat;
+}
+
+.lSAction > a.lSNext {
+    background-position: -32px center;
+}
+
+.lSAction > a.lSPrev {
+    background-position: 2px center;
+
+}
+.lSAction > a {
+	width: 35px;
+}
+
+.fill_img {
+  object-fit: fill;
+}

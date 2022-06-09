@@ -1,5 +1,6 @@
 ﻿$(document).ready(function() {
 signuploginpop();
+menu_add();
 	$('[data-toggle="tooltip"]').tooltip('enable');
 	calendar();
 /*Переводчик*/	
@@ -19,9 +20,7 @@ setTimeout(function(){
 function in_lang(){
 $('.lng').addClass('unhide');
 }
-	
-	
-	
+		
 timer_search();
 	
 search();
@@ -60,7 +59,18 @@ $(".category-go").change(function(){
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'ru', includedLanguages: 'de,en,ru,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 }
+function menu_add() {
+    
 
+	$(".droptuggol").hover(function(){             
+		var dropdownMenu = $(this).children(".dropdown-menu");
+		dropdownMenu.parent().addClass("open");
+   },function(){           
+//	var dropdownMenu = $(this).children(".dropdown-menu");
+//	dropdownMenu.parent().removeClass("open");         
+   });
+
+}
 function phone_click() {
 		$('.one-phone').click(function(){
 		$(this).text($(this).attr('data-phone'));

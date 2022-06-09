@@ -75,6 +75,18 @@ if(isset($shop)) {
 
 $support_new = Yii::$app->userFunctions->support_new();
 //if (!Yii::$app->user->id) {return Yii::$app->response->redirect(['user']); exit();}
+
+// определение мобильного устройства
+function check_mobile_device() { 
+    $mobile_agent_array = array('ipad', 'iphone', 'android', 'pocket', 'palm', 'windows ce', 'windowsce', 'cellphone', 'opera mobi', 'ipod', 'small', 'sharp', 'sonyericsson', 'symbian', 'opera mini', 'nokia', 'htc_', 'samsung', 'motorola', 'smartphone', 'blackberry', 'playstation portable', 'tablet browser');
+    $agent = strtolower($_SERVER['HTTP_USER_AGENT']);    
+    // var_dump($agent);exit;
+    foreach ($mobile_agent_array as $value) {    
+        if (strpos($agent, $value) !== false) return true;   
+    }       
+    return false; 
+}
+$mobile = check_mobile_device();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -244,9 +256,38 @@ $support_new = Yii::$app->userFunctions->support_new();
 				</form>	
 			    </div>
 			</div>
-			<? if (Yii::$app->controller->id != 'article' && Yii::$app->controller->id != 'shop' && Yii::$app->controller->module->id != 'passanger') {?>
-			    <div class="col-md-3"><a class="add-board" href="<?=Url::to(['blog/add'])?>">+ Подать Объявление</a></div>
-			<?}?>
+<? if (Yii::$app->controller->id != 'article' && Yii::$app->controller->id != 'shop' && Yii::$app->controller->module->id != 'passanger') {?>
+<?php if ($mobile === false) { ?>
+<div class="col-md-3 dropdown droptuggol">
+   <a class="add-board" data-toggle="dropdown" data-target="#" href="#">+ Подать Объявление</a>
+  <ul class="dropdown-menu add-board-drop" role="menu" aria-labelledby="dLabel">
+    <li><a href="<?=Url::to(['blog/add'])?>">Добавить объявление</a></li>
+    <li><a href="<?=Url::to(['blog/addauction'])?>">Добавить аукцион</a></li>
+  </ul>
+</div>
+<? }else{?>
+<!--Для стационарного -->
+<a class="add-board"  tabindex="-1" role="dialog" data-toggle="modal" data-target=".bs-example-modal-lg" href="#">+ Подать Объявление</a>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <ul class="menu-new">
+		  <li><a href="<?=Url::to(['blog/addauction'])?>">Аукцион</a></li>
+		  <li><a href="<?=Url::to(['blog/expressadd'])?>">Экспресс объявление</a></li>
+		  <li><a href="<?=Url::to(['blog/extendedadd'])?>">Расширенное объявление</a></li>
+		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
+		  <?if(!isset($shop)) {?>
+		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>
+		  <?}?>
+		  <li><a href="<?=Url::to(['passanger/add'])?>"> Искать попутку / попутчика</a></li>
+		  <li></li>
+	  </ul>
+    </div>
+  </div>
+</div>
+<?} ?>
+<?}?>
 			<?if (Yii::$app->controller->id == 'article') {?>
 			    <div class="col-md-3"><a class="add-board" href="<?=Url::to(['article/add'])?>">+ Добавить Статью</a></div>
 			<?}?>

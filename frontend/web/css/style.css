@@ -13,6 +13,26 @@ body {
 
 
 }
+.menu-new {
+    list-style-type: none;
+    padding: 15px;
+}
+.menu-new li a {
+    padding: 20px;
+    text-align: center;
+    border-radius: 35px;
+    font-size: 20px;
+    color: #FFF;
+    background: #f34724;
+    display: table;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.add-board-drop {
+   right: 40px;
+   left: auto;
+}
 #w1-error-0 {
 	display: none;
 }

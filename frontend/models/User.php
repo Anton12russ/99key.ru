@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $username
+ * @property string $phone
  * @property string $name
  * @property string $auth_key
  * @property string $password_hash
@@ -47,7 +48,7 @@ class User extends \yii\db\ActiveRecord
 			['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'string', 'max' => 255],
+            [['email', 'phone'], 'string', 'max' => 255],
 			['password', 'string', 'min' => 4, 'max' => 255],  
             [['password_reset_token'], 'unique'],
 			['old_password', 'validateOldPassword'],

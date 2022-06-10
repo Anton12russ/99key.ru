@@ -31,6 +31,9 @@ return [
 		'search' => [     
             'class' => 'frontend\modules\search\search',      
         ],
+        'searchcat' => [     
+            'class' => 'frontend\modules\searchcat\searchcat',      
+        ],
     ],
 	
     'controllerNamespace' => 'frontend\controllers',
@@ -85,6 +88,7 @@ return [
 		
         //Обновление
         'search-ajax'=>'search/default/',
+        'searchcat'=>'searchcat/default/',
 		//Обновление
 		'map/cat-parent'=>'map/default/cat-parent',
 		'map/reg-parent'=>'map/default/reg-parent',

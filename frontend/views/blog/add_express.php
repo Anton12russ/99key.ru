@@ -13,7 +13,7 @@ $this->registerMetaTag(['name' => 'keywords','content' => $meta['keywords']]);
 $this->params['breadcrumbs'][] = $meta['breadcrumbs'];
 $this->params['h1'] = $meta['h1'];
 
-
+$this->registerJsFile('/js/searchcat.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerCssFile('/css/add.css', ['depends' => ['frontend\assets\AppAsset']]);
 $this->registerJsFile('/js/add.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 //Обновление Функция координаты в объявлении
@@ -75,7 +75,7 @@ if(!$model->auction){
 	$model->coordlon = $coord[1];
 	$model->address = $shopfield->field->address;
   } ?>  
-
+  
 <!--<div class="hr_add"><i class="fa fa-map-location-dot" aria-hidden="true"></i> Мето сделки</div>-->
 <?= $form->field($model, 'region', ['template' => '{input}'])->textInput(['type' => 'hidden', 'class' => 'form-control region-hidden']) ?>
 

@@ -1,3 +1,37 @@
+.catok {
+    width: 70%;
+    display: table;
+    margin-top: 10px;
+    float: right;
+	color: #337ab7;
+	cursor: pointer;
+}
+.searchcat-ajax {
+    display: table;
+    float: right;
+    width: 70%;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+}
+.h2-cat {
+border-bottom: 1px solid #ccc;
+font-weight: 600;
+margin-bottom: 5px;
+}
+.searchcat-ajax li {
+	float: left;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+	color: #337ab7;
+	cursor: pointer;
+}
+.searchcat-ajax ul {
+	padding: 0;
+}
 form {
 	display: table;
 	width: 70%;

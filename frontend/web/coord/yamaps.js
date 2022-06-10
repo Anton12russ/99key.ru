@@ -179,19 +179,19 @@ function ajaxcoord() {
         success: function(response) { //Данные отправлены успешно
 		
 		if(response) {
-		  $('#blog-region').val(response);
+		  $('.region-hidden').val(response);
 		    $('.danger-region').remove();
 		}else{
 			$('.danger-region').remove();
 			$('#suggest').before("<div style='padding: 5px; font-size: 13px; width: 70%; float: right; margin-bottom: 5px;text-align: center;' class='alert alert-danger danger-region'>Укажите верный регион</div>");
-			$('#blog-region').val('');
+			$('.region-hidden').val('');
 			$('#suggest').val('');
 		}
    	field_block();
 		$.pjax({
         type       : 'POST',
         container  : '#pjaxFields',
-        data       : {Pjax_category:$('.catchang').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('#blog-region').val()},
+        data       : {Pjax_category:$('.catchang').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
         push       : true,
         replace    : false,
         timeout    : 10000,

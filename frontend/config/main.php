@@ -78,6 +78,7 @@ return [
 		'auctions'=>'blog/auctions',
 		'notepad'=>'blog/notepad',
 		'add'=>'blog/add',
+        'expressadd'=>'blog/expressadd',
 		'del'=>'blog/del',
 		'users'=>'blog/users',
 		'update'=>'blog/update',

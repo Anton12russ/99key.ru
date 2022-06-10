@@ -56,7 +56,7 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 
 
 <!--<div class="hr_add"><i class="fa fa-map-location-dot" aria-hidden="true"></i> Мето сделки</div>-->
-<?= $form->field($model, 'region', ['template' => '{input}'])->textInput(['type' => 'hidden']) ?>
+<?= $form->field($model, 'region', ['template' => '{input}'])->textInput(['type' => 'hidden', 'class' => 'form-control region-hidden']) ?>
 
 <!--Обновление координаты--->
 <?= $form->field($model, 'coordlat', ['template' => '{input}'])->textInput(['id' => 'coord-lat','type' => 'hidden'])->label('') ?>

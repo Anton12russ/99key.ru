@@ -275,7 +275,7 @@ $mobile = check_mobile_device();
       <ul class="menu-new">
 		  <li><a href="<?=Url::to(['blog/addauction'])?>">Аукцион</a></li>
 		  <li><a href="<?=Url::to(['blog/expressadd'])?>">Экспресс объявление</a></li>
-		  <li><a href="<?=Url::to(['blog/extendedadd'])?>">Расширенное объявление</a></li>
+		  <li><a href="<?=Url::to(['blog/add'])?>">Расширенное объявление</a></li>
 		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
 		  <?if(!isset($shop)) {?>
 		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>

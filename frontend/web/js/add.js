@@ -382,6 +382,9 @@ function progress_open() {
 //--------------------------------------------------------//
 function pjax_file() {
 	url = $('#blog-dir_name').val();
+	if(!url) {
+		url = $('#blogexpress-dir_name').val();
+	}
 	  $.pjax({
         type       : 'POST',
         container  : '#pjaxFile',

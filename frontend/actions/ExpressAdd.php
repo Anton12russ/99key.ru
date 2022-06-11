@@ -119,7 +119,24 @@ class ExpressAdd extends Action
        
 		$model->save(false);
 		
+//цена
+if(!$model->price) {
+	$model->price = '0';
+}
+	  $filprice = new BlogField();
+	  $filprice->message = $model->id;
+	  $filprice->field  = '481';
+	  $filprice->value  = $model->price;
+	  $filprice->dop  = '1';
+	  $filprice->save();
 
+//Телефон
+$filphone = new BlogField();
+$filphone->message = $model->id;
+$filphone->field  = '475';
+$filphone->value  = $model->phone;
+$filphone->dop  = '';
+$filphone->save();	
 				//------------------Обновление ---------------Добавляем координаты-------------------//
 		
 		           $coord = new BlogCoord();
@@ -150,23 +167,7 @@ class ExpressAdd extends Action
 	  //Обрабатываем массив с данными и группируем валюту и адрес в поле dop
 	  $post_save = array();
 
-//цена
-	  $customer = new BlogField();
-	  $customer->message = $model->id;
-	  $customer->field  = '481';
-	  $customer->value  = $model->price;
-	  $customer->dop  = 1;
-	  $customer->save();
 
-//Телефон
-$customer = new BlogField();
-$customer->message = $model->id;
-$customer->field  = '475';
-$customer->value  = $model->phone;
-$customer->dop  = 1;
-$customer->save();	
-	
-			
 		            $dir_maxi = Yii::getAlias('@images_temp').'/board/'.$dir_name.'/maxi/';
 		            $dir_mini = Yii::getAlias('@images_temp').'/board/'.$dir_name.'/mini/';
 		            $dir_original = Yii::getAlias('@images_temp').'/board/'.$dir_name.'/original/';

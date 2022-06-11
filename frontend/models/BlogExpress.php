@@ -105,7 +105,7 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
 	        [['email'], 'email'],
 	 	    [['user_id', 'category', 'region', 'status_id', 'active', 'count', 'views', 'balance_minus', 'discount', 'auk_time', 'auk_shag', 'auk_rates', 'auction', 'reserv_user_id', 'status_id_false'], 'integer'],
 			//Обновленная строка
-            [['text','title', 'region', 'address', 'price', 'phone'], 'required'],
+            [['title', 'region', 'address', 'phone'], 'required'],
             //Обновленная строка
 			[['text', 'dir_name','date_del','coordlat','coordlon','address', 'discount_text', 'price', 'phone'], 'string'],
             [['title', 'url'], 'string', 'max' => 150],

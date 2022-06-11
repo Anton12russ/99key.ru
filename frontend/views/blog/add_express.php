@@ -29,14 +29,13 @@ $shopfield = Yii::$app->userFunctions3->blogShop(Yii::$app->user->id);
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
 $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
         ['depends' => [\yii\web\JqueryAsset::className()]]);
-/*if(!$model2->f_481) {
-		$model2->f_481 = 0;	
-}*/
-if(!$model->auction){
-	$model->auction = 0;
-	
-}
+  if($model->category) {
+	$catin = '<div class="catok">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
+  }else{
+	$catin = false;
+  }
 ?>
+
 
 
 <style>
@@ -44,6 +43,7 @@ if(!$model->auction){
 	z-index: 1;
 }
 </style>
+
  <div class="add-left-body">
  <!--Условие при успешном размещении-->
 <?php Pjax::begin([ 'id' => 'pjaxContent']); ?>
@@ -52,21 +52,14 @@ if(!$model->auction){
 <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data', 'data-pjax' => true,], 'enableClientValidation' => false,]);?>
 <?= $form->field($model, 'dir_name')->hiddenInput(['value'=> $dir_name])->label(false);?>
 
-
-<!--Пользовательские данные-->
-<? if (Yii::$app->user->isGuest) {?>
-<div class="hr_add"><i class="fa fa-map-location-dot" aria-hidden="true"></i> Введите личные данные для регистрации на 1tu.ru</div>
-<div class="hr_add hr_add_new"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Если у вас есть аккаунт на 1tu.ru, перейдите на страницу <a href="https://1tu.ru/user">авторизации</a></div>
-<?= $form->field($model, 'username', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Ваше Имя <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'email', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('E-mail <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'password', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Пароль <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'password2', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Повторите пароль <span class="req_val">*</span>')?><br>
-<?}?>
-
 <!--Поля объявления-->
 <div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Заголовок <span class="req_val">*</span>')?>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true])->label(false)?>
+
+
+
 
 <?if(isset($shopfield) && $shopfield) {
 	$coord = explode(',',$shopfield->field->coord);

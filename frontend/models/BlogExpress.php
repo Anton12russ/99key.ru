@@ -250,7 +250,9 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
             'auction' => 'Аукцион',
 			'auk_price' => 'Стоимость резервации',
 			'userreservauthor' => 'Информация продавца', 
-			'pricepay' => 'Стоимость выкупа'
+			'pricepay' => 'Стоимость выкупа',
+			'phone' => 'Телефон',
+			'price' => 'Цена'
         ];
     }
 		

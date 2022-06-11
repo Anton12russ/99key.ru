@@ -47,7 +47,6 @@ $this->registerJsFile('//api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU&ap
 <div class="row"><div class="col-md-12 no-search"><div class="alert alert-warning">Задан пустой поисковый запрос.</div></div></div>
 <?}else{?>
 <div class="row">	
-
 <?php if ($blogs) {?>
 <?php $count = Yii::$app->caches->setting()['block_add'];?>
 <?php foreach ($blogs as $one) {?>
@@ -57,15 +56,12 @@ $arr_services = @Yii::$app->userFunctions->services($one->id); if (isset($arr_se
 if($one->status_id == 0) {$nostatus = 'nostatus'; $statususs = '<span class="nostatuss">На модерации</span> ';}else{$nostatus = ''; $statususs ='';}
 if($one->active == 0) {$nostatus = 'nostatus'; $actsuss = '<span class="noactive">Не активирован</span> ';}else{if(!$nostatus){$nostatus = '';} $actsuss = '';}
 $url = Url::to(['blog/one', 'region'=>$one->regions['url'], 'category'=>$one->categorys['url'], 'url'=>$one->url, 'id'=>$one->id]);?>
-   
                <!--Считаем записи и вставляем рекламу через указанное в настройках значение-->
 			  <?php if (isset($add_block)) {?>
               <?php $count++; if ($count >= Yii::$app->caches->setting()['block_add']) {?>
 		                <?= $this->render('block.php', ['block' => $add_block, 'meg' => true] ) ?>
 	          <?php	$count = 0;}?>
 	          <?php }?>
-			  
-			  
     <div class="col-md-12">
 	  <div class="cat-board-body <? if ($turbo || isset($arr_services['bright'])){?>marker<?}?> <?=$nostatus?>">
 	    <div class="all_img <? if (isset($this->blocks['right'])){?>col-md-3  col-sm-4<? }else{ ?>col-md-2  col-sm-3<? } ?> col-xs-4" style="background-image: url(<? if (isset($one->imageBlog[0]['image'])) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlog[0]->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo_all.png<? } ?>);"> <a class="img_a" href="<?=$url?>"></a></div>

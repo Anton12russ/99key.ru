@@ -60,8 +60,8 @@ class ExpressAdd extends Action
 	
 		
 		if (isset($cordin)) {
-        $mod = array_merge($mod,$cordin);	
-        $string = array_merge($string,$cordin);			
+        $mod = array_merge($mod, $cordin);	
+        $string = array_merge($string, $cordin);			
         }		
 		
 

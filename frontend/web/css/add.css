@@ -31,6 +31,14 @@ margin-bottom: 5px;
 }
 .searchcat-ajax ul {
 	padding: 0;
+	width: 100%;
+	display: table;
+}
+.catinfo {
+	display: table;
+    font-size: 13px;
+    line-height: 12px;
+    color: #a7a7a7;
 }
 form {
 	display: table;

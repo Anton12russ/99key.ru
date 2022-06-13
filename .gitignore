@@ -1,5 +1,6 @@
 .bin
 frontend/web/assets
+backend/web/assets
 vendor
 uploads/temp
 uploads/images

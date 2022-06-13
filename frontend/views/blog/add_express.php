@@ -196,8 +196,9 @@ echo  \kartik\file\FileInput::widget([
 
 <!--Сообщение при успешной подаче объявления.-->
 <? if ($save) {?>
-   <?=$this->render('add_save', [
-	    'save' => $save,
+   <?=$this->render('add_save_express', [
+	  'save' => $save,
+    'key' => $key,
 		'registr_success' => $registr_success,
 		'price_category' => $price_category,
 		'payment' => $payment,

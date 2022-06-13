@@ -6,6 +6,10 @@
 	color: #337ab7;
 	cursor: pointer;
 }
+.key-class {
+    font-size: 20px;
+    color: #c60203;
+}
 .searchcat-ajax {
     display: table;
     float: right;

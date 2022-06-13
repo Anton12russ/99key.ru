@@ -18,8 +18,8 @@ class DefaultController extends Controller
 		if($text) {
          $sql = Blog::find()->select(['blog.title', 'blog.category'])->Where([ 'active' => 1, 'status_id' => 1]);
 		 $sql->andFilterWhere(['like', 'title', $text]);
-		 $sql->GroupBy('blog.id');
-		 $blogs = $sql->Limit(27)->asArray()->all();
+		 $sql->andWhere(['>=', 'category', '0']);
+		 $blogs = $sql->orderBy('id ASC')->Limit(10)->asArray()->all();
 
 
 
@@ -35,12 +35,11 @@ class DefaultController extends Controller
 			  }
 
 			   if(!isset($act)) {
-			      $blogi[] = array('title' => Yii::$app->userFunctions2->textName($blog['title'], $text), 'category' => $blog['category']);
+			      $blogi[] = array( 'category' => $blog['category']);
 		       }
 			 }
 		
-		 
-		  
+
 	       $blogi =  array_unique($blogi, SORT_REGULAR);
 	       return $this->render('index', compact('blogi', 'region', 'text'));
 		}

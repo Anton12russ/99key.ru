@@ -13,7 +13,7 @@ use common\models\BlogField;
 use common\models\BlogCoord;
 use common\models\BlogAuction;
 use common\models\AuctionCat;
-
+use common\models\BlogKey;
 use common\models\CatServices;
 use common\models\PaymentSystem;
 use \yii\base\DynamicModel;
@@ -22,20 +22,13 @@ class ExpressAdd extends Action
     public function run()
     {
 		
-		//Аукцион
-	$auk_category = false;
 	   $registr_success = false;
 	   $times = BlogTime::find()->where(['def'=>'1'])->orderBy([ 'sort' => SORT_ASC])->all();	
-
-	   
-	
 	   $dir_name = Yii::$app->security->generateRandomString(5).'_'.time();
        $model = new BlogExpress();
        $catid = $model->category;
         if (Yii::$app->request->post('Pjax_category')) {
-             $catid = Yii::$app->request->post('Pjax_category');
-			 
-			 
+             $catid = Yii::$app->request->post('Pjax_category');		 
  //------------------------Проверяем, платная ли категория------------------//
 		$reg_price = Yii::$app->request->post('Pjax_region');	
         $time_price	= Yii::$app->request->post('Pjax_time');
@@ -55,28 +48,16 @@ class ExpressAdd extends Action
 		if(@Yii::$app->request->post()['Blog']['category']) {
                $catid =  Yii::$app->request->post()['Blog']['category'];	
 		}
-   
-
-	
 		
 		if (isset($cordin)) {
         $mod = array_merge($mod, $cordin);	
         $string = array_merge($string, $cordin);			
         }		
-		
-
-		
 
         $array_post = Yii::$app->request->post();
-		  
-      
-		   
+		     
 		$model->url = Yii::$app->userFunctions->transliteration(Yii::$app->request->post('Blog')['title']);
-		
 
-       
-
-		
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
 		if ($model->dir_name) {$dir_name = $model->dir_name;}
@@ -137,6 +118,10 @@ $filphone->field  = '475';
 $filphone->value  = $model->phone;
 $filphone->dop  = '';
 $filphone->save();	
+
+//Создаем ключ
+$key = $this->key($model->id); 
+
 				//------------------Обновление ---------------Добавляем координаты-------------------//
 		
 		           $coord = new BlogCoord();
@@ -251,6 +236,9 @@ $filphone->save();
      $meta['breadcrumbs'] = 'Добавить объявление';
 
 	 //Получаем все платежные системы и передаем в шаблон
+	 if(!isset($key)) {
+		$key = false;
+	 }
 	    $payment = $this->findPayment();
          return $this->controller->render('add_express', [
             'model' => $model,
@@ -258,6 +246,7 @@ $filphone->save();
 			'model_view' => $model_view,
 			'dir_name' => $dir_name,
 			'save' => $save,
+			'key' => $key,
 			'meta' => $meta,
 			'price_category' => $price_cat,
 			'payment' => $payment,
@@ -325,8 +314,15 @@ $filphone->save();
 	    return $return;
     }
 	
-	
-	
+public  function key($id) {	
+   $keys = $id.Yii::$app->security->generateRandomString(3);
+   $key = new BlogKey();
+   $key->key = $keys;
+   $key->blog_id = $id;
+   $key->date = date('Y-m-d H:i:s');
+   $key->save();
+   return $keys;
+}
 	
 	
 	

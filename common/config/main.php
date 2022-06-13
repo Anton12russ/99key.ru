@@ -13,7 +13,7 @@ return [
 	/*Параметры для мультивхода*/
 	//Так же указать у куки домен, если основной домен третьего уровня. auth_key , в контроллере user - frontend
 	'user' => [
-  //'class' => 'yii\web\User',
+  'class' => 'yii\web\User',
   'identityClass' => 'app\models\Users',
   'enableAutoLogin' => true,
   'identityCookie' => [
@@ -23,22 +23,22 @@ return [
     'domain' => '.99key.ru',
   ],
 ],
-'session' => [
+//'session' => [
   //'savePath' => '\app\session',
-  'cookieParams' => [
-    'domain' => '.99key.ru',
+//  'cookieParams' => [
+//    'domain' => '.99key.ru',
     //'httpOnly' => true,
     //'path' => '/',
-  ],
-],
-    'request' => [
+ // ],
+//],
+ /*   'request' => [
         // ...
         'csrfCookie' => [
             'name' => '_csrf',
             'path' => '/',
-            'domain' => ".".DOMAIN,
+            'domain' => '.99key.ru',
         ],
-    ],
+    ],*/
 		/*-------------------*/
 	
 	

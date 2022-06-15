@@ -21,7 +21,6 @@ class ExpressAdd extends Action
 {
     public function run()
     {
-		
 	   $registr_success = false;
 	   $times = BlogTime::find()->where(['def'=>'1'])->orderBy([ 'sort' => SORT_ASC])->all();	
 	   $dir_name = Yii::$app->security->generateRandomString(5).'_'.time();
@@ -93,7 +92,7 @@ class ExpressAdd extends Action
 		
         $model->date_add =  date('Y-m-d H:i:s');
 	
-		$model->date_del =  date('Y-m-d H:i:s', strtotime(' + 30 day'));
+		$model->date_del =  date('Y-m-d H:i:s', strtotime(' + '.Yii::$app->caches->setting()['express_add'].' day'));
 
 		$model->user_id = 1;
 		//Сохраняем статичные поля, проверка внутри скрыта, чтобы не проверять повторно пользователя

@@ -900,7 +900,7 @@ public function actions()
 
 
 
-	public function FieldSearch($id) {
+public function FieldSearch($id) {
  $cat = Yii::$app->request->get('cat');
 //Достаем массив категорий, к которым пренадлежит переданная категорий в переменрой $id потом достать все поля этих категорий
 $cat_array = Yii::$app->userFunctions->linens(Yii::$app->caches->category(),$id);

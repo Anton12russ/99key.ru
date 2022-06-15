@@ -99,11 +99,12 @@ if (Yii::$app->caches->setting()['capcha'] == 2) {
 if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
   $capcha = [['reCaptcha'], 'default', 'value'=> 1];
 }
+
 	if ($this->id) {$date_update = date('Y-m-d H:i:s');}else{$date_update = '';};
         return [	
 		   //$capcha,
 	        [['email'], 'email'],
-	 	    [['user_id', 'category', 'region', 'status_id', 'active', 'count', 'views', 'balance_minus', 'discount', 'auk_time', 'auk_shag', 'auk_rates', 'auction', 'reserv_user_id', 'status_id_false'], 'integer'],
+	 	    [['user_id', 'category', 'region', 'status_id', 'active', 'count', 'views', 'balance_minus', 'discount', 'auk_time', 'auk_shag', 'auk_rates', 'auction', 'reserv_user_id', 'status_id_false', 'express'], 'integer'],
 			//Обновленная строка
             [['title', 'region', 'address', 'phone'], 'required'],
             //Обновленная строка
@@ -114,7 +115,7 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
 			[['date_update'], 'date', 'format'=>'php:Y-m-d H:i:s'],
 			[['date_update'], 'default', 'value'=> $date_update],
 			[['status_id'], 'default', 'value'=> '1'],
-	
+			[['express'], 'default', 'value'=> '1'],
 			[['file'], 'image'],
 			
 			[['author'], 'safe'],

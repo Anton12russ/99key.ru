@@ -99,6 +99,9 @@ class UserController extends Controller
     public function actions()
     {
         return [
+			'blog_key' => [
+				'class' => 'frontend\actions\BlogKeys',
+	        ],
 			'messenger' => [
                      'class' => 'frontend\actions\UserMessenger',
             ],
@@ -1940,24 +1943,7 @@ if ($multi_arr) {
 }
 /*------------------------------------------------------------------------------------------*/ 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+
 	 
 	  
 	  if(!isset($get['sort']) || $get['sort'] == '') {

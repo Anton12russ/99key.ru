@@ -4,7 +4,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
-
+use common\models\BlogKey;
 /**
  * Signup form
  */
@@ -63,6 +63,7 @@ if (Yii::$app->caches->setting()['capcha'] == 2) {
      */
     public function signup()
     {
+       
         if (!$this->validate()) {
             return null;
         }
@@ -77,12 +78,15 @@ if (Yii::$app->caches->setting()['capcha'] == 2) {
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+      
 		if(!$this->identity) {
-           return $user->save() && $this->sendEmail($user);
+           $user->save();
+           $this->sendEmail($user);
 		}else{
-		   return $user->save();
+		   $user->save();
 		}
-
+        $this->keySearch($user->id);
+        return $user;
     }
 
     /**
@@ -118,4 +122,22 @@ if (Yii::$app->caches->setting()['capcha'] == 2) {
 			'updated_at' => 'Дата обновления',
         ];
     }
+
+
+    	
+	public function keySearch($user_id) {
+		$arr = unserialize(Yii::$app->request->cookies['expresskey']);
+		if(isset($arr) && $arr) {
+			 $keys = BlogKey::find()->where(['key' => $arr])->all();
+			 foreach($keys as $key) {
+                $id[] = $key->id;
+				$blogs[] = $key->blog_id;
+			 }
+			 Blog::updateAll([
+				'user_id' => $user_id,
+			], ['id' => $blogs]);
+            BlogKey::deleteAll(['id' => $id]);
+			Yii::$app->response->cookies->remove('expresskey');   
+		}
+	}
 }

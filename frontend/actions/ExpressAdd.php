@@ -21,6 +21,7 @@ class ExpressAdd extends Action
 {
     public function run()
     {
+		
 	   $registr_success = false;
 	   $times = BlogTime::find()->where(['def'=>'1'])->orderBy([ 'sort' => SORT_ASC])->all();	
 	   $dir_name = Yii::$app->security->generateRandomString(5).'_'.time();
@@ -234,11 +235,14 @@ $key = $this->key($model->id);
 	 $meta['description'] = 'Добавить объявление'. $region_sklo;
      $meta['breadcrumbs'] = 'Добавить объявление';
 
-	 //Получаем все платежные системы и передаем в шаблон
+
 	 if(!isset($key)) {
 		$key = false;
 	 }
+	 	//Получаем все платежные системы и передаем в шаблон
 	    $payment = $this->findPayment();
+		$this->expressCookies($key);
+
          return $this->controller->render('add_express', [
             'model' => $model,
 			'print' => $print,
@@ -253,7 +257,21 @@ $key = $this->key($model->id);
         ]); 
     }
 	
-	
+	//Добавляем ключ к массиву в куку, чтобы потом при регистрации присвоить объявлению пользователя
+	public function expressCookies($key)
+    {
+    //Получить куку
+	$arr = unserialize(Yii::$app->request->cookies['expresskey']);
+		if(isset($arr) && $arr) {
+			array_push($arr, $key);
+	    }else{
+			$arr[] = $key;
+		}
+		Yii::$app->response->cookies->add(new \yii\web\Cookie([
+			'name' => 'expresskey',
+			'value' =>  serialize($arr)
+		]));
+	}
 	
 	  protected function sendEmail($user)
     {
@@ -312,7 +330,7 @@ $key = $this->key($model->id);
 		
 	    return $return;
     }
-	
+
 public  function key($id) {	
    $keys = $id.Yii::$app->security->generateRandomString(3);
    $key = new BlogKey();

@@ -40,28 +40,11 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 	   <? }else{ ?>
 	     <h1><i class="fa fa-bullhorn" aria-hidden="true"></i> Ваши объявления</h1>
 	   <? } ?>
-	   
-	   
-	   
-	   
-	   
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="panel-group" id="accordion">
+	   <div class="col-md-12 row">
+	     <a href="<?=Url::to(['/user/blog_key'])?>"> Найти свое объявление</a>
+	     <br><br>
+	   </div>
+<div class="panel-group col-md-12 row" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">

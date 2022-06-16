@@ -35,6 +35,17 @@ $online = Yii::$app->adminFunctions->Onlinetop();
                         <span class="label label-success"><?=Yii::$app->adminFunctions->Board();?></span>
                     </a>
                 </li>
+
+
+                
+				<li class="dropdown tasks-menu" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Экспресс объявления">
+                    <a href="<?=Url::to(['blog/express'])?>">
+                        <i class="fa fa-bolt" aria-hidden="true"></i>
+                        <span class="label label-success"><?=Yii::$app->adminFunctions->Boardexpress();?></span>
+                    </a>
+                </li>
+
+
                 <li class="dropdown tasks-menu" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Статьи">
                     <a href="<?=Url::to(['article/index'])?>">
                        <i class="fa fa-id-card" aria-hidden="true"></i>

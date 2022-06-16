@@ -59,7 +59,7 @@ public $address;
 	if ($this->id) {$date_update = date('Y-m-d H:i:s');}else{$date_update = '';};
         return [
             [['text','title','category','region', 'user_id'], 'required'],
-			[['active','category','region', 'user_id', 'views'], 'integer'],
+			[['active','category','region', 'user_id', 'views', 'express'], 'integer'],
             [['text', 'dir_name','date_del','coordlat','coordlon','address'], 'string'],
             [['title', 'url'], 'string', 'max' => 150],
 			[['date_add'], 'date', 'format'=>'php:Y-m-d H:i:s' ],

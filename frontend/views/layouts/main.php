@@ -256,6 +256,9 @@ $mobile = check_mobile_device();
 				</form>	
 			    </div>
 			</div>
+<?if (!Yii::$app->user->id) {?>
+	<a class="add-board" href="<?=Url::to(['blog/expressadd'])?>">+ Подать Объявление</a>
+<?}else{?>	
 <? if (Yii::$app->controller->id != 'article' && Yii::$app->controller->id != 'shop' && Yii::$app->controller->module->id != 'passanger') {?>
 <?php if ($mobile === false) { ?>
 <div class="col-md-3 dropdown droptuggol">
@@ -288,6 +291,7 @@ $mobile = check_mobile_device();
 </div>
 <?} ?>
 <?}?>
+<?} ?>
 			<?if (Yii::$app->controller->id == 'article') {?>
 			    <div class="col-md-3"><a class="add-board" href="<?=Url::to(['article/add'])?>">+ Добавить Статью</a></div>
 			<?}?>

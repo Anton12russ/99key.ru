@@ -102,7 +102,7 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
 
 	if ($this->id) {$date_update = date('Y-m-d H:i:s');}else{$date_update = '';};
         return [	
-		   //$capcha,
+		    $capcha,
 	        [['email'], 'email'],
 	 	    [['user_id', 'category', 'region', 'status_id', 'active', 'count', 'views', 'balance_minus', 'discount', 'auk_time', 'auk_shag', 'auk_rates', 'auction', 'reserv_user_id', 'status_id_false', 'express'], 'integer'],
 			//Обновленная строка

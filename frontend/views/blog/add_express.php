@@ -161,38 +161,23 @@ echo  \kartik\file\FileInput::widget([
 </div>
 </div>
 
+<? if (Yii::$app->caches->setting()['capcha'] == 1) { ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="form-group upcr">
-    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success add-preloader']) ?>
+<div class="capcha">
+       <?= $form->field($model, 'reCaptcha',['template' => '{error}{input}'])->widget(\himiklab\yii2\recaptcha\ReCaptcha2::className(),['siteKey' => preg_replace('/\s+/', '',explode("\n",Yii::$app->caches->setting()['recapcha2'])[0])])->label(false) ?>
 </div>
-
-
-
-
-<?php ActiveForm::end(); ?>	
-
-
-
 <? } ?>
 
+<? if (Yii::$app->caches->setting()['capcha'] == 2) { ?>
+   <?= $form->field($model, 'reCaptcha')->widget(\himiklab\yii2\recaptcha\ReCaptcha3::className(),['siteKey' => preg_replace('/\s+/', '',explode("\n",Yii::$app->caches->setting()['recapcha3'])[0]),'action' => 'blog/add'])->label(false) ?>
+<? } ?>
+<br>
+<div class="form-group upcr">
+    <?= Html::submitButton('Опубликовать', ['class' => 'btn btn-success add-preloader', 'style' => 'width: 100%;height: 50px;background:#f50c0c;']) ?>
+</div>
 
-
-
-
+<?php ActiveForm::end(); ?>	
+<? } ?>
 
 <!--Сообщение при успешной подаче объявления.-->
 <? if ($save) {?>

@@ -79,7 +79,13 @@ class FunctionAdmin extends Component {
 	}	
 	public function Board() 
 	{	
-	 $count = Blog::find()->andWhere(['status_id' => '0'])->count();
+	 $count = Blog::find()->andWhere(['status_id' => '0'])->andWhere(['!=', 'express','1'])->count();
+     return $count;
+	}
+
+	public function Boardexpress() 
+	{	
+	 $count = Blog::find()->andWhere(['status_id' => '0'])->andWhere(['express' => '1'])->count();
      return $count;
 	}
 }

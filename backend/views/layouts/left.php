@@ -35,6 +35,7 @@ use mdm\admin\components\Helper;
                         'url' => '#',
                         'items' => [
 						['label' => 'Объявления','icon' => 'chevron-right','url' => ['/blog/index'],],
+                        ['label' => 'Экспресс объявления','icon' => 'chevron-right','url' => ['/blog/express'],],
 						['label' => 'Категории','icon' => 'chevron-right','url' => ['/category/index']],
 						['label' => 'Регионы','icon' => 'chevron-right','url' => ['/region/index']],
 						['label' => 'Поля фильтра','icon' => 'chevron-right','url' => ['/field/index'],],

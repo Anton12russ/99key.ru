@@ -11,13 +11,11 @@ $balance = 0;
 
 <span class="hidden balance_user" data-balance="<?=$balance?>"></span>
 	    <!--Информируем пользователя об успешной регистрации-->
-	    <? if (isset($registr_success) && $registr_success === true) {?> 
-	        <div class="alert alert-info text-center">Вы успешно зарегистрировались.<br> Чтобы активировать аккаунт и свое объявление, перейдите по ссылке из письма, который мы отправили на e-mail. Проверьте папку "Спам", возможно письмо попало туда. </div>
-     	<? } ?> 
-
- 
+		
+		<div class="alert alert-info text-center"> "Если вы хотите изменить публикацию, или продвигать ее, а также пользоваться всеми возможностями портала, зарегистрируйтесь."</div>
 	    <!--Если объявление в платной категории-->
 	    <? if ($price_category) {?> 
+		<!--
 		  <div class="alert alert-warning text-center">Объявление добавлено, но чтобы оно активировалось на (<?=$price_category['date']?> дней), его нужно оплатить.<br> Стоимость <strong><?=$price_category['sum']?></strong> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i></div>
          <br>
 		    <a class="btn btn-success" href="https://1tu.ru/user/blogs"><i class="fa fa-list-alt" aria-hidden="true"></i> Мой товар</a>
@@ -28,6 +26,7 @@ $balance = 0;
 		 <br>
                <a class="btn btn-success" href="/ajax/copy?id=<?=$save['id']?>"><i class="fa-solid fa-copy" aria-hidden="true"></i>Копировать объявление</a>
           <br>
+		-->
           <? if ($price_category['sum'] > $balance || Yii::$app->user->isGuest) { ?>
 		  <!--Показывать это условие, если это не гость-->
 		  <? if (!Yii::$app->user->isGuest) { ?>
@@ -49,8 +48,8 @@ $balance = 0;
 
 	    <? }else{ ?>
 		 <!--Если объявление не платное-->
-		 <div class="save"><div class="alert alert-success text-center">Объявление успешно добавлено! <br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.</div>
-		 <br>
+		 <div class="save" style="padding: 0;"><div class="alert alert-success text-center">Объявление успешно добавлено! <br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.</div>
+		 <!--<br>
 		    <a class="btn btn-success" href="https://1tu.ru/user/blogs"><i class="fa fa-list-alt" aria-hidden="true"></i> Мой товар</a>
 		 <br>
 		 <br>
@@ -59,7 +58,7 @@ $balance = 0;
 		 <br>
             <a class="btn btn-success" href="/ajax/copy?id=<?=$save['id']?>"><i class="fa-solid fa-copy" aria-hidden="true"></i> Копировать объявление</a>
          <br>
-        
+		-->
 		 
 		 <h2>Продать быстрее!</h2>
 		 <div class="hidden day-def" data-def="<?=$save['date_del']?>"></div>
@@ -100,6 +99,7 @@ $balance = 0;
 		  <div class="services-ok-tyme hidden"><div class="hid-days" style="display: inline-block; margin-top: 10px;">Услуга будет действовать до <br>
 
 <div class="form-group" style=" margin-top: 10px;">
+
 <input id="day" type="number" data-max="<?=$save['date_del']?>" value="<?=$save['date_del']?>" id="blog-count" class="form-control" name="Blog[count]" placeholder="99" style="max-width: 100px; float: left;">
 <label class="control-label" for="blog-count">дней</label></div>
 </div>

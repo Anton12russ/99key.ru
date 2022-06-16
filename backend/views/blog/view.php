@@ -44,8 +44,12 @@ $arr_field = $model->field;
 
     <p>
      	<?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success'])?>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?if($model->express == '1') {?>
+            <?= Html::a('Редактировать', ['updateexpress', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?}else{?>
+            <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?}?>
+       <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

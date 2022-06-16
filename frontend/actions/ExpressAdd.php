@@ -72,6 +72,7 @@ class ExpressAdd extends Action
 			$model->status_id = 2;
 		}
 		
+		$model->status_id = 0;	
 		//------------------------Проверяем, платная ли категория------------------//
 	    $price_category = $this->findMod($model->category, $model->region);
 		if ($price_category) {
@@ -133,7 +134,7 @@ $key = $this->key($model->id);
 		
 		$save['id'] = $model->id;
 		//передаем количество дней
-		$save['date_del'] = $time_d;
+		$save['date_del'] = Yii::$app->caches->setting()['express_add'];
 		
 		
 		if ($price_category) {
@@ -243,6 +244,13 @@ $key = $this->key($model->id);
 	    $payment = $this->findPayment();
 		$this->expressCookies($key);
 
+
+		//Для отладки страницы save
+		/*$save= array();
+		$save['id'] = '3708';
+		$save['date_del'] = Yii::$app->caches->setting()['express_add'];
+		$save['status'] = 1; */
+		// ----------------------------------------------------------//
          return $this->controller->render('add_express', [
             'model' => $model,
 			'print' => $print,

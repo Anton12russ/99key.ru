@@ -8,8 +8,11 @@ use common\models\Blog;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\BlogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Объявления';
+if(Yii::$app->controller->action->id == 'express') {
+$this->title = 'Экспресс объявления';
+}else{
+  $this->title = 'Объявления';
+}
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
@@ -117,11 +120,23 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
                   ],
              ],
 
-            ['class' => 'yii\grid\ActionColumn',
-			'template'=>'{update} {view}',
-			],
+  
 		
-
+      [
+        'class' => 'yii\grid\ActionColumn',
+        'template' => '{view} {update} {delete}',
+        'buttons' => [
+            'update' => function ($url,$model) {
+              if(Yii::$app->controller->action->id == 'express') {
+                $url = str_replace('update','updateexpress', $url);
+              }
+                return Html::a(
+                '<span class="glyphicon glyphicon-pencil"></span>', 
+                $url);
+            },
+          
+        ],
+    ],
         ],
     ]); ?>	
 </form>

@@ -76,7 +76,15 @@ class BlogController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+	public function actionExpress()
+    {
+        $searchModel = new BlogSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, false, false, true);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Blog model.
      * @param integer $id
@@ -680,6 +688,293 @@ $coord = array();
 	
 	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//*UPDATE*//
+		public function actionUpdateexpress($id)
+		{
+	   
+		   $model = $this->findModel($id);
+		   
+		   //---Обновление координаты ---//
+		   if(isset($model->coord->text)) {
+		   $model->address = $model->coord->text;
+		   $model->coordlat = $model->coord->coordlat;
+		   $model->coordlon = $model->coord->coordlon;
+		   }
+		   $status_id =  $model->status_id;
+		//Копируем изображения во временную папку
+		$dir_name = $id;
+		if (!Yii::$app->request->post()) {
+		$base = BlogImage::find()->where(['blog_id'=>$id])->select(['image'])->asArray()->all();
+		$this->findFile($id, $base);
+		}
+		
+		   $catid = $model->category;
+			if (Yii::$app->request->post('Pjax_category')) {
+				 $catid =   Yii::$app->request->post('Pjax_category');
+			}
+			if(isset(Yii::$app->request->post()['Blog']['category'])) {
+				   $catid =  Yii::$app->request->post()['Blog']['category'];	
+			}
+	   
+		foreach (Yii::$app->userFunctions->fieldarr($catid) as $field) {
+			$model_view[] =  array('id' => $field['id'], 'name' => $field['name'], 'type' => $field['type'], 'type_string' => $field['type_string'], 'req' => $field['req'], 'values' => $field['values']);
+			$mod[] = 'f_'.$field['id'];
+			$max[] = array('id' => 'f_'.$field['id'],'max' => $field['max']);
+			//Массив обязательных к заполнению
+				if ($field['req'] == '1') {
+					$required[] = 'f_481';
+					$required[] = 'f_475';
+				}
+	       //Массив проверки телефонного номера
+	       if ($field['type_string'] == 't' || $field['type_string'] == 'x') {
+		     $phone[] = 'f_'.$field['id'];
+           }
+		  //Проверяем есть ли у категории, поле цена
+		   if ($field['type'] == 'p') {
+				$rate = true;
+				$price[] = 'f_'.$field['id'];
+				$price_r[] = 'f_'.$field['id'].'_rates';
+				$integer[] = 'f_'.$field['id'];
+				$integer[] = 'f_'.$field['id'].'_rates';
+		   }
+		 //Проверяем есть ли у категории, поле координаты
+		   if ($field['type'] == 'j') {
+			   $cordin[] = 'f_'.$field['id'].'_address';
+		   }
+		}
+			if ($rate) {
+			$rat = Rates::find()->all();	
+	
+			foreach ($rat as $res) {
+	
+			  $rates[] = array('id' =>  $res['id'], 'name' => $res['name'], 'value' => $res['value']);
+			}	
+			$mod = array_merge($price_r,$mod);
+			}	
+			
+			if (isset($cordin)) {
+			$mod = array_merge($mod,$cordin);	
+			$string = array_merge($string,$cordin);			
+			}		
+			
+	
+			$model2 = new DynamicModel($mod);
+			
+			$model2 
+			->addRule($required, 'required',['message'=>'Поле не может быть пустым'])
+			//->addRule($required, function ($attribute) use ($model2, $price){ foreach($price as $res) {if($attribute == $res)if ($model2->attributes[$attribute] == 0) {$model2->addError($attribute,  'Поле не может быть 0.');}}})
+			->addRule($string, 'string',['message'=>'Должны быть введены только строковые значения'])
+			->addRule($integer, 'integer',['message'=>'Должны быть введены только целые числа'])
+			//Проверка на телефон
+			->addRule($phone, function ($attribute) use ($model2) {$pattern = "#^\+[0-9] {1,2}\s?\([0-9]{3}\)\s?[0-9]+\-[0-9]+\-[0-9]+$#"; if(preg_match($pattern, $model2->attributes[$attribute], $out)){}else{$model2->addError($attribute,  'Не верный формат номера');}})
+			//Проверка на Ютуб
+			->addRule($youtube, function ($attribute) use ($model2) {$res = 'https://www.youtube.com/watch?v=';if (strpos($model2->attributes[$attribute], $res) !== false) {$headers = get_headers($model2->attributes[$attribute]);if (!strpos($headers[0], '200')) { $model2->addError($attribute,  'Видео не существует');}}else{ $model2->addError($attribute,  'Не верный формат ссылки на ролик');}})
+			//Проверка ограничения символов
+			->addRule($mod, function ($attribute) use ($model2,$max) {
+				if (is_array($model2->attributes[$attribute])) {foreach($model2->attributes[$attribute] as $res) {$strlen = strlen($res); foreach($max as $res) {if ($res['id'] == $attribute) {if ($strlen > $res['max']) {$model2->addError($attribute,  'Привышено допустимое количество символов ('.$res['max'].')');}}}}}
+				if (!is_array($model2->attributes[$attribute])) {$strlen = strlen($model2->attributes[$attribute]);foreach($max as $res) {if ($res['id'] == $attribute) {if ($strlen > $res['max']) {$model2->addError($attribute,  'Привышено допустимое количество символов ('.$res['max'].')');}}} }})
+			//Проверка адреса сайта
+			->addRule($url, function ($attribute) use ($model2) {})
+			->addRule($integer_с, function ($attribute) use ($model2) {if (is_array($model2->attributes[$attribute])) { foreach($model2->attributes[$attribute] as $res) {if(!is_numeric($res)){$model2->addError($attribute,  'Вы совершиили ошибку в заполнении данного поля.');}} }if (!is_array($model2->attributes[$attribute])) { if(!is_numeric($model2->attributes[$attribute])){ $model2->addError($attribute,  'Не верный формат URL (Адреса сайта)');}} })
+			 ;
+
+				 $model2_arr =  $this->findModel2($id);
+								 
+					foreach ($model2['attributes'] as $key =>$result) {
+						if (!isset($model2_arr[$key]['value'])) {$model2_arr[$key]['value'] = '';}
+					   $model2[$key] = $model2_arr[$key]['value'];
+	
+					   if (strpos($key, '_address') !== false){
+						   $key_addr = str_replace('_address', '', $key);
+						   if(isset($model2_arr[$key_addr]['dop'])) {
+							 $model2[$key] = $model2_arr[$key_addr]['dop'];
+						   }
+						   $key_addr = '';
+					   }
+						  //Преобразуем цену из дефолтной в указанную пользователем
+						  foreach($price as $res) {	 
+							  if ($key == $res) {
+								  if ($model2[$res]) {
+									$model2[$key] = ($model2[$res] / Yii::$app->caches->rates()[$model2_arr[$key]['dop']]['value']);
+									$model2[$key.'_rates'] = $model2_arr[$key]['dop'];
+								  }
+							  }
+						  }
+					}
+				
+			
+			$array_post = Yii::$app->request->post();
+			   if($model2->load($array_post) && $model2->validate() ){
+					$model2_result = true;
+			   }
+	
+			$model->url = Yii::$app->userFunctions->transliteration(Yii::$app->request->post('Blog')['title']);
+			if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+		
+				 if (isset($model2_result)) {
+					  $model->save();
+				//------Обновление координаты----------------//
+				$coord = $this->findCoord($model->id);
+				if($coord) {
+				  if($model->coordlat) {
+				   $coord->blog_id = $model->id;
+				   $coord->coordlat  = $model->coordlat;
+				   $coord->coordlon  = $model->coordlon;
+				   $coord->text  = $model->address;
+				   $coord->update();
+				  }
+				}else{
+				  if($model->coordlat) {
+				   $coord = new BlogCoord();
+				   $coord->blog_id = $model->id;
+				   $coord->coordlat  = $model->coordlat;
+				   $coord->coordlon  = $model->coordlon;
+				   $coord->text  = $model->address;
+				   $coord->save();
+				  }
+				}
+	
+		 BlogField::deleteAll('message = :message', [':message' => $model->id]);
+		 
+		 
+		 
+		 
+	//Обрабатываем массив с данными и группируем валюту и адрес в поле dop
+		 $post_save = array();
+	
+		 foreach($model2['attributes'] as $key => $res) {
+			 if(isset($model2['attributes'][$key.'_rates'])) {
+			   // $res = ($res * Yii::$app->caches->rates()[$model2['attributes'][$key.'_rates']]);
+			   $res = ((int)$res * (int)Yii::$app->caches->rates()[$model2['attributes'][$key.'_rates']]['value']);
+				$dop = $model2['attributes'][$key.'_rates'];
+			 }
+			  if(isset($model2['attributes'][$key.'_address'])) {
+				$dop = $model2['attributes'][$key.'_address']; 
+			 }
+			 
+			  if (strpos($key, '_rates') === false && strpos($key, '_address') === false) {
+					 if ($res !== '') {
+						  $post_save[] = array('id' => (int)str_replace('f_','',$key), 'value' => $res, 'dop' => $dop);
+					 }
+			 }
+			  $dop = '';
+		 }
+	
+	
+		 foreach($post_save as $res) {
+				   if (!is_array($res['value'])) {	
+				   
+				 
+					   $customer = new BlogField();
+					   $customer->message = $model->id;
+					   $customer->field  = $res['id'];
+					   $customer->value  = strval($res['value']);
+					   $customer->dop  = $res['dop'];
+					   $customer->save();
+		
+				   }else{
+					   foreach($res['value'] as $result) {
+					   $customer = new BlogField();
+					   $customer->message = $model->id;
+					   $customer->field  = $res['id'];
+					   $customer->value  = strval($result);
+					   $customer->dop  = $res['dop'];
+					   $customer->save();	
+						}
+				   }
+			 
+				}
+	
+					 $dir_maxi = Yii::getAlias('@images_temp').'/board/'.$id.'/maxi/';
+					 $dir_mini = Yii::getAlias('@images_temp').'/board/'.$id.'/mini/';
+					 $dir_original = Yii::getAlias('@images_temp').'/board/'.$id.'/original/';
+						$dir_copy_maxi = Yii::getAlias('@images').'/board/maxi/';
+						$dir_copy_mini = Yii::getAlias('@images').'/board/mini/';
+						$dir_copy_original = Yii::getAlias('@images').'/board/original/';
+				//Функция перемещения изображений из временной папки в папку с фото
+			$list = $this->filesDir($id);
+			
+			$base = BlogImage::find()->where(['blog_id'=>$id])->select(['image'])->asArray()->all();
+			foreach($base as $res) {
+					   @unlink($dir_copy_maxi.$res['image']);
+					   @unlink($dir_copy_mini.$res['image']);
+					   @unlink($dir_copy_original.$res['image']);
+			}
+			$mod = BlogImage::deleteAll('blog_id = :blog_id', [':blog_id' => $id]);
+			if ($list) 
+			{
+			$name_rand = Yii::$app->getSecurity()->generateRandomString(6);
+			   foreach($list as $key => $file) {	
+				@rename($dir_maxi.$file, $dir_copy_maxi.$key.'_'.$model->id.'_'.Yii::$app->userFunctions->transliteration($model->title).'_'.$name_rand.'.png');
+				@rename($dir_mini.$file, $dir_copy_mini.$key.'_'.$model->id.'_'.Yii::$app->userFunctions->transliteration($model->title).'_'.$name_rand.'.png');
+				@rename($dir_original.$file, $dir_copy_original.$key.'_'.$model->id.'_'.Yii::$app->userFunctions->transliteration($model->title).'_'.$name_rand.'.png');
+				
+	
+				//Сохраняем название файла в базу данных
+					  $blogimage = new BlogImage();
+					   $blogimage->id = '';
+					   $blogimage->blog_id = $model->id;
+					   $blogimage->image  = $key.'_'.$model->id.'_'.Yii::$app->userFunctions->transliteration($model->title).'_'.$name_rand.'.png';
+					   $blogimage->save();
+			   }	
+			   
+	
+			}			
+				if ($base) {
+				foreach ($base as $res) {
+					
+					 @unlink($dir_copy_maxi.$res['image']);
+					  @unlink($dir_copy_mini.$res['image']);
+					   @unlink($dir_copy_original.$res['image']);
+				}
+				}
+				
+			$this->recursiveRemove(Yii::getAlias('@images_temp').'/board/'.$dir_name.'/');
+			
+		
+			return $this->redirect(['view', 'id' => $model->id]);
+			  }	
+		   }
+		   
+		   
+		
+			
+	
+			//if ($model->dir_name) {$dir_name = $model->dir_name;}
+	
+			//$dir_name = $model->url;
+			 return $this->render('updateexpress', [
+				'model' => $model,
+				'model2' => $model2,
+				'model_view' => $model_view,
+				'rates' => $rates,
+				'dir_name' => $dir_name,
+			]);
+		}
 	
 	
 	//Дествие со списком - ajax запрос

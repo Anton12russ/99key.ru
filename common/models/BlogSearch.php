@@ -19,7 +19,7 @@ class BlogSearch extends Blog
     public function rules()
     {
         return [
-            [['id', 'status_id', 'category', 'region', 'active'], 'integer'],
+            [['id', 'status_id', 'category', 'region', 'active', 'express'], 'integer'],
             [['title', 'text', 'url', 'date_add', 'author','date_del'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class BlogSearch extends Blog
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $user_id_reserv = false, $lot_success = false)
+    public function search($params, $user_id_reserv = false, $lot_success = false, $express = false)
     {
 		if(!$user_id_reserv) {
            $query = Blog::find()->joinWith(@author)->joinWith('services');
@@ -92,6 +92,11 @@ if ($this->category) {
 }
         if (!isset($category)) {$category = '';}
 		if (!isset($region)) {$region = '';}
+        if($express === true) {
+            $query->andFilterWhere(['express' => '1']);
+        }else{
+            $query->andFilterWhere(['!=', 'express', '1']);
+        }
         $query->andFilterWhere([
             'blog.id' => $this->id,
             'status_id' => $this->status_id,

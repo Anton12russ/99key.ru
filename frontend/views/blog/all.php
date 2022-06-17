@@ -29,7 +29,8 @@ $this->registerJsFile('//api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU&ap
 			 }
 		}
 ?>
-    <? if (Yii::$app->controller->action->id == 'category') { 
+    <? if (Yii::$app->controller->action->id == 'category' || Yii::$app->controller->action->id == 'express') { 
+
 	echo $this->render('category', [
 	    'cat_menu' => $cat_menu,
 		'fields' => $fields,

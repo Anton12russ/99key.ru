@@ -240,7 +240,7 @@ public function actionBlogsearch($user_id)
        $reg_all =  array_merge($reg_all,$predoc);
 	   
 	   
-	   if ($category) {
+	if ($category) {
             $params = ['status'=>1, 'active'=>1, 'category'=>$cat_all, 'region' => $reg_all];
 	   }else{
 		    $params = ['status'=>1, 'active'=>1, 'region' => $reg_all];

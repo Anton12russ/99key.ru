@@ -9,6 +9,7 @@ use common\models\Subscription;
 use yii\web\NotFoundHttpException;
 use common\models\ExecutorBoard;
 use common\models\Blog;
+use common\models\Region;
 use common\models\MessageRoute;
 use common\models\Message;
 use common\models\Organization;
@@ -18,6 +19,204 @@ use common\models\Passanger;
 use yii;
 
 class FunctionUser2 extends Component { 	
+
+
+
+
+
+	public function metaOne($cats_id, $region, $title, $act = false)
+    {
+		if($act == 'shop') {
+			$title = 'Магазин "'.$title.'"';
+		}
+
+		if($act == 'product') {
+			$title = $title;
+		}
+	$site_name = Yii::$app->caches->setting()['site_name'];
+	if($act == 'product') {
+         $regions = '';
+	}else{
+		$regions = ' в ' .Yii::$app->caches->regionCase()[$region]['name'];
+	}
+    $meta['title'] = $title. $regions. ' на '. $site_name;
+
+	
+	if($act == 'product') {
+		 $meta['h1'] =  $title ;
+		 $meta['keywords'] = str_replace(' ',', ',$title);
+		 $meta['description'] = $title.' в рубрике ('.Yii::$app->caches->category()[$cats_id]['name'].')';
+	}else{
+		$meta['keywords'] = str_replace(' ',', ',$title).', '.$regions;
+		$meta['description'] = $title.$regions.' - в рубрике ('.Yii::$app->caches->category()[$cats_id]['name'].'), на сайте '. $site_name;
+	    $meta['h1'] =  $title.$regions ;
+	}
+	if(Yii::$app->request->cookies['region']) {
+		$region = Yii::$app->request->cookies['region']->value;
+		$reg_breadcru = Yii::$app->caches->region()[$region]['url'].'/';
+	}
+	
+	$breadcru = $this->breadOne($cats_id, $region, 'express');
+
+  if($act == 'shop') {
+	if(!isset($reg_breadcru)) {$reg_breadcru = '';} 
+	$bread_shop = array('label' => 'Магазины', 'url' => '/shop/'.$reg_breadcru);
+	array_unshift ($breadcru, $bread_shop);
+  }
+  if($act == 'express') {
+	if(!isset($reg_breadcru)) {$reg_breadcru = '';} 
+	$bread_shop = array('label' => 'Экспресс объявления', 'url' => '/express/'.$reg_breadcru);
+	array_unshift ($breadcru, $bread_shop);
+  }
+  if($act == 'product') {
+	if(!isset($reg_breadcru)) {$reg_breadcru = '';} 
+	$bread_shop = array('label' => 'Товары', 'url' => '/product/'.$reg_breadcru);
+	array_unshift ($breadcru, $bread_shop);
+  }
+  
+	
+	$meta['breadcrumbs'] = $breadcru;
+    $meta['breadcrumbs'][] = array('label'=>Yii::$app->userFunctions->substr_user($title, 20));
+    return  $meta;
+    }
+
+
+
+
+		//Функция для хлебных крошек в объявлении
+		public function breadOne($category, $region, $act = false)
+		{	
+			if ($region) {
+				$region_arr = Yii::$app->caches->region()[$region]['url'];
+			}else{
+				$region_arr = '';
+			}
+			if($act == 'article') {
+				$cache = Yii::$app->caches->artcat();
+			}else{
+				$cache = Yii::$app->caches->category();
+			}
+			   return $this->breadLine2($cache, $category, $region_arr, $act);
+		}
+
+
+	         //  Мета теги для категорий
+	//------------------------------------------------------//
+	
+	public function metaCat($cats_id, $region)
+    {
+	$cat_name = Yii::$app->caches->category()[$cats_id]['name'];
+    //Считаем колиество элементов с одинаковым названием
+	$count = 0;
+	
+
+	foreach(Yii::$app->caches->category() as $res) {
+	if ($res['id'] == $cats_id) {
+			$parent_id = $res['parent'];
+		}
+		
+		if ($res['name'] == $cat_name) {
+	       $count++;
+		}
+	}
+
+    // Проверяем, если нашли дубли названий, добавляем к ним родителя, чтобы было понятно пользователю, к какой категории относится найденая.
+	
+	if ($count > 1) {
+		$cat = Yii::$app->caches->category()[$parent_id]['name'];
+		$parent_title =  $cat.', ';
+		$parent_h1 = ' - '.$cat;
+	}
+
+	$site_name = Yii::$app->caches->setting()['site_name'];
+		if ($region) {
+		   $reg = Yii::$app->caches->regionCase()[$region->value]['name'];
+		   $region_key =   ', '.$reg;
+	       $regions = ' в ' .$reg;
+		}
+		if (!isset($parent_title)) {$parent_title = '';}
+		if (!isset($parent_h1)) {$parent_h1 = '';}
+		if(!isset($regions)) {$regions = '';}
+		if(!isset($region_key)) {$region_key = '';}
+    $meta['title'] = 'Экспресс объявления - '.$parent_title.$cat_name. $regions. ' на '. $site_name;
+	$meta['description'] = 'На сайте '. $site_name .' Вы найдете все бесплатные объявления тематики - '.$cat_name.$regions ;
+	$meta['keywords'] =  Yii::$app->caches->category()[$cats_id]['name'].$region_key.',  объявления';
+	$meta['h1'] = $cat_name.$parent_h1. ' ' .$regions ;
+		//Удаляем последний элемент, чтобы получить павильный путь для категории
+	$breadcru = $this->breadСat2($cats_id, $region);
+	$bread_shop = array('label' => 'Экспресс объявления', 'url' => '/express/'.$reg_breadcru);
+	array_unshift ($breadcru, $bread_shop);
+	unset($breadcru[count($breadcru)-1]);
+	$meta['breadcrumbs'] = $breadcru;
+    $meta['breadcrumbs'][] = array('label'=>$cat_name);
+    return  $meta;
+    }
+
+
+
+           // Только для фронтальной части
+	//-----------------------------------------------------------------------//
+	//Функция для хлебных крошек в категориях
+	public function breadСat2($category, $region, $act = false)
+    {	
+        
+		if ($region) {
+		      $region_arr = Region::findOne($region->value)['url'];
+		   	}
+			if(!isset($region_arr)) {$region_arr = '';}
+			
+			if($act != 'article') {
+				$arr = Yii::$app->caches->category();
+			}else{
+				$arr = Yii::$app->caches->artcat();
+				   
+			}
+           return $this->breadLine2($arr, $category, $region_arr, 'express');
+	}
+	
+	
+	
+	public function breadLine2($cat, $cats_id, $region , $act = 'false', $first = true )
+    {
+		if($act == 'article') {
+			$lin = '/article';
+		}elseif($act == 'shop'){
+			$lin = '/shop';
+		}elseif($act == 'express'){
+			$lin = '/express';
+		}elseif($act == 'product'){
+			$lin = '/product';
+		}else{
+			$lin = '';
+		}
+
+    static $array = array();
+	if($first){$array = array();}
+    $value = $cat[$cats_id];
+    if($value['parent'] != 0 && $value['parent'] != "")
+        {
+			$this->breadLine2($cat, $value['parent'], false, $act, false);
+		}
+   		$array[] = array('name' => $value['name'], 'id' => $value['id'], 'url' => $value['url']);
+    if ($region) {
+		if (!isset($url)) {$url = '';}
+    $url .= '/'.$region.'/';
+	}else{
+		if (!isset($url)) {$url = '';}
+	    $url .= '/';
+	}
+    foreach($array as $k=>$v)
+        {
+        $url .= $v['url'].'/';
+		if (!next($array)) {$arr_url[] = array('label'=>$v['name'], 'url' => $lin.$url );}
+        }
+	
+    return $arr_url;
+    }
+	
+
+
+
 
 
 
@@ -511,7 +710,19 @@ function address($text) {
 	   }
 	   
 	   
-	   
+	   function expresscount($region_id) 
+	   {  
+	    $sql = Blog::find();
+		$sql->Where(['blog.express' => '1'])->andWhere(['status_id' => 1, 'active' => 1]);
+	if(isset($region_id->value)) {
+       $regions = Yii::$app->userFunctions->recursСat(Yii::$app->caches->regRelative(), $region_id->value);
+	     //$sql->andWhere(['region' => $regions, 'auction' => 1])->orWhere(['region' => $regions, 'auction' => 2]);
+		  $sql->andWhere(['region' => $regions]);
+	   }
+	   $sql->asArray()->All();
+
+        return $sql->count();
+	   }  
 	  function auctioncount($region_id) 
 	   {  
 	    $sql = Blog::find();

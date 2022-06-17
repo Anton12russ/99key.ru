@@ -133,7 +133,12 @@ class BlogController extends Controller
 	   if($url_original == $url) {
 	      $rates = Yii::$app->caches->rates();
 			  //Получаем мета теги
-	   $meta = Yii::$app->userFunctions->metaOne($blog->category, $blog->region, $blog->title);
+			  if($blog->express) {
+	                $meta = Yii::$app->userFunctions2->metaOne($blog->category, $blog->region, $blog->title, 'express');
+             	}else{
+					$meta = Yii::$app->userFunctions->metaOne($blog->category, $blog->region, $blog->title);
+				}
+
 
 $blog_field = $blog->blogField;
 $fields = array();
@@ -875,6 +880,9 @@ if(isset($get['auction']) && $get['auction']) {
 public function actions()
 {
     return [
+		    'express' => [
+			    'class' => 'frontend\actions\Express',
+		    ],
             'add' => [
                 'class' => 'frontend\actions\BlogAdd',
             ],

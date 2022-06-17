@@ -30,16 +30,24 @@ $filtr = Yii::$app->request->cookies['filtr'];
             <? } ?>
             <?php } ?>
 
-
-
-		<?php if (!isset($model2)) {$model2 = '';}?>
-       <?= $this->render('cat_search', [
+      <?php if (!isset($model2)) {$model2 = '';}?>
+      <? if(Yii::$app->controller->action->id == 'express') {?>
+       <?= $this->render('cat_search_express', [
 	    'fields' => $fields,
 		'model2' => $model2,
 		'fields' => $fields,
 		'rates' => $rates,
 		'category' => $category
         ]) ?>	
+      <? }else{ ?>
+       <?= $this->render('cat_search', [
+	   'fields' => $fields,
+		'model2' => $model2,
+		'fields' => $fields,
+		'rates' => $rates,
+		'category' => $category
+        ]) ?>	
+      <? } ?>
 
  <?if ($category_text){?><div class="col-md-12 cat_text"><?= $category_text?></div><? }?>	
    <div class="mini-filter col-md-12">

@@ -84,7 +84,8 @@ if (isset(Yii::$app->controller->module->id) && Yii::$app->controller->module->i
 		
 		
 		
-		if (isset($params['general']) || Yii::$app->controller->id == 'blog' || Yii::$app->controller->id == 'shop' || Yii::$app->controller->id == 'article' || Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'blogs' || Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'articles'
+		if (isset($params['general']) || Yii::$app->controller->id == 'blog' || Yii::$app->controller->id == 'express'
+		|| Yii::$app->controller->id == 'shop' || Yii::$app->controller->id == 'article' || Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'blogs' || Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'articles'
 		|| Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'messenger'
 		|| Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'mess-all'
 		|| Yii::$app->controller->id == 'user' &&  Yii::$app->controller->action->id == 'bet'
@@ -327,13 +328,17 @@ if(isset($urli[0])) {
 
 
 		//Преобразуем URL в массив
-		$url = explode('/',str_replace('shop/','',$pathInfo));
+		$str = str_replace('shop/','',$pathInfo);
+		$str = str_replace('express/','',$pathInfo);
+		$url = explode('/', $str);
+	
 		$url_shop = explode('/',$pathInfo);
         $url_dop = explode('/',$pathInfo);
-        
+
 		$cat_url_parent = explode('/',str_replace('shop/','',$pathInfo));
 		$cat_url_parent_art = explode('/',str_replace('article/','',$pathInfo));
 		$cat_url_parent_auction = explode('/',str_replace('auction/','',$pathInfo));
+		$cat_url_parent_express = explode('/',str_replace('express/','',$pathInfo));
 	   //Проверяем, если это модули или статичные страницы, отдаем куда нужно
 	}
 			//$url_reg = explode('/',str_replace('shop/','',$pathInfo));
@@ -395,10 +400,14 @@ if(isset($urli[0])) {
 		//Достаем последний элемент из url
 	
 		$urls = array_pop($url);
-		
+	
 		$urls_shop = array_pop($url_shop);
+
+
 //______________________________________________________//
  if (count($cat_url_parent_auction)> 1) {$cat_url_parent_auction = $cat_url_parent_auction[count($cat_url_parent_auction)-2];}else{$cat_url_parent_auction = '';}
+ if (count($cat_url_parent_express)> 1) {$cat_url_parent_express = $cat_url_parent_express[count($cat_url_parent_express)-2];}else{$cat_url_parent_express = '';}
+
  if (count($cat_url_parent)> 1) {$cat_url_parent = $cat_url_parent[count($cat_url_parent)-2];}else{$cat_url_parent = '';}
  if (count($cat_url_parent_art)> 1) {$cat_url_parent_art = $cat_url_parent_art[count($cat_url_parent_art)-2];}else{$cat_url_parent_art = '';}
 
@@ -531,20 +540,56 @@ if(!$customers['id']) {
              ]];
 }
 	
-	
-	
-	
-	
-	
+
  }
  
- 
+
+
+
+	//---Правило для express---//
+
+	if (isset($url_shop[0]) && $url_shop[0] == 'express' || $urls_shop == 'express') {
+		$customers =  Yii::$app->userFunctions->idUrl($urls, $cat_url_parent_express); 
+
+	   if(!$customers['id']) {
+		   if(isset($region) && count($url_dop) > 2) {
+			   return false;  // данное правило не применимо
+		   }elseif(!isset($region)  && count($url_dop) > 1) {
+			   return false;  // данное правило не применимо
+		   }
+	   }
+	   
+	   
+   
+			 if (!isset($region)) {
+				 
+			   Yii::$app->response->cookies->remove('region');
+			  //Делаем редирект, чтобы регион тут же появился на странице, если есть кука, регион не делаем
+				 if (Yii::$app->request->cookies['region']) {
+					 Yii::$app->response->redirect('/'.$pathRedirect, 301)->send();
+				 }
+		   }
+
+		return ['blog/express', [ // (Примечание 3)
+				 'category' => $customers['id'],
+				 'patch'    => $request->getPathInfo(),
+				]];
+	}
+
+
+
+
+
+
+
+
+
  
  	//---Правило для shop---//
 
 	 if (isset($url_shop[0]) && $url_shop[0] == 'shop' || $urls_shop == 'shop') {
      $customers =  Yii::$app->userFunctions->idUrl($urls, $cat_url_parent); 
-
+	
 	if(!$customers['id']) {
 		if(isset($region) && count($url_dop) > 2) {
 		    return false;  // данное правило не применимо
@@ -555,15 +600,14 @@ if(!$customers['id']) {
 	
 	
 
-		  if (!isset($region)) {
-			  
+	   if (!isset($region)) {
 			Yii::$app->response->cookies->remove('region');
 		   //Делаем редирект, чтобы регион тут же появился на странице, если есть кука, регион не делаем
 		      if (Yii::$app->request->cookies['region']) {
 	              Yii::$app->response->redirect('/'.$pathRedirect, 301)->send();
 		      }
 	    }
-
+	
      return ['shop/index', [ // (Примечание 3)
               'category' => $customers['id'],
 			  'patch'    => $request->getPathInfo(),
@@ -587,7 +631,7 @@ if(!$customers['id']) {
 		      }
 		  }
 	  }
-	  
+
      return ['blog/category', [ // (Примечание 3)
               'category' => $customers['id'],
 			  'patch'    => $request->getPathInfo(),

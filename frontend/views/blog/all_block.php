@@ -30,7 +30,8 @@ $controller_id = Yii::$app->controller->id.'/'.Yii::$app->controller->action->id
 			 }
 		}
 ?>
-    <? if (Yii::$app->controller->action->id == 'category') { 
+    <? if (Yii::$app->controller->action->id == 'category' || Yii::$app->controller->action->id == 'express') { 
+
 	echo $this->render('category', [
 	    'cat_menu' => $cat_menu,
 		'fields' => $fields,

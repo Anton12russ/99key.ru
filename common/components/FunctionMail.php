@@ -718,12 +718,12 @@ class FunctionMail extends Component {
 	//Функция отправки E-mail
 	public function mailEnd($email_to, $subject, $text) 
 	{
-     Yii::$app->mailer->compose()
+   /*  Yii::$app->mailer->compose()
     ->setFrom('admin@1tu.ru')
     ->setTo($email_to)
     ->setSubject($subject)
     ->setHtmlBody($text)
-    ->send();	
+    ->send();*/	
 	}
 	
 

@@ -193,12 +193,7 @@ $key = $this->key($model->id);
 		  //-------------------------Отправка оповещение админу-----------------------------//
 			  if(Yii::$app->caches->setting()['email_board']) {
 				  $url = Url::to(['blog/one', 'region'=>$model->regions['url'], 'category'=>$model->categorys['url'], 'url'=>$model->url, 'id'=>$model->id]);
-			      if(!isset(Yii::$app->user->identity->email)) {
-					  $email_user = $user->email;
-				  }else{
-					  $email_user = Yii::$app->user->identity->email;
-				  }
-				  Yii::$app->functionMail->board_admin($url, $email_user, Yii::$app->caches->setting()['email_board']);
+				  Yii::$app->functionMail->express_admin(Yii::$app->caches->setting()['email_board']);
 			  }  
 	   }else{
 		   $auk_category = $this->findAuk($catid);

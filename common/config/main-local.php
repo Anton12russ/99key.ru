@@ -8,7 +8,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
 		
-        'db' => [ 'class' => 'yii\db\Connection', 'dsn' => 'mysql:host=127.0.0.1;dbname=99', 'username' => 'root', 'password' => '', 'charset' => 'utf8', ],
+        'db' => [ 'class' => 'yii\db\Connection', 'dsn' => 'mysql:host=127.0.0.1; dbname=99', 'username' => 'root', 'password' => '', 'charset' => 'utf8', ],
 
 		'mailer' => function(){
 

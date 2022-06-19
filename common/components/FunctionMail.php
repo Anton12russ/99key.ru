@@ -38,6 +38,17 @@ class FunctionMail extends Component {
 		 $subject = $mail->name;
          Yii::$app->functionMail->mailEnd($email_to, $subject, $text);
 	}
+    //Новое объявление express
+    public function express_admin($admin_email) 
+	{	
+		 $mail = Mail::findOne(30);
+	     $patch_url = PROTOCOL.$_SERVER['HTTP_HOST'];
+	     $text = $mail->text;
+         $email_to = $admin_email;
+		 $subject = $mail->name;
+         Yii::$app->functionMail->mailEnd($email_to, $subject, $text);
+	}
+	
 
     //Новый магазин
     public function shop_admin($url, $user_email, $admin_email) 
@@ -718,12 +729,12 @@ class FunctionMail extends Component {
 	//Функция отправки E-mail
 	public function mailEnd($email_to, $subject, $text) 
 	{
-   /*  Yii::$app->mailer->compose()
+    Yii::$app->mailer->compose()
     ->setFrom('admin@1tu.ru')
     ->setTo($email_to)
     ->setSubject($subject)
     ->setHtmlBody($text)
-    ->send();*/	
+    ->send();	
 	}
 	
 

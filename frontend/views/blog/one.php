@@ -28,13 +28,9 @@ foreach ($fields as $res) {
 } 
 sort($price); 
 ?>
-
-
 <div class="col-md-12 one-body">
-
  <? if ($blog->active != 1) {?><br><br><br><div class="alert alert-warning">Объявление еще не активировано. Активируйте его в личном кабинете.</div><br><? } ?>
  <? if ($blog->status_id == 0) {?><br><br><br><br><div class="alert alert-danger">Объявление не опубликовано, возобновить показы можно в личном кабинете.</div><br><? }?>
-
   <div class="col-md-7 padd-h1">
    <div class="row">
 	<ul id="imageGallery">
@@ -176,7 +172,7 @@ sort($price);
 	 <a class="go-user" href="<?=$url?>"> <div class="header-one-div ava-name" data-toggle="tooltip" data-html="true" data-placement="top" title="<?=$blog->shop->name?>"><span><i class="fa fa-shop" aria-hidden="true"></i> Магазин</span></div></a></div>
 	 <? }else{?>
 	 
-
+	<? if($blog->user_id == '1' && $blog->express == '1') {}else{?>
 	  <div class="ava-name-body col-md-4"><a target="_blank" class="go-user" href="<?=Url::to(['blog/users', 'id'=>$blog->user_id])?>"> <div class="header-one-div ava-name" data-toggle="tooltip" data-html="true" data-placement="top" title="Автор 
 	  <?if(iconv_strlen($blog->author['username']) >= 8) {?>
 	  <br><strong class='author_one'><?=$blog->author['username']?>
@@ -185,9 +181,11 @@ sort($price);
 	  <span>
 	  <i class="fa fa-solid fa-user" aria-hidden="true"></i> 
 	  <? if(iconv_strlen($blog->author['username']) >= 8) {echo 'Автор';}else{echo $blog->author['username'];}?>
-	  </span></div></a></div>
+	  </span></div></a>
+	</div>
 	 <?}?>
-		   <div class="header-one-div one-phone col-md-8" data-phone="<?php if (isset($phone)){?><?=$phone?><? }else{  ?>Не указан<? }  ?>" data-toggle="tooltip" data-placement="top" title="Показать Телефон"><span><i class="fa-regular fa-phone" aria-hidden="true"></i> Телефон</span></div>
+	 <?}?>
+		   <div class="header-one-div one-phone <? if($blog->user_id == '1' && $blog->express == '1') {?>col-md-12<?}else{?>col-md-8<?}?>  " data-phone="<?php if (isset($phone)){?><?=$phone?><? }else{  ?>Не указан<? }  ?>" data-toggle="tooltip" data-placement="top" title="Показать Телефон"><span><i class="fa-regular fa-phone" aria-hidden="true"></i> Телефон</span></div>
 	
 	
 		    
@@ -301,11 +299,13 @@ sort($price);
 	  <?}else{?>
 	      <div class="offline-one">Был(а) в сети <?=$blog->author->online?></div>
 	  <? } ?>
+	  <? if($blog->user_id == '1' && $blog->express == '1') {?><?}else{?>
 		 <? if (!Yii::$app->user->isGuest) {?>
 		    <span class="mail-send">Написать автору <i class="fa fa-regular fa-envelopes" aria-hidden="true"></i></span>
 		 <? }else{?>
 		    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Авторизируйтесь, чтобы написать автору."  class="mail-send-err">Написать автору <i class="fa fa-regular fa-envelopes" aria-hidden="true"></i></span>
 		 <? }?>
+		 <?}?>
 		 </div>
      </div>
 	 

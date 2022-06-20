@@ -11,9 +11,10 @@ $balance = 0;
 
 <span class="hidden balance_user" data-balance="<?=$balance?>"></span>
 	    <!--Информируем пользователя об успешной регистрации-->
-		
+		<?if(isset($key)) {?>
 		<div class="alert alert-info text-center"> "Если вы хотите изменить публикацию, или продвигать ее, а также пользоваться всеми возможностями портала, зарегистрируйтесь."</div>
-	    <!--Если объявление в платной категории-->
+		<? } ?>
+		<!--Если объявление в платной категории-->
 	    <? if ($price_category) {?> 
 		<!--
 		  <div class="alert alert-warning text-center">Объявление добавлено, но чтобы оно активировалось на (<?=$price_category['date']?> дней), его нужно оплатить.<br> Стоимость <strong><?=$price_category['sum']?></strong> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i></div>
@@ -48,8 +49,10 @@ $balance = 0;
 
 	    <? }else{ ?>
 		 <!--Если объявление не платное-->
-		 <div class="save" style="padding: 0;"><div class="alert alert-success text-center">Объявление успешно добавлено! <br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.</div>
-		 <!--<br>
+		 <?if(isset($key)) {?>
+		   <div class="save" style="padding: 0;"><div class="alert alert-success text-center">Объявление успешно добавлено! <br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.</div>
+		 <? } ?>
+		   <!--<br>
 		    <a class="btn btn-success" href="https://1tu.ru/user/blogs"><i class="fa fa-list-alt" aria-hidden="true"></i> Мой товар</a>
 		 <br>
 		 <br>

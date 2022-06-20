@@ -468,7 +468,18 @@ h2 {
 textarea.form-control.shop_input {
 	width: 70%;
 }
-
+#blogexpress-status_id, #blogexpress-status_id_false,
+#blogexpress-active_false {
+	display: grid;
+	padding: 10px;
+	border: 1px solid #e8e8e8;
+	border-radius: 3px;
+}
+#blogexpress-status_id label, #blogexpress-status_id_false label,
+#blogexpress-active_false label {
+	text-align: left;
+	width: 100%;
+}
 #blog-status_id, #blog-status_id_false,
 #blog-active {
 	display: grid;

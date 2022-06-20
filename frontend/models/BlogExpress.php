@@ -13,6 +13,7 @@ use common\models\Region;
 use common\models\Category;
 //---Обновление координаты ---//
 use common\models\BlogCoord;
+use common\models\BlogKey;
 use common\components\behaviors\StatusBehavior;
 use yii\helpers\Url;
 use Yii;
@@ -52,6 +53,7 @@ public $coordlat;
 public $coordlon;
 public $address;
 public $status_id_false;
+public $active_false;
 public $price;
 public $phone;
     /**
@@ -67,6 +69,8 @@ public $auk_shag;
 public $auk_price;
 public $userreservauthor;
 public $pricepay;
+public $key;
+
     public static function tableName()
     {
         return 'blog';
@@ -79,6 +83,7 @@ public $pricepay;
      */
     public function rules()
     {
+
 //Капча видимая
 if (Yii::$app->caches->setting()['capcha'] == 1) {
   $capcha[0] = ['reCaptcha'];
@@ -99,15 +104,19 @@ if (Yii::$app->caches->setting()['capcha'] == 2) {
 if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
   $capcha = [['reCaptcha'], 'default', 'value'=> 1];
 }
-
+		    
+		
+if(Yii::$app->controller->action->id == 'expressupdate' && !Yii::$app->user->id &&  Yii::$app->user->id != '1' && !Yii::$app->user->can('updateBoard')) {
+   $required = [['title', 'region', 'address', 'phone',  'key'], 'required'];
+}else{
+   $required =  [['title', 'region', 'address', 'phone'], 'required'];
+}
 	if ($this->id) {$date_update = date('Y-m-d H:i:s');}else{$date_update = '';};
         return [	
 		    $capcha,
 	        [['email'], 'email'],
-	 	    [['user_id', 'category', 'region', 'status_id', 'active', 'count', 'views', 'balance_minus', 'discount', 'auk_time', 'auk_shag', 'auk_rates', 'auction', 'reserv_user_id', 'status_id_false', 'express'], 'integer'],
-			//Обновленная строка
-            [['title', 'region', 'address', 'phone'], 'required'],
-            //Обновленная строка
+	 	    [['user_id', 'category', 'region', 'status_id', 'active', 'count', 'views', 'balance_minus', 'discount', 'auk_time', 'auk_shag', 'auk_rates', 'auction', 'reserv_user_id', 'status_id_false', 'express', 'active_false'], 'integer'],
+            $required,
 			[['text', 'dir_name','date_del','coordlat','coordlon','address', 'discount_text', 'price', 'phone'], 'string'],
             [['title', 'url'], 'string', 'max' => 150],
 			[['date_add'], 'date', 'format'=>'php:Y-m-d H:i:s' ],
@@ -117,114 +126,21 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
 			[['status_id'], 'default', 'value'=> '1'],
 			[['express'], 'default', 'value'=> '1'],
 			[['file'], 'image'],
-			
 			[['author'], 'safe'],
+			[['key'], 'validateKey'],
 		    //['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-			['email', 'validateUserlogin'],
-			
-			['date_del', 'validateDatedel'],
-			[['auction'], 'validateAuk'],
-            
+
         ];
     }
 	
-	
- public function validateAuk($attribute, $params, $validator)
-    {
 
-		if($this->auction == 1) {	
-		  if(!$this->auk_price_add) {
-				$this->addError('auk_price_add', 'Не заполнено поле');
-		  }	
-		 /* if(!$this->auk_price_moment) {
-				$this->addError('auk_price_moment', 'Не заполнено поле');
-		  }*/
-		  
-		   if(!$this->auk_time) {
-				$this->addError('auk_time', 'Не заполнено поле');
-		  }
-		  
-		    if(!$this->auk_shag) {
-				$this->addError('auk_shag', 'Не заполнено поле');
-		  }
-		}
+
+	public function validateKey($attribute, $params, $validator)
+    {
+		if (!$time = BlogKey::find()->where(['key' => $this->$attribute])->one()) {	
+			$this->addError('key', 'Неверное значение');
+		  }		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//Валидация Даты удаления
- public function validateDatedel($attribute, $params, $validator)
-    {
-	
-		if (!$time = BlogTime::find()->where(['def'=>'1', 'days' => $this->$attribute])->one()) {	
-		  $this->addError('date_del', 'Неверное значение');
-		}
-		
-	}
-
-	
-	
-//Валидация Логина и пароля
- public function validateUserlogin($attribute, $params, $validator)
-    {
-
-   if (Yii::$app->user->isGuest) {
-	   
-	   if (Yii::$app->request->post()['Blog']['password'] != Yii::$app->request->post()['Blog']['password2']){
-		   $this->addError('password', 'Пароли не совпадают.'); 
-           $this->addError('password2', 'Пароли не совпадают.');		   
-	   }else{
-		   
-		   
-        $password = Yii::$app->request->post()['Blog']['password']; 
-		if ($this->$attribute && $password && Yii::$app->request->post()['Blog']['username']) {
-		    if ($identity = User::findOne(['email'=>$this->$attribute])){
-
-                 if (Yii::$app->security->validatePassword($password, $identity['password_hash'])) {
-					if ($identity['status'] == 10) {
-                       Yii::$app->user->login($identity);
-					   
-					   
-			//Кука для безопасности при смене пароля
-			Yii::$app->response->cookies->add(new \yii\web\Cookie([
-                 'name' => 'auth_key',
-                 'value' => Yii::$app->user->identity->auth_key
-              ]));
-			  
-			  
-					}else{
-						$this->addError('email', 'Аккаунт не подтвержден, проверьте почту и активируйте аккаунт.');
-					}
-                 } else {
-					 
-				   $this->addError('password', 'Логин или Пароль не верный.');
-                   $this->addError($attribute, 'Логин или Пароль не верный.');
-				   
-                 }	
-			
-				
-
-		   }else{
-			   	
-			    //При таком условии , регистрируем пользователя в контроллере
-		   }
-		}
-	 	
-       }
-	  }
-    }
-	
-	
-	
-	
-	
 
     public function attributeLabels()
     {
@@ -240,20 +156,10 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
 			'category' => 'Категория',
 			'region' => 'Регион',
 			'image' => 'Фото',
-			'email' => 'Email',
-			'username' => 'Ваше имя',
-			'password' => 'Пароль',
-			'password2' => 'Повторный пароль',
-			'count' => 'Количество товара',
 			'address' => 'Адрес',
-			'auk_shag' => 'Шаг',
-			'auk_time' => 'Количество дней',
-            'auction' => 'Аукцион',
-			'auk_price' => 'Стоимость резервации',
-			'userreservauthor' => 'Информация продавца', 
-			'pricepay' => 'Стоимость выкупа',
 			'phone' => 'Телефон',
-			'price' => 'Цена'
+			'price' => 'Цена',
+			'key' => 'Секретный Ключ'
         ];
     }
 		

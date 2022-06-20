@@ -56,6 +56,9 @@ class BlogUpdate extends Action
 	   
 	   
 	    //Проверяем права на редактирование
+		if($model->express == '1') {
+			return $this->controller->redirect(['expressupdate', 'id' => $model->id]);
+		}
 		if($model->user_id != Yii::$app->user->id) {	
 		  if(!Yii::$app->user->can('updateOwnPost', ['board' => $model]) && !Yii::$app->user->can('updateBoard')) {
 			 throw new NotFoundHttpException('The requested page does not exist.'); 

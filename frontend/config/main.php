@@ -82,6 +82,7 @@ return [
 		'notepad'=>'blog/notepad',
 		'add'=>'blog/add',
         'expressadd'=>'blog/expressadd',
+        'expressupdate'=>'blog/expressupdate',
 		'del'=>'blog/del',
 		'users'=>'blog/users',
 		'update'=>'blog/update',

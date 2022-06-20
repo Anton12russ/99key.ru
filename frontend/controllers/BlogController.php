@@ -890,6 +890,9 @@ public function actions()
 			'expressadd' => [
                 'class' => 'frontend\actions\ExpressAdd',
             ],
+			'expressupdate' => [
+                'class' => 'frontend\actions\ExpressUpdate',
+            ],
 			
 			'update' => [
                 'class' => 'frontend\actions\BlogUpdate',

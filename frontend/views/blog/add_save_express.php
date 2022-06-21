@@ -50,7 +50,7 @@ $balance = 0;
 	    <? }else{ ?>
 		 <!--Если объявление не платное-->
 		 <?if(isset($key)) {?>
-		   <div class="save" style="padding: 0;"><div class="alert alert-success text-center">Объявление успешно добавлено! <br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.</div>
+		   <div class="save" style="padding: 0;"><div class="alert alert-success text-center">Объявление успешно добавлено!<?if($key) {?><br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.<? } ?></div>
 		 <? } ?>
 		   <!--<br>
 		    <a class="btn btn-success" href="https://1tu.ru/user/blogs"><i class="fa fa-list-alt" aria-hidden="true"></i> Мой товар</a>

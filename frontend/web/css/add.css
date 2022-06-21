@@ -673,6 +673,9 @@ summary:hover {
 	}
 	}
 @media (max-width: 480px) {
+	.searchcat-ajax, .catok {
+		width: 100%;
+	 }
 	summary {
 		left: 0px;
 	}

@@ -57,7 +57,10 @@ class ExpressAdd extends Action
         $array_post = Yii::$app->request->post();
 		     
 		$model->url = Yii::$app->userFunctions->transliteration(Yii::$app->request->post('Blog')['title']);
-
+		
+		if(!$model->phone && Yii::$app->user->identity->phone) {
+			$model->phone = Yii::$app->user->identity->phone;
+		}
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
 		if ($model->dir_name) {$dir_name = $model->dir_name;}
@@ -86,8 +89,7 @@ class ExpressAdd extends Action
 		//передаем эту переменную в шаблон, чтобы вывести сообщение с успешным размещением
 		$save['status'] = $model->status_id;
 		
-		//Не забыть передать в шаблон уведоиление об оплате
-		$model->user_id = $user_id;
+
 		
 		
 		
@@ -95,8 +97,11 @@ class ExpressAdd extends Action
         $model->date_add =  date('Y-m-d H:i:s');
 	
 		$model->date_del =  date('Y-m-d H:i:s', strtotime(' + '.Yii::$app->caches->setting()['express_add'].' day'));
-
+       
 		$model->user_id = 1;
+		if(Yii::$app->user->id) {
+			$model->user_id = Yii::$app->user->id;
+		}
 		//Сохраняем статичные поля, проверка внутри скрыта, чтобы не проверять повторно пользователя
        
 		$model->save(false);
@@ -121,7 +126,11 @@ $filphone->dop  = '';
 $filphone->save();	
 
 //Создаем ключ
-$key = $this->key($model->id); 
+if(!Yii::$app->user->id) {
+    $key = $this->key($model->id); 
+}else{
+	$key = false;
+}
 
 				//------------------Обновление ---------------Добавляем координаты-------------------//
 		

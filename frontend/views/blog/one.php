@@ -78,14 +78,14 @@ sort($price);
 	
 	   <div class="price-div">
 	   <div data-toggle="tooltip" data-placement="top" title="Цена" class="one-price"> 
-		<? if (isset($price[0]['value'])) {?>
+		<? if ($price[0]['value']) {?>
 		<? if (isset($price[0]['hide']) && $price[0]['hide'] > 0) {?>
 	       <?if (!Yii::$app->user->isGuest) { echo str_replace(' ','',$price[0]['value']);?> <i class="fa <?=$price[0]['rates']['text']?>" aria-hidden="true"></i><? foreach($fields as $res) { if ($res['type_string'] == 'q') {?><span class="torg">торг</span><?}}?><?}else{?>После авторизации<?}?>
 		<?}else{?>	
 		  <span data-dickount="<?=$blog->discount?>" data-price="<?=$price[0]['value']?>" class="count"><?=str_replace(' ','',$price[0]['value'])?></span> <i class="fa <?=$price[0]['rates']['text']?>" aria-hidden="true"></i><? foreach($fields as $res) { if ($res['type_string'] == 'q') {?> <span class="torg">торг</span><?}}?>
 		<?}?>
 		<?}else{?>
-		     Безценно
+		    Цена не указана
 		<?}?>
 	    </div>
 	 </div>
@@ -299,7 +299,9 @@ sort($price);
 	  <?}else{?>
 	      <div class="offline-one">Был(а) в сети <?=$blog->author->online?></div>
 	  <? } ?>
-	  <? if($blog->user_id == '1' && $blog->express == '1') {?><?}else{?>
+	  <? if($blog->user_id == '1' && $blog->express == '1') {?>
+		<a href="/update?id=<?=$blog->id?>" class="btn btn-success">Редактировать объявление</a>
+		<?}else{?>
 		 <? if (!Yii::$app->user->isGuest) {?>
 		    <span class="mail-send">Написать автору <i class="fa fa-regular fa-envelopes" aria-hidden="true"></i></span>
 		 <? }else{?>

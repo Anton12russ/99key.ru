@@ -62,6 +62,16 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 				   return Html::a(\yii\helpers\StringHelper::truncate($data->title,100),'/board/'.$data->id.'_'.$data->url,['target'=>'_blank', 'data-pjax'=>"0"]);
 			   }
 			],*/
+
+     ['attribute'=>'auction', 'filter'=>Blog::AUCTION,
+     'value'=> function ($model) {
+        if($model->auction > 0) {
+            return '<span><i class="fa fa-gavel" aria-hidden="true"></i></span><br>'; 
+         }else{
+            return '----';
+         }
+        },
+        ],
 			['attribute'=>'title', 'format'=>'raw',
 			   'value'=> function ($model) {
 			   if($model['services']) {$style = 'style="color: red;"';}else{$style = '';}

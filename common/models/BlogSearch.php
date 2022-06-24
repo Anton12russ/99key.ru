@@ -19,7 +19,7 @@ class BlogSearch extends Blog
     public function rules()
     {
         return [
-            [['id', 'status_id', 'category', 'region', 'active', 'express'], 'integer'],
+            [['id', 'status_id', 'category', 'region', 'active', 'express', 'auction'], 'integer'],
             [['title', 'text', 'url', 'date_add', 'author','date_del'], 'safe'],
         ];
     }
@@ -103,6 +103,7 @@ if ($this->category) {
 			'category' => $category,
 			'region' => $region,
 			'active' => $this->active,
+            'auction' => $this->auction,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

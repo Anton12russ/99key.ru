@@ -419,7 +419,17 @@ class FunctionMail extends Component {
 	
 	
 	
-	
+	    //Новое объявление express
+		public function commentMailAuthor($title, $username, $useremail) 
+		{	
+			 $mail = Mail::findOne(31);
+			 $text = str_replace('{title}', $title, $mail->text);
+		     $text = str_replace('{username}',  $username, $text);
+			 $email_to = $useremail;
+			 $subject = $mail->name;
+			 Yii::$app->functionMail->mailEnd($email_to, $subject, $text);
+		}
+		
 	
 	
 	

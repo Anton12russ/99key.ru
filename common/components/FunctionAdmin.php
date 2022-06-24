@@ -9,12 +9,25 @@ use common\models\Online;
 use common\models\Dispute;
 use common\models\Shop;
 use common\models\Blog;
+use common\models\BlogComment;
+use common\models\ArticleComment;
+use common\models\ShopComment;
 use common\models\Article;
 use common\models\SupportSubject;
 use yii\web\NotFoundHttpException;
 use yii;
 
 class FunctionAdmin extends Component { 	
+//Комменты
+	public function Comments() 
+	{	
+	 $comments = array();
+	 $comments['countBlog'] = BlogComment::find()->Where(['status' => 0])->count();
+	 $comments['countArticle'] = ArticleComment::find()->Where(['status' => 0])->count();
+	 $comments['countShop'] = ShopComment::find()->Where(['status' => 0])->count();
+	 $comments['countAll'] = $comments['countBlog']+$comments['countArticle']+$comments['countShop'];
+     return $comments;
+	}
     //Количество продаж сегодня
     public function CartopToday() 
 	{	

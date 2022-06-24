@@ -8,7 +8,8 @@ use common\models\ArticleCommentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Url;
+use yii\helpers\Html;
 /**
  * ArticlecommentController implements the CRUD actions for ArticleComment model.
  */
@@ -84,17 +85,30 @@ class ArticlecommentController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post())) {
-			if ($model->save()) {
+       $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //Отправляем сообщение о новом комментарии автору
+            if($model->status == 1) {
+                $this->mailAuthor($model);
+            }
                return $this->redirect(['view', 'id' => $model->id]);
-			}
+		
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+
+
+    public function mailAuthor($data) {
+        $url = Url::to(['article/one', 'category'=>$data->article->cats['url'], 'id'=>$data->article->id, 'name'=>Yii::$app->userFunctions->transliteration($data->article->title)]);
+        $url = str_replace('/admin','',$url); 
+        $title = Html::a(\yii\helpers\StringHelper::truncate($data->article->title,25,'...'), $url,['target'=>'_blank', 'data-pjax'=>"0"]); 
+        $username = $data->article->author->username;
+        $useremail = $data->article->author->email;
+        Yii::$app->functionMail->commentMailAuthor($title, $username,  $useremail);
     }
 
     /**

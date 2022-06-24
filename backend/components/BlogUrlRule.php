@@ -18,7 +18,9 @@ class BlogUrlRule extends BaseObject implements UrlRuleInterface
 	        if(!isset($reg['url'])){$reg['url'] = '';}
             return   $reg['url'].'/' .  $params['region'] . '/' .  $params['category'] . '/' . $params['url'].'_'.$params['id'].'.html';
         }
-		
+        if ($route === 'article/one') {	
+            return   '/article/'. $params['category'] . '/' . $params['name'].'_'.$params['id'].'.html';
+        }
 		if ($route === 'shop/one') {	
 	     if(!isset($reg['name'])){$reg['name'] = '';}
          return   '/shop'.$reg['name'].'/' .  $params['region'] . '/' .  $params['category'] . '/' . $params['name'].'_'.$params['id'].'.html';

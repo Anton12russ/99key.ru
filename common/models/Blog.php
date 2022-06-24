@@ -30,6 +30,7 @@ $date = (new \DateTime('now', new \DateTimeZone('Europe/Moscow')))->format('Y-m-
 class Blog extends \yii\db\ActiveRecord
 {
 const STATUS_LIST = ['На модерации','Опубликовано','Удалено'];
+const AUCTION = ['Объявление','Аукцион'];
 const STATUS_ACTIVE = ['Ожидает','Оплачен'];
 public $file;
 public $dir_name;
@@ -108,7 +109,8 @@ public $address;
 			'Active' => 'Активировация',
 			'auk_price' => 'Стоимость резервации',
 			'userreservauthor' => 'Информация продавца',
-			'pricepay' => 'Стоимость выкупа'
+			'pricepay' => 'Стоимость выкупа',
+			'auction' => 'Аукцион',
         ];
     }
 		//Связь с Blog_image на главной во фронте

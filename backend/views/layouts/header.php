@@ -117,6 +117,39 @@ $online = Yii::$app->adminFunctions->Onlinetop();
                         <li class="footer"><?=Html::a('Все пользователи',['/user'])?></li>
                     </ul>
                 </li>
+
+
+                <?$comment = Yii::$app->adminFunctions->Comments();?>
+                <li class="dropdown notifications-menu" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Комментарии на модерации">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                       <span class="label label-success"><?=$comment['countAll'];?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+							
+                                <li>
+                                    <a href="<?=Url::to(['blogcomment/index'])?>">
+                                        К Объявлениям (<?=$comment['countBlog'];?>)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=Url::to(['articlecomment/index'])?>">
+                                        К Статьям (<?=$comment['countArticle'];?>)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="<?=Url::to(['shopcomment/index'])?>">
+                                        К Магазинам (<?=$comment['countShop'];?>)
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <li class="dropdown tasks-menu" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Споры">
                     <a href="<?=Url::to(['dispute/index'])?>">
                         <i class="fa fa-balance-scale" aria-hidden="true"></i>

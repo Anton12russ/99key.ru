@@ -6,6 +6,9 @@
 	color: #337ab7;
 	cursor: pointer;
 }
+#blogexpress-text {
+	resize: vertical;
+}
 .key-class {
     font-size: 20px;
     color: #c60203;

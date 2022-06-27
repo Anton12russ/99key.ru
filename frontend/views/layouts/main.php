@@ -516,7 +516,7 @@ $mobile = check_mobile_device();
 </div>-->
 
 <!--Конец Переводчик-->
-<? if (Yii::$app->controller->action->id == 'search' || Yii::$app->controller->id == 'auction' || Yii::$app->controller->action->id == 'category'){ ?>
+<? if (Yii::$app->controller->action->id == 'search' || Yii::$app->controller->id == 'auction' || Yii::$app->controller->action->id == 'category' || Yii::$app->controller->action->id == 'express'){ ?>
 <!-- Modal -->
 <div class="modal fade" id="myModalmap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

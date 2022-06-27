@@ -23,10 +23,15 @@
 	}
    e.stopPropagation();
    });*/
-	 	 	 
- $("#blogexpress-title").bind("keyup", function() {
-	addcat();
- });
+
+
+	
+   $("#blogexpress-title").bind("keyup", function() {
+    	if($('#blogexpress-category').val() == '') {
+	        addcat();
+	    } 
+   });
+
  }
 
 

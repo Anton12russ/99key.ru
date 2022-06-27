@@ -77,10 +77,13 @@ $controller_id = Yii::$app->controller->id.'/'.Yii::$app->controller->action->id
 					  $rates_val = $res['dop'];
 				    }
 				   }
-	                if ($price_val) { 
+				   if ($price_val) { 
 					echo $price_val/$rates[$rates_val]['value'];
-					}?>  
-					<i class="fa <?=$rates[$rates_val]['text']?>" aria-hidden="true"></i>  
+					echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+					}else{?> 
+						Цена не указана
+					<?}?>   
+					
 	<? if($one->auction != 0) {?>
 		 <?$day = Yii::$app->userFunctions2->auctionday(strtotime($one->date_del)); ?>
 				    <i  data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="

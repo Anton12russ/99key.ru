@@ -12,7 +12,7 @@ $balance = 0;
 <span class="hidden balance_user" data-balance="<?=$balance?>"></span>
 	    <!--Информируем пользователя об успешной регистрации-->
 		<?if(isset($key)) {?>
-		<div class="alert alert-info text-center"> "Если вы хотите изменить публикацию, или продвигать ее, а также пользоваться всеми возможностями портала, зарегистрируйтесь."</div>
+		<div class="alert alert-info text-center"> "Если вы хотите изменить публикацию, или продвигать ее, а также пользоваться всеми возможностями портала, <a class="signuppop" data-toggle="modal" data-target="#myModallogin" href="#">зарегистрируйтесь</a>."</div>
 		<? } ?>
 		<!--Если объявление в платной категории-->
 	    <? if ($price_category) {?> 

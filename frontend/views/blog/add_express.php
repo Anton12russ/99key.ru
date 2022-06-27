@@ -82,7 +82,7 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 	<div id="YMapsIDadd"></div>
 </details>
 <?= $form->field($model, 'phone', ['template' => '{error}{label}{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => Yii::$app->caches->setting()['mask']])->textInput()->label('Телефон <span class="req_val">*</span>');?>
- <br><?=$form->field($model, 'price', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Цена <span class="req_val">*</span>')?><br>
+ <br><?=$form->field($model, 'price', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Цена')?><br>
 
 
 <div class="hr_add"><i class="fa fa-filter" aria-hidden="true"></i> Описание</div>

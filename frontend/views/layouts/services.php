@@ -20,6 +20,7 @@ use yii\helpers\Url;
 	 <div class="serv-block item <? if ($key == 0) {?> active<?}?>">
 		<div class="serv-bo-href"   style="background-image: url(<? if ($one->imageBlogOne['image']) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlogOne->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo.png<? } ?>);   <? if (!$one->imageBlogOne['image']) {?> background-size: 80%;<? } ?> ">
 	    <a class="img_a" href="<?=$url?>"></a>
+		<? if($one->express) {?><div class="express_one">Экспресс</div><?}?>
 	    </div>
     	<h3>
 		<a class="cat-bo-href" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?=Yii::$app->userFunctions->substr_user($one->title, 150)?>" href="<?=$url?>"><?=Yii::$app->userFunctions->substr_user($one->title, 20)?></a></h3>
@@ -34,7 +35,13 @@ use yii\helpers\Url;
 						 
 						}
 					}
-	              echo round($price_val / $blog['rates'][$rates_val]['value'])?>   <i class="fa <?=$blog['rates'][$rates_val]['text']?>" aria-hidden="true"></i>  
+					if ($price_val) { 
+						echo $price_val/$rates[$rates_val]['value'];
+						echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+						}else{?> 
+							Цена не указана
+						<?}?> 
+	             <!--// echo round($price_val / $blog['rates'][$rates_val]['value'])?>   <i class="fa <?=$blog['rates'][$rates_val]['text']?>" aria-hidden="true"></i>-->  
 				 </div>
 				 <?if($one->auction){ ?>
 				 <?$day = Yii::$app->userFunctions2->auctionday(strtotime($one->date_del)); ?>

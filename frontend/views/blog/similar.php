@@ -33,12 +33,12 @@ $this->registerCssFile('/css/main.css', ['depends' => ['frontend\assets\AppAsset
 					  $rates_val = $res['dop'];
 				    }
 				   }
-	                if ($price_val) { 
+				   if ($price_val) { 
 					echo $price_val/$rates[$rates_val]['value'];
-					}?>  
-					<i class="fa <?=$rates[$rates_val]['text']?>" aria-hidden="true"></i>  
-			
-
+					echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+					}else{?> 
+						Цена не указана
+					<?}?> 
 
 			</div> 
 			  <div class="main-bo-cat"><?=Yii::$app->userFunctions->recursFrontCat($one->category)?> | <?=$one->regions['name']?></div>

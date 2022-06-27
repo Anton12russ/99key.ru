@@ -58,13 +58,12 @@ $controller_id = Yii::$app->controller->id.'/'.Yii::$app->controller->action->id
 					  $rates_val = $res['dop'];
 				    }
 				   }
-	                if (isset($price_val)) { 
-					echo number_format($price_val/$rates[$rates_val]['value'], 0, '.', ' ');
-					}?>  
-					
-					<? if (isset($price_val)) { ?>  
-					<i class="fa <?=$rates[$rates_val]['text']?>" aria-hidden="true"></i> 
-                    <? }?> 					
+				     if ($price_val) { 
+				     	echo $price_val/$rates[$rates_val]['value'];
+					    echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+					}else{?> 
+						Цена не указана
+					<?}?> 				
 					
 					
 						<? if($one->auction != 0) {?>

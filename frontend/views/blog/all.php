@@ -78,15 +78,13 @@ $url = Url::to(['blog/one', 'region'=>$one->regions['url'], 'category'=>$one->ca
 					  $rates_val = $res['dop'];
 				    }
 				   }
-	                if (isset($price_val)) { 
-					echo number_format($price_val/$rates[$rates_val]['value'], 0, '.', ' ');
-					}?>  
-					
-					<? if (isset($price_val)) { ?>  
-					<i class="fa <?=$rates[$rates_val]['text']?>" aria-hidden="true"></i> 
-                    <? }?> 
-					
-					
+				   if ($price_val) { 
+					echo $price_val/$rates[$rates_val]['value'];
+					echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+					}else{?> 
+						Цена не указана
+					<?}?> 
+	
 	<? if($one->auction != 0) {?>
 		 <?$day = Yii::$app->userFunctions2->auctionday(strtotime($one->date_del)); ?>
 				    <i  data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="

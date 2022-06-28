@@ -79,13 +79,13 @@ class ExpressUpdate extends Action
 		  if(isset($model2_arr['f_475'])) {
 			$model->phone = $model2_arr['f_475']['value'];
 		   }
-		
+		   if ($model->load(Yii::$app->request->post()) && !$model->validate()) {
+			print_r($model->errors);
+		}
 	
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-		
-		$model->url = Yii::$app->userFunctions->transliteration(Yii::$app->request->post('Blog')['title']);
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+		$model->url = Yii::$app->userFunctions->transliteration($model->title);
 		if ($model->dir_name) {$dir_name = $model->id;}
 
 		//Модерация объявления
@@ -93,9 +93,6 @@ class ExpressUpdate extends Action
 			$model->status_id = 1;	
 		}else{
 			$model->status_id = 0;
-		}
-		if($registr_success === true) {
-			$model->status_id = 2;
 		}
 		
 		$model->status_id = 0;	
@@ -111,18 +108,11 @@ class ExpressUpdate extends Action
 		
 		//передаем эту переменную в шаблон, чтобы вывести сообщение с успешным размещением
 		$save['status'] = $model->status_id;
-		
-		//Не забыть передать в шаблон уведоиление об оплате
-		$model->user_id = $user_id;
-		
-		
-		
-		
-        $model->date_add =  date('Y-m-d H:i:s');
+
+        $model->date_update =  date('Y-m-d H:i:s');
 	
 		$model->date_del =  date('Y-m-d H:i:s', strtotime(' + '.Yii::$app->caches->setting()['express_add'].' day'));
 
-		$model->user_id = 1;
 		//Сохраняем статичные поля, проверка внутри скрыта, чтобы не проверять повторно пользователя
        
 
@@ -132,8 +122,8 @@ class ExpressUpdate extends Action
 			$model->active = $model->active_false;
 		}
 
-		$model->save(false);
-		
+		$model->update(false);
+		BlogField::deleteAll('message = :message', [':message' => $model->id]);	
 //цена
 if(!$model->price) {
 	$model->price = '0';

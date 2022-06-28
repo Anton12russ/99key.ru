@@ -61,6 +61,8 @@ class ExpressAdd extends Action
 		if(!$model->phone && Yii::$app->user->identity->phone) {
 			$model->phone = Yii::$app->user->identity->phone;
 		}
+
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
 		if ($model->dir_name) {$dir_name = $model->dir_name;}

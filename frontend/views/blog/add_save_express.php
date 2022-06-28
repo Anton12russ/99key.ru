@@ -11,7 +11,7 @@ $balance = 0;
 
 <span class="hidden balance_user" data-balance="<?=$balance?>"></span>
 	    <!--Информируем пользователя об успешной регистрации-->
-		<?if(isset($key)) {?>
+		<?if(isset($key) && !Yii::$app->user->id) {?>
 		<div class="alert alert-info text-center"> "Если вы хотите изменить публикацию, или продвигать ее, а также пользоваться всеми возможностями портала, <a class="signuppop" data-toggle="modal" data-target="#myModallogin" href="#">зарегистрируйтесь</a>."</div>
 		<? } ?>
 		<!--Если объявление в платной категории-->
@@ -31,7 +31,7 @@ $balance = 0;
           <? if ($price_category['sum'] > $balance || Yii::$app->user->isGuest) { ?>
 		  <!--Показывать это условие, если это не гость-->
 		  <? if (!Yii::$app->user->isGuest) { ?>
-		  <div class="alert alert-danger err-balance display-block">Недостаточно средств на балансе (<? echo $price_category['sum']-$balance?> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i>), оплатить удобным способом?</div>
+		     <div class="alert alert-danger err-balance display-block">Недостаточно средств на балансе (<? echo $price_category['sum']-$balance?> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i>), оплатить удобным способом?</div>
 		  <? } ?>	
 	
 		  <div class="body-logo-pay center display-block">

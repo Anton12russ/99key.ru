@@ -92,10 +92,11 @@ if ($this->category) {
 }
         if (!isset($category)) {$category = '';}
 		if (!isset($region)) {$region = '';}
-        if($express === true) {
-            $query->andFilterWhere(['express' => '1']);
+   
+        if($express == 'true') {
+            $query->Where(['express' => '1']);
         }else{
-            $query->andFilterWhere(['!=', 'express', '1']);
+            $query->Where(['express' => NULL]);
         }
         $query->andFilterWhere([
             'blog.id' => $this->id,

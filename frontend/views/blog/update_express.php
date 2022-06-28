@@ -23,7 +23,7 @@ $this->registerJsFile('/coord/location-tool.js',['depends' => [\yii\web\JqueryAs
 $this->registerJsFile('/coord/yamaps.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $shopfield = Yii::$app->userFunctions3->blogShop(Yii::$app->user->id);
-
+$model->text = strip_tags($model->title);
 ?>
 <?
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
@@ -34,6 +34,8 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
   }else{
 	$catin = false;
   }
+
+
 ?>
 
 
@@ -51,9 +53,9 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <? if (!$save) {?>
 <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data', 'data-pjax' => true,], 'enableClientValidation' => false,]);?>
 <?= $form->field($model, 'dir_name')->hiddenInput(['value'=> $dir_name])->label(false);?>
-<? if(!Yii::$app->user->id &&  Yii::$app->user->id != '1' && !Yii::$app->user->can('updateBoard')){?>
-<?= $form->field($model, 'key', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Секретный Ключ <span class="req_val">*</span>')?>
-<br>
+<? if($model->check()){?>
+  <?= $form->field($model, 'key', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Секретный Ключ <span class="req_val">*</span>')?>
+  <br>
 <? } ?>
 <!--Поля объявления-->
 <div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
@@ -83,7 +85,7 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 	<div id="YMapsIDadd"></div>
 </details>
 <?= $form->field($model, 'phone', ['template' => '{error}{label}{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => Yii::$app->caches->setting()['mask']])->textInput()->label('Телефон <span class="req_val">*</span>');?>
- <br><?=$form->field($model, 'price', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Цена <span class="req_val">*</span>')?><br>
+ <br><?=$form->field($model, 'price', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Цена')?><br>
 
 
 <div class="hr_add"><i class="fa fa-filter" aria-hidden="true"></i> Описание</div>

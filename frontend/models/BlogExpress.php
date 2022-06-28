@@ -70,7 +70,7 @@ public $auk_price;
 public $userreservauthor;
 public $pricepay;
 public $key;
-
+public $check;
     public static function tableName()
     {
         return 'blog';
@@ -104,13 +104,22 @@ if (Yii::$app->caches->setting()['capcha'] == 2) {
 if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
   $capcha = [['reCaptcha'], 'default', 'value'=> 1];
 }
-		    
-		
-if(Yii::$app->controller->action->id == 'expressupdate' && !Yii::$app->user->id &&  Yii::$app->user->id != '1' && !Yii::$app->user->can('updateBoard')) {
-   $required = [['title', 'region', 'address', 'phone',  'key'], 'required'];
+
+
+
+
+$check = $this->check();
+if($check) {
+	$required =  [['title', 'region', 'address', 'phone', 'reCaptcha', 'key'], 'required'];
 }else{
-   $required =  [['title', 'region', 'address', 'phone'], 'required'];
+	$required =  [['title', 'region', 'address', 'phone'], 'required'];
 }
+
+
+if(Yii::$app->controller->action->id == 'expressupdate') {
+	$capcha = [['reCaptcha'], 'default', 'value'=> 1]; 
+ }
+ 
 	if ($this->id) {$date_update = date('Y-m-d H:i:s');}else{$date_update = '';};
         return [	
 		    $capcha,
@@ -133,8 +142,28 @@ if(Yii::$app->controller->action->id == 'expressupdate' && !Yii::$app->user->id 
         ];
     }
 	
+	public function check() {
+		//Задае проверку по умолчанию
+		$check = true;
 
+	  //Если id пользователя совпадает с id объявления
+		 if(Yii::$app->user->id == $this->user_id) {
+			$check = false;
+		 }else{
+			$check = true;
+		 }
 
+	  //Если это модератлор
+		if(Yii::$app->user->can('updateBoard')) {
+			$check = false;
+		}else{
+			$check = true;
+		}
+
+	
+		 return $check;
+	
+	}
 	public function validateKey($attribute, $params, $validator)
     {
 		if (!$time = BlogKey::find()->where(['key' => $this->$attribute])->one()) {	

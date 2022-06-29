@@ -68,33 +68,9 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	 
-		   
-	   
 	   
 <?php Pjax::begin([ 'id' => 'pjaxContent']); ?>
-
-
   		<?php if (!isset($model2)) {$model2 = '';}?>
-
-
-
 
 <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data', 'data-pjax' => true,], 'enableClientValidation' => false,]);?>
    <div class="mini-filter col-md-12">
@@ -160,7 +136,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 			<? } ?>
 	  
 	    <div class="all_img <? if (isset($this->blocks['right'])){?>col-md-3  col-sm-4<? }else{ ?>col-md-3  col-sm-3<? } ?> col-xs-4" style="background-image: url(<? if (isset($one->imageBlog[0]['image'])) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlog[0]->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo_all.png<? } ?>);">
-	
+		<? if($one->express) {?><div class="express_one">Экспресс</div><?}?>
 		</div>
 	    <div class="all_body  <? if ($this->blocks['right']){?>col-md-9 col-sm-8<? }else{ ?>col-md-9 col-sm-9<? } ?> col-xs-8">
 

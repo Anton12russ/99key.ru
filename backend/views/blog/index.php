@@ -10,8 +10,10 @@ use common\models\Blog;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 if(Yii::$app->controller->action->id == 'express') {
 $this->title = 'Экспресс объявления';
+$auction_visible = false;
 }else{
   $this->title = 'Объявления';
+  $auction_visible = true;
 }
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -63,7 +65,9 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 			   }
 			],*/
 
-     ['attribute'=>'auction', 'filter'=>Blog::AUCTION,
+     ['attribute'=>'auction',
+     'visible' => $auction_visible,
+     'format'=>'raw', 'filter'=>Blog::AUCTION,
      'value'=> function ($model) {
         if($model->auction > 0) {
             return '<span><i class="fa fa-gavel" aria-hidden="true"></i></span><br>'; 
@@ -72,6 +76,7 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
          }
         },
         ],
+
 			['attribute'=>'title', 'format'=>'raw',
 			   'value'=> function ($model) {
 			   if($model['services']) {$style = 'style="color: red;"';}else{$style = '';}

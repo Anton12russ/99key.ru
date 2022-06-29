@@ -104,9 +104,15 @@ if ($this->category) {
 			'category' => $category,
 			'region' => $region,
 			'active' => $this->active,
-            'auction' => $this->auction,
+            
         ]);
-
+        if($this->auction == 1) {
+              $query->andFilterWhere(['>=','auction','1']);
+        }else{
+            $query->andFilterWhere([
+                'auction' => $this->auction,
+         ]);
+        }
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'text', $this->text])
 			->andFilterWhere(['like', 'user.email', $this->author])

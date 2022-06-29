@@ -23,7 +23,7 @@ $this->registerJsFile('/coord/location-tool.js',['depends' => [\yii\web\JqueryAs
 $this->registerJsFile('/coord/yamaps.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $shopfield = Yii::$app->userFunctions3->blogShop(Yii::$app->user->id);
-$model->text = strip_tags($model->title);
+$model->text = strip_tags($model->text);
 ?>
 <?
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');

@@ -64,7 +64,8 @@ class ExpressAdd extends Action
 
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+			
+		$model->url = Yii::$app->userFunctions->transliteration($model->title);
 		if ($model->dir_name) {$dir_name = $model->dir_name;}
 
 		//Модерация объявления

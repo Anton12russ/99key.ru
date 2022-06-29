@@ -109,8 +109,14 @@ if (!isset($capcha) || Yii::$app->user->can('updateBoard')) {
 
 
 $check = $this->check();
+
 if($check) {
-	$required =  [['title', 'region', 'address', 'phone', 'reCaptcha', 'key'], 'required'];
+	//Если это страница update
+	if(Yii::$app->controller->action->id == 'expressupdate') {
+	    $required =  [['title', 'region', 'address', 'phone', 'reCaptcha', 'key'], 'required'];
+	}else{
+		$required =  [['title', 'region', 'address', 'phone', 'reCaptcha'], 'required'];
+	}
 }else{
 	$required =  [['title', 'region', 'address', 'phone'], 'required'];
 }
@@ -144,20 +150,13 @@ if(Yii::$app->controller->action->id == 'expressupdate') {
 	
 	public function check() {
 		//Задае проверку по умолчанию
-		$check = true;
 
-	  //Если id пользователя совпадает с id объявления
-		 if(Yii::$app->user->id == $this->user_id) {
+		if(Yii::$app->user->id && Yii::$app->user->id == $this->user_id) {
 			$check = false;
-		 }else{
-			$check = true;
-		 }
-
-	  //Если это модератлор
-		if(Yii::$app->user->can('updateBoard')) {
+		}elseif(Yii::$app->user->can('updateBoard')){
 			$check = false;
 		}else{
-			$check = true;
+			$check = true; 
 		}
 
 	

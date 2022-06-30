@@ -491,7 +491,7 @@ class BlogAdd extends Action
     }
 	
 	
-	   protected function findMod($cat, $reg)
+	protected function findMod($cat, $reg)
     {
 		$reg = Yii::$app->userFunctions->catparent($reg, 'reg');
 		$cat = Yii::$app->userFunctions->catparent($cat, 'cat');

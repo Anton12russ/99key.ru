@@ -160,7 +160,7 @@ echo  \kartik\file\FileInput::widget([
 </div>
 </div>
 </div>
-
+<? if(!Yii::$app->user->id) {?>
 <? if (Yii::$app->caches->setting()['capcha'] == 1) { ?>
 
 <div class="capcha">
@@ -172,6 +172,7 @@ echo  \kartik\file\FileInput::widget([
    <?= $form->field($model, 'reCaptcha')->widget(\himiklab\yii2\recaptcha\ReCaptcha3::className(),['siteKey' => preg_replace('/\s+/', '',explode("\n",Yii::$app->caches->setting()['recapcha3'])[0]),'action' => 'blog/add'])->label(false) ?>
 <? } ?>
 <br>
+<? } ?>
 <div class="form-group upcr">
     <?= Html::submitButton('Опубликовать', ['class' => 'btn btn-success add-preloader', 'style' => 'width: 100%;height: 50px;background:#f50c0c;']) ?>
 </div>

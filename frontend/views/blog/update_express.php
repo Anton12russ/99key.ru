@@ -21,7 +21,9 @@ $this->registerJsFile('//api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU&ap
 $this->registerJsFile('/coord/cross-control.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/coord/location-tool.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/coord/yamaps.js',['depends' => [\yii\web\JqueryAsset::className()]]);
-
+if(isset($save) && $save) {
+   $save['update'] = true;
+}
 $shopfield = Yii::$app->userFunctions3->blogShop(Yii::$app->user->id);
 $model->text = strip_tags($model->text);
 ?>

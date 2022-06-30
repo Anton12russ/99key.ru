@@ -122,7 +122,7 @@ if($check) {
 }
 
 
-if(Yii::$app->controller->action->id == 'expressupdate') {
+if(Yii::$app->controller->action->id == 'expressupdate' || Yii::$app->user->id) {
 	$capcha = [['reCaptcha'], 'default', 'value'=> 1]; 
  }
  
@@ -165,7 +165,8 @@ if(Yii::$app->controller->action->id == 'expressupdate') {
 	}
 	public function validateKey($attribute, $params, $validator)
     {
-		if (!$time = BlogKey::find()->where(['key' => $this->$attribute])->one()) {	
+		if (!$time = BlogKey::find()->where(['key' => $this->$attribute])
+		    ->andWhere(['blog_id' => $this->id])->one()) {	
 			$this->addError('key', 'Неверное значение');
 		  }		
 	}

@@ -264,7 +264,7 @@ $mobile = check_mobile_device();
 <div class="col-md-3 dropdown droptuggol">
    <a class="add-board" data-toggle="dropdown" data-target="#" href="#">+ Подать Объявление</a>
   <ul class="dropdown-menu add-board-drop" role="menu" aria-labelledby="dLabel">
-  <li><a href="<?=Url::to(['blog/addauction'])?>">Добавить аукцион</a></li>
+          <li><a href="<?=Url::to(['blog/addauction'])?>">Добавить аукцион</a></li>
 		  <li><a href="<?=Url::to(['blog/expressadd'])?>">Добавить экспресс объявление</a></li>
 		  <li><a href="<?=Url::to(['blog/add'])?>">Добавить расширенное объявление</a></li>
 		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
@@ -272,6 +272,7 @@ $mobile = check_mobile_device();
 		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>
 		  <?}?>
 		  <li><a href="<?=Url::to(['passanger/add'])?>"> Искать попутку / попутчика</a></li>
+		  <li><a href="<?=Url::to(['article/add'])?>"> Написать статью</a></li>
   </ul>
 </div>
 <? }else{?>

@@ -135,7 +135,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 			   
 			<? } ?>
 	  
-	    <div class="all_img <? if (isset($this->blocks['right'])){?>col-md-3  col-sm-4<? }else{ ?>col-md-3  col-sm-3<? } ?> col-xs-4" style="background-image: url(<? if (isset($one->imageBlog[0]['image'])) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlog[0]->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo_all.png<? } ?>);">
+	    <div class="all_img <? if (isset($this->blocks['right'])){?>col-md-3  col-sm-4<? }else{ ?>col-md-3  col-sm-3<? } ?> col-xs-4" style="height: 180px; background-image: url(<? if (isset($one->imageBlog[0]['image'])) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlog[0]->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo_all.png<? } ?>);">
 		<? if($one->express) {?><div class="express_one">Экспресс</div><?}?>
 		</div>
 	    <div class="all_body  <? if ($this->blocks['right']){?>col-md-9 col-sm-8<? }else{ ?>col-md-9 col-sm-9<? } ?> col-xs-8">
@@ -165,10 +165,10 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 		   
 		   
 		   
-<? if(isset($shop)) {?> 	   
-           <div class="colvo" <? if($one->count == '' && $one->count != '0') {echo 'style="background:  #B5B8B1;"';}?>  <? if($one->count < 5 && $one->count != '0' ) {echo 'style="background:  #f9752a;"';}?>  <? if($one->count >=5) {echo 'style="background: #5cb85c;"';}?> <? if($one->count == '0') {echo 'style="background: #ff0000;"';}?>>остаток <span class="span-colvo con-<?=$one->id?>"> (<?=$one->count?><? if($one->count == '' && $one->count != '0') {echo ' не указан ';}?>) </span><span class="input-colvo"><input style="min-width: 80px; max-width: 50px;" type="number" data-max="25" data-price="7" data-id="<?=$one->id?>" value="<?=$one->count?>" class="form-control count-input" name="Blog[count]" placeholder="99"></span>	 шт.
-<? } ?> 			  	  
-		  </div>
+<? if(isset($shop) && !$one->express) {?> 	   
+          <div class="colvo" <? if($one->count == '' && $one->count != '0') {echo 'style="background:  #B5B8B1;"';}?>  <? if($one->count < 5 && $one->count != '0' ) {echo 'style="background:  #f9752a;"';}?>  <? if($one->count >=5) {echo 'style="background: #5cb85c;"';}?> <? if($one->count == '0') {echo 'style="background: #ff0000;"';}?>>остаток <span class="span-colvo con-<?=$one->id?>"> (<?=$one->count?><? if($one->count == '' && $one->count != '0') {echo ' не указан ';}?>) </span><span class="input-colvo"><input style="min-width: 80px; max-width: 50px;" type="number" data-max="25" data-price="7" data-id="<?=$one->id?>" value="<?=$one->count?>" class="form-control count-input" name="Blog[count]" placeholder="99"></span>	 шт.</div>
+<? } ?> 
+
            <div class="all-bo-cat hidden-xs"><?= $one->regions['name']?> <br>
 		   <?=Yii::$app->userFunctions->recursFrontCat($one->category)?>
 		   
@@ -196,10 +196,12 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 	 <? $day_serv =  round((strtotime ($one->date_del)-strtotime (date('Y-m-d H:i:s')))/(60*60*24));?>
 	 <? if (Yii::$app->request->get('sort') == '') {?> 
 	 <? if ($day_serv > 0 && !$turbo) {?>
-	 
+
 	    <!--Предложение платных услуг-->
 	    <details>
-	        <summary>Платные услуги для продвижения <i class="fa-regular fa-rocket-launch fa-spin" style="--fa-animation-duration: 15s; --fa-animation-timing: ease-in-out;""></i></summary>
+	        <summary>Платные услуги для продвижения 
+				<i class="fa-regular fa-rocket-launch fa-spin" style="--fa-animation-duration: 15s; --fa-animation-timing: ease-in-out;""></i>
+			</summary>
 	    <div class="col-md-12 services">
 		<div class="row">
 		

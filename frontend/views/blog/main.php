@@ -80,7 +80,7 @@ $filtr = Yii::$app->request->cookies['filtr'];
 				   }
 	                if ($price_val) { 
 					echo $price_val/$rates[$rates_val]['value'];
-					echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+					echo ' <i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
 					}else{?> 
 						Цена не указана
 					<?}?>  

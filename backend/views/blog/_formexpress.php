@@ -80,25 +80,8 @@ echo  $form->field($model, 'dir_name')->textInput(['type' => 'hidden' , 'value'=
 
 <?php Pjax::end(); ?>
 <?php if (isset($_POST['Pjax_category'])) {exit(); };?>
-<?= $form->field($model, 'text')->widget(Widget::className(), [
-    'settings' => [
-        'lang' => 'ru',
-        'minHeight' => 200,
-		'formatting' => [
-		'h1','h2','p','blockquote'
-		],
-        'plugins' => [
-            'clips',
-            'fullscreen',
-        ],
-		'imageUpload' => \yii\helpers\Url::to(['/site/save-redactor-img','sub'=>'blog']),
-        'clips' => [
-            ['Красный', '<span class="label-red">Здесь вставить текст</span>'],
-            ['Зеленый', '<span class="label-green">Здесь вставить текст</span>'],
-            ['Голубой', '<span class="label-blue">Здесь вставить текст</span>'],
-        ],
-    ],
-])->label('Текст')?>
+<?= $form->field($model, 'text', ['template' => '{error}{label}{input}'])->textarea(['rows' => 6])->label(false)?>
+
 <div class="row">
 <div class="col-md-12">
 

@@ -79,9 +79,6 @@ class ExpressUpdate extends Action
 		  if(isset($model2_arr['f_475'])) {
 			$model->phone = $model2_arr['f_475']['value'];
 		   }
-		   if ($model->load(Yii::$app->request->post()) && !$model->validate()) {
-			print_r($model->errors);
-		}
 	
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
@@ -264,7 +261,21 @@ $filphone->save();
 		$save['date_del'] = Yii::$app->caches->setting()['express_add'];
 		$save['status'] = 1; */
 		// ----------------------------------------------------------//
-	
+		 //Если выбран регион, добавляем к нему склонение
+     	if (Yii::$app->request->cookies['region']) {
+			$regionid = (string)Yii::$app->request->cookies['region'];
+			$region_sklo = ' в ' .Yii::$app->caches->regionCase()[$regionid]['name'];
+			$region_key =   ', '.Yii::$app->caches->region()[$regionid]['name'];
+		 }else{
+			 $region_sklo = '';
+			 $region_key = '';
+		 }
+		 
+	  $meta['title'] = 'Редактировать экспресс объявление'.$region_sklo;
+	  $meta['h1'] = $meta['title'];
+	  $meta['keywords'] = 'редактировать, экспресс, объявление'.$region_key;
+	  $meta['description'] = 'Редактировать экспресс объявление'. $region_sklo;
+	  $meta['breadcrumbs'] = 'Редактировать экспресс объявление';
          return $this->controller->render('update_express', [
             'model' => $model,
 			'print' => $print,

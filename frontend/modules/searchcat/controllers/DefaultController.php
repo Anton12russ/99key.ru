@@ -2,6 +2,7 @@
 
 namespace frontend\modules\searchcat\controllers;
 use frontend\models\Blog;
+use common\models\CatServices;
 use yii\web\Controller;
 use yii;
 /**
@@ -29,13 +30,13 @@ class DefaultController extends Controller
 			  $regions = explode(', ',$blog['coordtext']);
 			  foreach($regions as $reg) {
 		        if (strpos(mb_strtolower (trim($reg)), mb_strtolower ($text)) !== false) {
-			       $blogi[] = array('title' => $reg, 'category' => $blog['category']);
+			       $blogi[] = array('title' => $reg, 'category' => $blog['category'], 'plat' => $this->platnaya($blog['category']));
 				   $act = true;
 			    }
 			  }
 
 			   if(!isset($act)) {
-			      $blogi[] = array( 'category' => $blog['category']);
+			      $blogi[] = array( 'category' => $blog['category'], 'plat' => $this->platnaya($blog['category']));
 		       }
 			 }
 		
@@ -43,8 +44,25 @@ class DefaultController extends Controller
 	       $blogi =  array_unique($blogi, SORT_REGULAR);
 	       return $this->render('index', compact('blogi', 'region', 'text'));
 		}
+
 		 
     }
+
+
+
+	protected function platnaya($cat, $reg = '1')
+    {
 	
-	
+		$reg = Yii::$app->userFunctions->catparent($reg, 'reg');
+		$cat = Yii::$app->userFunctions->catparent($cat, 'cat');
+		
+		$return = CatServices::find()->Where(['cat' => $cat])->asArray()->all();
+		foreach ($return as $res) {
+           if (in_array($res['reg'], $reg)) {
+			   //$ret = $res['price'];
+			   return true;
+		   }
+		}		
+	    return false;
+    }
 }

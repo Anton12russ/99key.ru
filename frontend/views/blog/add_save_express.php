@@ -49,8 +49,12 @@ $balance = 0;
 
 	    <? }else{ ?>
 		 <!--Если объявление не платное-->
+		 <div class="save" style="padding: 0;">
 		 <?if(isset($key)) {?>
-		   <div class="save" style="padding: 0;"><div class="alert alert-success text-center">Объявление успешно добавлено!<?if($key) {?><br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.<? } ?></div>
+		   <div class="alert alert-success text-center">Объявление успешно добавлено!<?if($key) {?><br>Запомните код <span class="key-class"><?=$key?></span> чтобы вы в дальнейшем смогли его отредактировать.<? } ?></div>
+		 <? } ?>
+		 <?if(isset($save['update']) && $save['update']) {?>
+		      <div class="alert alert-success text-center">Объявление успешно отредактировано, после модерации оно будет опубликовано.</div>
 		 <? } ?>
 		   <!--<br>
 		    <a class="btn btn-success" href="https://1tu.ru/user/blogs"><i class="fa fa-list-alt" aria-hidden="true"></i> Мой товар</a>

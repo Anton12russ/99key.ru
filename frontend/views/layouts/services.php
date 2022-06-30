@@ -36,8 +36,8 @@ use yii\helpers\Url;
 						}
 					}
 					if ($price_val) { 
-						echo $price_val/$rates[$rates_val]['value'];
-						echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+						echo $price_val;
+						echo ' <i class="fa fa-rub" aria-hidden="true"></i>';  
 						}else{?> 
 							Цена не указана
 						<?}?> 

@@ -62,8 +62,12 @@ function addcat() {
  function clickcat() {
     $('.ul-click-cat').click(function() {
 		$(".searchcat-ajax").remove();
-		$('.field-blogexpress-title').append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
-        $('#blogexpress-category').val($(this).attr('data-id'));
+        if(!$(this).attr('data-plat')) {
+		  $('.field-blogexpress-title').append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
+		  $('#blogexpress-category').val($(this).attr('data-id'));
+	    }else{
+          alert("Категория платная, вы можете подать экспресс объявление в платную категорию только после авторизации.");
+		}
 		catok();
 	});
  }

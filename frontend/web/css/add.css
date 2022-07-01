@@ -683,3 +683,30 @@ summary:hover {
 		left: 0px;
 	}
 	}
+
+	.searchcat-ajax ul {
+		display: block;
+		float: right;
+		width: 70%;
+		border-radius: 3px;
+		padding-right: 10px;
+		overflow: auto;
+		max-height: 150px;
+		width: 100%;
+	}
+	
+	.searchcat-ajax ul::-webkit-scrollbar {
+	  width: 10px;
+	  background-color: #f9f9fd;
+	}
+	
+	.searchcat-ajax ul::-webkit-scrollbar-thumb {
+	  border-radius: 10px;
+	  background-color: #18aaaa;
+	}
+	
+	.searchcat-ajax ul::-webkit-scrollbar-track {
+	  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+	  border-radius: 10px;
+	  background-color: #f9f9fd;
+	}

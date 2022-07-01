@@ -3,6 +3,7 @@
 namespace frontend\modules\searchcat\controllers;
 use frontend\models\Blog;
 use common\models\CatServices;
+use common\models\Category;
 use yii\web\Controller;
 use yii;
 /**
@@ -17,29 +18,32 @@ class DefaultController extends Controller
     public function actionIndex($text, $region = false)
     {		
 		if($text) {
-         $sql = Blog::find()->select(['blog.title', 'blog.category'])->Where([ 'active' => 1, 'status_id' => 1]);
+         $sql = Blog::find()->select(['blog.title', 'blog.category']);
 		 $sql->andFilterWhere(['like', 'title', $text]);
 		 $sql->andWhere(['>=', 'category', '0']);
 		 $blogs = $sql->orderBy('id ASC')->Limit(10)->asArray()->all();
 
 
+		 $blogi = [];
 
+
+         $cats = Category::find()->select(['name', 'id']);
+		 $cats->andFilterWhere(['like', 'name', $text]);
+		 $category =$cats->orderBy('id ASC')->Limit(3)->asArray()->all();
    
-		  $blogi = [];
+		 foreach($category as $cat) {
+			$blogi[] = array('category' => $cat['id'], 
+			'day'=>Yii::$app->caches->setting()['express_add'], 
+			'plat' => $this->platnaya($cat['id']), 
+			'user_id' => Yii::$app->user->id);
+	     }
 		  foreach($blogs as $blog) {
-			  $regions = explode(', ',$blog['coordtext']);
-			  foreach($regions as $reg) {
-		        if (strpos(mb_strtolower (trim($reg)), mb_strtolower ($text)) !== false) {
-			       $blogi[] = array('title' => $reg, 'category' => $blog['category'], 'plat' => $this->platnaya($blog['category']));
-				   $act = true;
-			    }
-			  }
-
-			   if(!isset($act)) {
-			      $blogi[] = array( 'category' => $blog['category'], 'plat' => $this->platnaya($blog['category']));
-		       }
+			      $blogi[] = array( 'category' => $blog['category'], 
+				  'day'=>Yii::$app->caches->setting()['express_add'], 
+				  'plat' => $this->platnaya($blog['category']), 
+				  'user_id' => Yii::$app->user->id);
 			 }
-		
+
 
 	       $blogi =  array_unique($blogi, SORT_REGULAR);
 	       return $this->render('index', compact('blogi', 'region', 'text'));
@@ -60,7 +64,7 @@ class DefaultController extends Controller
 		foreach ($return as $res) {
            if (in_array($res['reg'], $reg)) {
 			   //$ret = $res['price'];
-			   return true;
+			   return $res['price']*Yii::$app->caches->setting()['express_add'];
 		   }
 		}		
 	    return false;

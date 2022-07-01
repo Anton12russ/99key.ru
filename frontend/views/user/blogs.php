@@ -165,7 +165,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
 		   
 		   
 		   
-<? if(isset($shop) && !$one->express) {?> 	   
+<? if($shop && !$one->express) {?> 	   
           <div class="colvo" <? if($one->count == '' && $one->count != '0') {echo 'style="background:  #B5B8B1;"';}?>  <? if($one->count < 5 && $one->count != '0' ) {echo 'style="background:  #f9752a;"';}?>  <? if($one->count >=5) {echo 'style="background: #5cb85c;"';}?> <? if($one->count == '0') {echo 'style="background: #ff0000;"';}?>>остаток <span class="span-colvo con-<?=$one->id?>"> (<?=$one->count?><? if($one->count == '' && $one->count != '0') {echo ' не указан ';}?>) </span><span class="input-colvo"><input style="min-width: 80px; max-width: 50px;" type="number" data-max="25" data-price="7" data-id="<?=$one->id?>" value="<?=$one->count?>" class="form-control count-input" name="Blog[count]" placeholder="99"></span>	 шт.</div>
 <? } ?> 
 

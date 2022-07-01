@@ -44,7 +44,9 @@ function addcat() {
 		dataType: "html", //формат данных
 		data: {text:text},
 		success: function(response) { //Данные отправлены успешно
-			 $(".searchcat-ajax").remove();
+			if(response) {
+			   $(".searchcat-ajax").remove();
+			}
 			 $(".catok").remove();
 			 if(response) {
 			    $(".field-blogexpress-title").append('<div class="searchcat-ajax">'+response+'</div>');
@@ -62,12 +64,25 @@ function addcat() {
  function clickcat() {
     $('.ul-click-cat').click(function() {
 		$(".searchcat-ajax").remove();
+
+	if(!$(this).attr('data-user')) {
         if(!$(this).attr('data-plat')) {
 		  $('.field-blogexpress-title').append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
 		  $('#blogexpress-category').val($(this).attr('data-id'));
 	    }else{
           alert("Категория платная, вы можете подать экспресс объявление в платную категорию только после авторизации.");
 		}
+	}else{
+		if(!$(this).attr('data-plat')) {
+			$('.field-blogexpress-title').append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
+			$('#blogexpress-category').val($(this).attr('data-id'));
+		  }else{
+			alert("Категория платная, стоимость "+$(this).attr('data-plat')+'р. за '+$(this).attr('data-plat')+' дней.');
+			$('.field-blogexpress-title').append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
+			$('#blogexpress-category').val($(this).attr('data-id'));  
+		}
+	}
+
 		catok();
 	});
  }

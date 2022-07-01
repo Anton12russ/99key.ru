@@ -7,8 +7,8 @@ use yii\helpers\Html;
 	<div class="h2-cat">Укажите подходящую категорию</div>
 <ul>
   <?php foreach($blogi as $blog) {?>
-	  <li class="ul-click-cat" data-plat="<?=$blog['plat']?>" data-id="<?=$blog['category']?>" style="float: left; width: 100%;">
-    <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span <?if($blog['plat']) {?>style="opacity: 0.5;"<?}?> class="catspan"><?=Yii::$app->userFunctions2->searchname($blog['category']);?></span> <?if($blog['plat']) {?> <i class="fa fa-rub" aria-hidden="true" style="color: red;"></i><?}?>
+	  <li class="ul-click-cat" data-day="<?=$blog['day']?>"data-user="<?=$blog['user_id']?>" data-user="<?=$blog['user_id']?>" data-plat="<?=$blog['plat']?>" data-id="<?=$blog['category']?>" style="float: left; width: 100%;">
+       <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span <?if($blog['plat']) {?>style="opacity: 0.5;"<?}?> class="catspan"><?=Yii::$app->userFunctions2->searchname($blog['category']);?></span> <?if($blog['plat']) {?> <i class="fa fa-rub" aria-hidden="true" style="color: red;"></i><?}?>
 	  </li> 
   <?php } ?>
 </ul>

@@ -20,7 +20,28 @@ use yii;
 
 class FunctionUser2 extends Component { 	
 
+	public static  $array;
+	
 
+
+
+	public function arrayNulle()
+    {
+		self::$array = array();
+	}
+
+
+	public static function recursive($cat, $cats_id)
+    {	
+    $value = $cat[$cats_id];
+    self::$array[] = $value['id'];
+      if($value['parent'] != 0 && $value['parent'] != "")
+            {
+		      self::recursive($cat, $value['parent']);
+            }
+		
+    return self::$array;
+    }
 
 
 

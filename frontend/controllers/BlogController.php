@@ -893,6 +893,13 @@ public function actions()
 			'expressupdate' => [
                 'class' => 'frontend\actions\ExpressUpdate',
             ],
+
+			'auctionadd' => [
+                'class' => 'frontend\actions\AuctionAdd',
+            ],
+			'auctionupdate' => [
+                'class' => 'frontend\actions\AuctionUpdate',
+            ],
 			
 			'update' => [
                 'class' => 'frontend\actions\BlogUpdate',

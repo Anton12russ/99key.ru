@@ -83,6 +83,8 @@ return [
 		'add'=>'blog/add',
         'expressadd'=>'blog/expressadd',
         'expressupdate'=>'blog/expressupdate',
+        'auctionadd'=>'blog/auctionadd',
+        'auctionupdate'=>'blog/auctionupdate',
 		'del'=>'blog/del',
 		'users'=>'blog/users',
 		'update'=>'blog/update',

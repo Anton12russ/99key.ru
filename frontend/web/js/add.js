@@ -124,7 +124,7 @@ $('.catchang').val('');
 	  $.pjax({
         type       : 'POST',
         container  : '#pjaxFields',
-        data       : {Pjax_category:$('.catchang').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('#blog-region').val()},
+        data       : {Pjax_category:$('.blog-category').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
         push       : true,
         replace    : false,
         timeout    : 10000,
@@ -217,7 +217,7 @@ if ($('.catchang').val()) {
 	  $.pjax({
         type       : 'POST',
         container  : '#pjaxFields',
-        data       : {Pjax_category:$('.catchang').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('#blog-region').val()},
+        data       : {Pjax_category:$('.blog-category').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
         push       : true,
         replace    : false,
         timeout    : 10000,
@@ -408,7 +408,7 @@ function scroll($id) {
 //--------------------------------------------------------//
 function price_category() {
 	if ($(".sum-info").length){
-		  if ($('#blog-region').val()) {
+		  if ($('.region-hidden').val()) {
              $('#blog-date_del').on('change', function () {
 				   var price_category = $('.sum-info').attr('data-sum')*$(this).val();
 		           $('.price_category').text(price_category);
@@ -484,7 +484,7 @@ $('.services').click(function(){
 
 
 function field_block() {
-	if($('.catchang').val() > 0 && $('#blog-region').val()) {
+	if($('.blog-category').val() > 0 && $('.region-hidden').val()) {
         $('.field-none').css('display','block');
 	}else{
         $('.field-none').css('display','none');

@@ -20,7 +20,7 @@ use yii\web\NotFoundHttpException;
 use common\models\Orders;
 use yii\helpers\Url;
 use common\models\AuctionCat;
-class BlogUpdate extends Action
+class AuctionUpdate extends Action
 {
     public function run($id)
     {
@@ -60,9 +60,6 @@ class BlogUpdate extends Action
 			return $this->controller->redirect(['expressupdate', 'id' => $model->id]);
 		}
 
-		if($model->auction >= '1') {
-			return $this->controller->redirect(['auctionupdate', 'id' => $model->id]);
-		}
 		if($model->user_id != Yii::$app->user->id) {	
 		  if(!Yii::$app->user->can('updateOwnPost', ['board' => $model]) && !Yii::$app->user->can('updateBoard')) {
 			 throw new NotFoundHttpException('The requested page does not exist.'); 
@@ -239,7 +236,7 @@ class BlogUpdate extends Action
 			$model->username = Yii::$app->user->identity['username'];
 		}
 		
-	
+
 		 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 		
@@ -636,7 +633,7 @@ class BlogUpdate extends Action
   }
 	 //Получаем все платежные системы и передаем в шаблон
 	    $payment = $this->findPayment();
-         return $this->controller->render('update', [
+         return $this->controller->render('/auction/update', [
 		    'user' => $user,
             'model' => $model,
 			'model2' => $model2,

@@ -9,6 +9,8 @@ use common\models\BlogCoord;
 use common\models\Category;
 use common\models\RegionCase;
 use common\models\Rates;
+use common\models\AuctionCat;
+use common\models\CatServices;
 use frontend\models\BlogComment;
 use yii\helpers\Html;
 
@@ -559,6 +561,7 @@ foreach($query as $res) {
 	  //Страница с регионами
    public function actionCatParent($id, $parent = false)
     { 
+
       if(isset($id)) {
         $idorig = $id;
 	  }else{
@@ -594,11 +597,13 @@ foreach($query as $res) {
 				 $id_one = $id; 
 			 }
 		}
+	
 		return $this->render('catparent', ['array' => $array, 'ids' => $ids, 'id_one' => $id_one, 'idorig' => $idorig]); 
      }
 	 
 
-	
+
+ 
 
 	  //Страница c фильтром
      public function actionFiltr($id = 0)
@@ -668,9 +673,16 @@ foreach($query as $res) {
 				 $img = $res['image'];
 			 }else{
 				 $img = '';
+			 } 
+			 if($_GET['auction']){
+			
+				if($this->catAuction($res['id'])) {
+                     $array[] = array('id' => $res['id'], 'plat'=> $this->platnaya($res['id']), 'name' => $res['name'], 'children' => $child, 'img' => $img);
+				}
+			 }else{
+			    $array[] = array('id' => $res['id'], 'plat'=> $this->platnaya($res['id']), 'name' => $res['name'], 'children' => $child, 'img' => $img);
 			 }
-			  $array[] = array('id' => $res['id'], 'name' => $res['name'], 'children' => $child, 'img' => $img);
-		  }
+			}
 	  }
 
 	if (!isset($array)) {
@@ -690,13 +702,54 @@ foreach($query as $res) {
 			 }else{
 				 $img = '';
 			 }
-		
-			 $array[] = array('id' => $res['id'], 'name' => $res['name'], 'children' => $child, 'img' => $img);
-		  }
+			 
+		    if($_GET['auction']){
+
+				if($this->catAuction($res['id'])) {
+			         $array[] = array('id' => $res['id'], 'name' => $res['name'], 'children' => $child, 'img' => $img);
+					}else{
+						$array_none[]   = array('id' => $res['id'], 'plat'=> $this->platnaya($res['id']), 'name' => $res['name'], 'children' => $child, 'img' => $img);
+					}
+			}else{
+				$array[] = array('id' => $res['id'], 'name' => $res['name'], 'children' => $child, 'img' => $img);
+			}
+			}
 	    }
 	}
-	
-	 
+
+
 		return $array;
+   }
+
+
+   public function catAuction($cat)
+   {
+	
+	   Yii::$app->userFunctions2->arrayNulle();
+		$arr =  Yii::$app->userFunctions2->recursive(Yii::$app->caches->category(), $cat);
+
+		if($arr) {
+		  if($catAuction = AuctionCat::find()->Where(['cat' => $arr])->One()) {
+			  return $catAuction->cat;
+		  }
+	   }
+	   return false;
+   }
+
+
+
+   protected function platnaya($cat, $reg = '1')
+   {
+	   $reg = Yii::$app->userFunctions->catparent($reg, 'reg');
+	   $cat = Yii::$app->userFunctions->catparent($cat, 'cat');
+	   
+	   $return = CatServices::find()->Where(['cat' => $cat])->asArray()->all();
+	   foreach ($return as $res) {
+		  if (in_array($res['reg'], $reg)) {
+			  //$ret = $res['price'];
+			  return $res['price']*Yii::$app->caches->setting()['express_add'];
+		  }
+	   }		
+	   return false;
    }
 }

@@ -53,10 +53,10 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <?= $form->field($model, 'dir_name')->hiddenInput(['value'=> $dir_name])->label(false);?>
 
 <!--Поля объявления-->
-<div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true])->label('Заголовок <span class="req_val">*</span>')?>
+<div class="hr_add cat-st"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
-<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true])->label(false)?>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
 
 
 

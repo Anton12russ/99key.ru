@@ -31,11 +31,11 @@ $model->text = strip_tags($model->text);
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
 $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
         ['depends' => [\yii\web\JqueryAsset::className()]]);
-  if($model->category) {
-	$catin = '<div class="catok">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
-  }else{
-	$catin = false;
-  }
+        if($model->category) {
+          $catin = '<div class="catok">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
+          }else{
+          $catin = false;
+          }
 
 
 ?>
@@ -60,8 +60,8 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
   <br>
 <? } ?>
 <!--Поля объявления-->
-<div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true])->label('Заголовок <span class="req_val">*</span>')?>
+<div class="hr_add cat-st"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
 
 <?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true])->label(false)?>

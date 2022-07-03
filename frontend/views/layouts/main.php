@@ -264,9 +264,9 @@ $mobile = check_mobile_device();
 <div class="col-md-3 dropdown droptuggol">
    <a class="add-board" data-toggle="dropdown" data-target="#" href="#">+ Подать Объявление</a>
   <ul class="dropdown-menu add-board-drop" role="menu" aria-labelledby="dLabel">
-          <li><a href="<?=Url::to(['blog/addauction'])?>">Добавить аукцион</a></li>
-		  <li><a href="<?=Url::to(['blog/expressadd'])?>">Добавить экспресс объявление</a></li>
-		  <li><a href="<?=Url::to(['blog/add'])?>">Добавить расширенное объявление</a></li>
+          <li><a href="<?=Url::to(['/auctionadd'])?>">Добавить аукцион</a></li>
+		  <li><a href="<?=Url::to(['/expressadd'])?>">Добавить экспресс объявление</a></li>
+		  <li><a href="<?=Url::to(['/add'])?>">Добавить расширенное объявление</a></li>
 		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
 		  <?if(!isset($shop)) {?>
 		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>
@@ -283,9 +283,9 @@ $mobile = check_mobile_device();
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <ul class="menu-new">
-		  <li><a href="<?=Url::to(['blog/addauction'])?>">Аукцион</a></li>
-		  <li><a href="<?=Url::to(['blog/expressadd'])?>">Экспресс объявление</a></li>
-		  <li><a href="<?=Url::to(['blog/add'])?>">Расширенное объявление</a></li>
+		  <li><a href="<?=Url::to(['/auctionadd'])?>">Аукцион</a></li>
+		  <li><a href="<?=Url::to(['/expressadd'])?>">Экспресс объявление</a></li>
+		  <li><a href="<?=Url::to(['/add'])?>">Расширенное объявление</a></li>
 		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
 		  <?if(!isset($shop)) {?>
 		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>

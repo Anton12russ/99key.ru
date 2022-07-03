@@ -12,6 +12,10 @@ use yii\helpers\Html;
 	  </li> 
   <?php } ?>
 </ul>
-<div class="catinfo">Если вы не смогли подобрать нужную категорию, продолжите заполнение формы без выбора категории</div>
+  <?if(isset($_GET['modal']) && $_GET['modal'] = 'true'){?>
+       <div style="color: #FFF; width:100%;" class="btn btn-sm btn-success category-click" data-toggle="modal" data-target="#categoryMenu">Выбрат категорию из расширенного списка</div>
+     <? }else{	?>
+       <div class="catinfo">Если вы не смогли подобрать нужную категорию, продолжите заполнение формы без выбора категории</div>
+  <? }	?>
 <?php }	?>
 <?php exit();?>

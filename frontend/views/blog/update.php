@@ -13,6 +13,7 @@ $this->registerMetaTag(['name' => 'keywords','content' => $meta['keywords']]);
 $this->params['breadcrumbs'][] = $meta['breadcrumbs'];
 $this->params['h1'] = $meta['h1'];
 
+$this->registerJsFile('/js/searchcat.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerCssFile('/css/add.css', ['depends' => ['frontend\assets\AppAsset']]);
 $this->registerJsFile('/js/add.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 //Обновление Функция координаты в объявлении
@@ -32,6 +33,13 @@ foreach($rates as $res) {
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
 $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
         ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
+        if($model->category) {
+          $catin = '<div class="category-click" data-toggle="modal" data-target="#categoryMenu">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
+        }else{
+          $catin = false;
+        }
 ?>
 <style>
 .redactor-toolbar {
@@ -47,10 +55,28 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 
 
 
+<!-- Modal -->
+<div class="modal fade" id="categoryMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Выбор категории</h4>
+      </div>
+      <div class="modal-body cat_ajax ">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--Поля объявления-->
-<div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Заголовок <span class="req_val">*</span>')?>
+<div class="hr_add cat-st"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?><br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
 <br>
 <?php if($time) { ?> <?= $form->field($model, 'date_del', ['template' => '{error}{label}{input}'])->dropDownList($time)?><?php } ?><br>
 
@@ -66,10 +92,6 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 	<summary>Посмотреть карту <i class="fa fa-map-location-dot" aria-hidden="true"></i></summary>
 	<div id="YMapsIDadd"></div>
 </details>
-
-<div class="hr_add"><i class="fa fa-sitemap" aria-hidden="true"></i> Категория и дополнительная информация</div>
-<?= $form->field($model, 'category', ['template' => '{error}{label}{input}'])->textInput(['class' => 'catchang','type' => 'hidden'])->label('Категория <span class="req_val">*</span>') ?><br>
-
 
 
 
@@ -112,7 +134,7 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 
 
 <?  if ($res['type'] == 'c') {?>   <!--Сheckbox-->
- <? if ($res['name'] != 'Скидка') {?>
+  <? if ($res['name'] != 'Скидка' && $res['name'] != 'Даром' ) {?>
  <?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($res['values']))->label($res['name'].Yii::$app->userFunctions->req($res['req'])) ?><br>
 <? }?>
 <? }?>
@@ -136,39 +158,16 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <? }?>
 
 
- <?  if ($auk_category) { ?>
- 
-<? if ($res['type'] == 'p') {?>  <!--Price-->
 
-
-
-<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-              <a class="collapseThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                Цена <i class="fa fa-regular fa-money-bills fa-style-custom" aria-hidden="true" style="color: #5cb85c;"></i>
-              </a>
-            </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse <? if(!$model->auction) {?>in<? } ?> ">
-      <div class="panel-body">
-
-  
-  
-   <? if ($res['type'] == 'p') {?>
-   
-  
+<? if ($res['type'] == 'p') {?>
 <? $price = $form->field($model2, 'f_'.$res['id'].'_rates', ['options' => ['tag' => false]], ['template' => '{input}'])->dropDownList(Yii::$app->userFunctions->arrayrates($rates),['class' => 'rates form-control'])->label(false) ?>
-<?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}{input}'.$price])->textInput(['maxlength' => true, 'class' => 'price form-control'])->label(($res['name'].Yii::$app->userFunctions->req($res['req']))) ?><br>
+<?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'class' => 'price form-control'])->label(($res['name'].Yii::$app->userFunctions->req($res['req']))) ?><br>
 <?if(Yii::$app->userFunctions->board_shop() == true) {?>
 <?
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
 $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
         ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
-
-
    <? $disc = $form->field($model, 'discount_text', ['options' => ['tag' => false]], ['template' => '{input}'])->textarea(['maxlength' => true,'type'=>'number', 'placeholder' => 'Описание скидки.       Пример: скидка до 1 мая ',  'class' => 'rates form-control' ,'style'=> 'margin-right: 1%; width: 38%; height: 78px;'])->label(false)?><br>
    <? $datedesc =  $form->field($model, 'discount_date', ['options' => ['tag' => false]], ['template' => '{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '9999-99-99'])->textInput(['placeholder' => 'дата окончания', 'class' => 'form-control datepicker12' ,'style'=> 'width: 100%; margin-top: 10px;'])->label(false);?>
    <?= $form->field($model, 'discount', ['template' => '{error}{label}<div style="
@@ -180,88 +179,18 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <?}?>
 
 
-
-
-
  <!--Блок со скидкой-->
 <? foreach($model_view as $ress) {?> 
  <?  if ($ress['type'] == 'c') {?>   <!--Сheckbox-->
- <? if ($ress['name'] == 'Скидка') {?>
-    <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
-<? }?>
-<? }?>
-<? }?>
-  <? } ?> 
-
-
-
-      </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-              <a class="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                 Аукцион <i class="fa fa-gavel" aria-hidden="true" style="color: #5cb85c;"></i>
-              </a>
-            </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse <? if($model->auction) {?>in<? } ?> 
-	">
-      <div class="panel-body">
-      <?=$form->field($model, 'auk_shag', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'placeholder' => 'Шаг - поднимает цену'])->label('Шаг торга <span class="req_val">*</span>')?><br>
-	  <?= $form->field($model, 'auk_price_add', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'placeholder' => 'Цена начала торгов'])->label('Начальная цена <span class="req_val">*</span>')?><br>
-	  <?= $form->field($model, 'auk_time', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => 1, 'placeholder' => 'Макс. 9 суток', 'title' => 'Переопределяет параметр "Срок публикации"'])->label('Количество дней <span class="req_val">*</span>')?><br>
-      <?= $form->field($model, 'auk_price_moment', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'placeholder' => 'Цена моментальной продажи'])->label('Цена моментальной продажи')?><br>
-	  <?=$form->field($model, 'auk_rates', ['options' => ['tag' => false]], ['template' => '{input}'])->dropDownList(Yii::$app->userFunctions->arrayrates($rates),['class' => 'rates form-control'])->label('Валюта') ?>
-
-	  
-	  </div>
-    </div>
-  </div>
-</div>
-
-
-  <? } ?> 
-  <? }else{ ?> 
-   <? if ($res['type'] == 'p') {?>
-   
-  
-<? $price = $form->field($model2, 'f_'.$res['id'].'_rates', ['options' => ['tag' => false]], ['template' => '{input}'])->dropDownList(Yii::$app->userFunctions->arrayrates($rates),['class' => 'rates form-control'])->label(false) ?>
-<?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}{input}'.$price])->textInput(['maxlength' => true, 'class' => 'price form-control'])->label(($res['name'].Yii::$app->userFunctions->req($res['req']))) ?><br>
-<?if(Yii::$app->userFunctions->board_shop() == true) {?>
-<?
-$this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
-$this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
-        ['depends' => [\yii\web\JqueryAsset::className()]]);
-?>
-
-
-   <? $disc = $form->field($model, 'discount_text', ['options' => ['tag' => false]], ['template' => '{input}'])->textarea(['maxlength' => true,'type'=>'number', 'placeholder' => 'Описание скидки.       Пример: скидка до 1 мая ',  'class' => 'rates form-control' ,'style'=> 'margin-right: 1%; width: 38%; height: 78px;'])->label(false)?><br>
-   <? $datedesc =  $form->field($model, 'discount_date', ['options' => ['tag' => false]], ['template' => '{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '9999-99-99'])->textInput(['placeholder' => 'дата окончания', 'class' => 'form-control datepicker12' ,'style'=> 'width: 100%; margin-top: 10px;'])->label(false);?>
-   <?= $form->field($model, 'discount', ['template' => '{error}{label}<div style="
-    display: table;
-    float: left;
-    width: 30%;
-	margin-right: 1%;
-">{input}'.$datedesc.'</div>'.$disc])->textInput(['maxlength' => true,'type'=>'number', 'placeholder' => 'Цена',  'class' => 'price form-control','style'=> 'width: 100%; '])->label('Цена с учетом скидки')?><br>
-<?}?>
-
-
-
-
- <!--Блок со скидкой-->
-<? foreach($model_view as $ress) {?> 
- <?  if ($ress['type'] == 'c') {?>   <!--Сheckbox-->
- <? if ($ress['name'] == 'Скидка') {?>
-    <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
-<? }?>
-<? }?>
-<? }?>
-  <? } ?> 
+  <? if ($ress['name'] == 'Даром') {?>
+       <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
   <? }?>
-
+ <? if ($ress['name'] == 'Скидка') {?>
+    <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
+<? }?>
+<? }?>
+<? }?>
+  <? } ?>
 
 <? }?>
 <?php Pjax::end(); ?>

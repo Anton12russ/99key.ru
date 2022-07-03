@@ -13,7 +13,7 @@ $this->registerMetaTag(['name' => 'keywords','content' => $meta['keywords']]);
 $this->params['breadcrumbs'][] = $meta['breadcrumbs'];
 $this->params['h1'] = $meta['h1'];
 
-$this->registerJsFile('/js/searchcat.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+
 $this->registerCssFile('/css/add.css', ['depends' => ['frontend\assets\AppAsset']]);
 $this->registerJsFile('/js/add.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 //Обновление Функция координаты в объявлении
@@ -33,8 +33,8 @@ $shopfield = Yii::$app->userFunctions3->blogShop(Yii::$app->user->id);
 ?>
 <?
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
-$this->registerJsFile('/assest_all/calendar2/jquery-ui.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
+$this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
+        ['depends' => [\yii\web\JqueryAsset::className()]]);
 /*if(!$model2->f_481) {
 		$model2->f_481 = 0;	
 }*/
@@ -42,13 +42,6 @@ if(!$model->auction){
 	$model->auction = 0;
 	
 }
-
-if($model->category) {
-	$catin = '<div class="category-click" data-toggle="modal" data-target="#categoryMenu">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
-}else{
-	$catin = false;
-}
-$model->auction = true;
 ?>
 
 
@@ -65,24 +58,6 @@ $model->auction = true;
 <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data', 'data-pjax' => true,], 'enableClientValidation' => false,]);?>
 <?= $form->field($model, 'dir_name')->hiddenInput(['value'=> $dir_name])->label(false);?>
 
-<!-- Modal -->
-<div class="modal fade" id="categoryMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Выбор категории</h4>
-      </div>
-      <div class="modal-body cat_ajax ">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <!--Пользовательские данные-->
 <? if (Yii::$app->user->isGuest) {?>
@@ -95,11 +70,11 @@ $model->auction = true;
 <?}?>
 
 <!--Поля объявления-->
-<div class="hr_add cat-st"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+<div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
 <?php if($time) { ?> <?= $form->field($model, 'date_del', ['template' => '{error}{label}{input}'])->dropDownList($time)?><?php } ?><br>
+
 
 <?if(isset($shopfield) && $shopfield) {
 	$coord = explode(',',$shopfield->field->coord);
@@ -109,17 +84,29 @@ $model->auction = true;
 	$model->address = $shopfield->field->address;
   } ?>  
 
-<div class="hr_add"><i class="fa fa-map-location-dot" aria-hidden="true"></i> Мето сделки</div>
-<?= $form->field($model, 'region', ['template' => '{input}'])->textInput(['type' => 'hidden', 'class'=>'form-control region-hidden']) ?>
+<!--<div class="hr_add"><i class="fa fa-map-location-dot" aria-hidden="true"></i> Мето сделки</div>-->
+<?= $form->field($model, 'region', ['template' => '{input}'])->textInput(['type' => 'hidden', 'class' => 'form-control region-hidden']) ?>
 
 <!--Обновление координаты--->
 <?= $form->field($model, 'coordlat', ['template' => '{input}'])->textInput(['id' => 'coord-lat','type' => 'hidden'])->label('') ?>
 <?= $form->field($model, 'coordlon', ['template' => '{input}'])->textInput(['id' => 'coord-lon','type' => 'hidden'])->label('') ?>
 <?= $form->field($model, 'address', ['template' => '{error}{label}{input}'])->textInput(['id' => 'suggest', 'placeholder' =>'Введите город или точный адрес', 'autocomplete' => 'off'])->label('Адрес <span class="req_val">*</span>')?>
+
 <details>
 	<summary>Посмотреть карту <i class="fa fa-map-location-dot" aria-hidden="true"></i></summary>
 	<div id="YMapsIDadd"></div>
 </details>
+
+
+
+
+
+
+
+<div class="hr_add"><i class="fa fa-sitemap" aria-hidden="true"></i> Категория и дополнительная информация</div>
+<?= $form->field($model, 'category', ['template' => '{error}{label}{input}'])->textInput(['class' => 'catchang','type' => 'hidden'])->label('Категория <span class="req_val">*</span>') ?><br>
+
+
 
 
 <div class="field-none"  style="display: none;">
@@ -138,7 +125,6 @@ $model->auction = true;
 		
 <? if ($res['type_string'] == 't') {?>
    <?if(isset($shopfield->field->phone) && !$model2->f_475) {
-
 	    $model2->f_475 = $shopfield->field->phone;
     } ?> 
 <?php } ?>	
@@ -174,7 +160,7 @@ $model->auction = true;
 
 
 <?  if ($res['type'] == 'c') {?>   <!--Сheckbox-->
- <? if ($res['name'] != 'Скидка' && $res['name'] != 'Даром' ) {?>
+ <? if ($res['name'] != 'Скидка') {?>
  <?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($res['values']))->label($res['name'].Yii::$app->userFunctions->req($res['req'])) ?><br>
 <? }?>
 <? }?>
@@ -195,15 +181,41 @@ $model->auction = true;
 	<br>
 <? }?>
 
-<? if ($res['type'] == 'p') {?>
+
+
+
+ <?  if ($auk_category) { ?>
+<? if ($res['type'] == 'p') {?>  <!--Price-->
+
+
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading botton-price">
+      <h4 class="panel-title">
+              <a class="collapseThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                Цена <i class="fa fa-regular fa-money-bills fa-style-custom" aria-hidden="true"></i>
+              </a>
+            </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse <? if(!$model->auction) {?>in<? } ?> ">
+      <div class="panel-body">
+
+  
+  
+   <? if ($res['type'] == 'p') {?>
+   
+  
 <? $price = $form->field($model2, 'f_'.$res['id'].'_rates', ['options' => ['tag' => false]], ['template' => '{input}'])->dropDownList(Yii::$app->userFunctions->arrayrates($rates),['class' => 'rates form-control'])->label(false) ?>
-<?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'class' => 'price form-control'])->label(($res['name'].Yii::$app->userFunctions->req($res['req']))) ?><br>
+<?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}{input}'.$price])->textInput(['maxlength' => true, 'class' => 'price form-control'])->label(($res['name'].Yii::$app->userFunctions->req($res['req']))) ?><br>
 <?if(Yii::$app->userFunctions->board_shop() == true) {?>
 <?
 $this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
 $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
         ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
+
+
    <? $disc = $form->field($model, 'discount_text', ['options' => ['tag' => false]], ['template' => '{input}'])->textarea(['maxlength' => true,'type'=>'number', 'placeholder' => 'Описание скидки.       Пример: скидка до 1 мая ',  'class' => 'rates form-control' ,'style'=> 'margin-right: 1%; width: 38%; height: 78px;'])->label(false)?><br>
    <? $datedesc =  $form->field($model, 'discount_date', ['options' => ['tag' => false]], ['template' => '{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '9999-99-99'])->textInput(['placeholder' => 'дата окончания', 'class' => 'form-control datepicker12' ,'style'=> 'width: 100%; margin-top: 10px;'])->label(false);?>
    <?= $form->field($model, 'discount', ['template' => '{error}{label}<div style="
@@ -215,26 +227,105 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <?}?>
 
 
+
+
+
  <!--Блок со скидкой-->
 <? foreach($model_view as $ress) {?> 
  <?  if ($ress['type'] == 'c') {?>   <!--Сheckbox-->
-  <? if ($ress['name'] == 'Даром') {?>
-       <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
-  <? }?>
  <? if ($ress['name'] == 'Скидка') {?>
     <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
 <? }?>
 <? }?>
 <? }?>
-  <? } ?>
+  <? } ?> 
 
 
-<? }?>
-<?php Pjax::end(); ?>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading botton-price">
+      <h4 class="panel-title">
+              <a class="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                 Аукцион <i class="fa fa-gavel fa-style-custom" aria-hidden="true"></i>
+              </a>
+            </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse <? if($model->auction) {?>in<? } ?> 
+	">
+      <div class="panel-body">
+      <?=$form->field($model, 'auk_shag', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'placeholder' => 'Шаг - поднимает цену'])->label('Шаг торга  <span class="req_val">*</span>')?><br>
+	  <?= $form->field($model, 'auk_price_add', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'placeholder' => 'Цена начала торгов'])->label('Начальная цена  <span class="req_val">*</span>')?><br>
+	  <?= $form->field($model, 'auk_time', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => 1, 'placeholder' => 'Макс. 9 суток', 'title' => 'Переопределяет параметр "Срок публикации"'])->label('Количество дней  <span class="req_val">*</span>')?><br>
+      <?= $form->field($model, 'auk_price_moment', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'placeholder' => 'Цена моментальной продажи'])->label('Цена моментальной продажи')?><br>
+	  <?=$form->field($model, 'auk_rates', ['options' => ['tag' => false]], ['template' => '{input}'])->dropDownList(Yii::$app->userFunctions->arrayrates($rates),['class' => 'rates form-control'])->label('Валюта ') ?>
+
+	  
+	  </div>
+    </div>
+  </div>
 </div>
 
 
+  <? } ?> 
+  <? }else{ ?> 
+   <? if ($res['type'] == 'p') {?>
+   
+  
+<? $price = $form->field($model2, 'f_'.$res['id'].'_rates', ['options' => ['tag' => false]], ['template' => '{input}'])->dropDownList(Yii::$app->userFunctions->arrayrates($rates),['class' => 'rates form-control'])->label(false) ?>
+<?= $form->field($model2, 'f_'.$res['id'], ['template' => '{error}{label}{input}'.$price])->textInput(['maxlength' => true, 'class' => 'price form-control'])->label(($res['name'].Yii::$app->userFunctions->req($res['req']))) ?><br>
+<?if(Yii::$app->userFunctions->board_shop() == true) {?>
+<?
+$this->registerCssFile('/assest_all/calendar2/jquery-ui.css');
+$this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
+        ['depends' => [\yii\web\JqueryAsset::className()]]);
+?>
+
+
+   <? $disc = $form->field($model, 'discount_text', ['options' => ['tag' => false]], ['template' => '{input}'])->textarea(['maxlength' => true,'type'=>'number', 'placeholder' => 'Описание скидки.       Пример: скидка до 1 мая ',  'class' => 'rates form-control' ,'style'=> 'margin-right: 1%; width: 38%; height: 78px;'])->label(false)?><br>
+   <? $datedesc =  $form->field($model, 'discount_date', ['options' => ['tag' => false]], ['template' => '{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '9999-99-99'])->textInput(['placeholder' => 'дата окончания', 'class' => 'form-control datepicker12' ,'style'=> 'width: 100%; margin-top: 10px;'])->label(false);?>
+   <?= $form->field($model, 'discount', ['template' => '{error}{label}<div style="
+    display: table;
+    float: left;
+    width: 30%;
+	margin-right: 1%;
+">{input}'.$datedesc.'</div>'.$disc])->textInput(['maxlength' => true,'type'=>'number', 'placeholder' => 'Цена',  'class' => 'price form-control','style'=> 'width: 100%; '])->label('Цена с учетом скидки')?><br>
+<?}?>
+
+
+
+
+
+ <!--Блок со скидкой-->
+<? foreach($model_view as $ress) {?> 
+ <?  if ($ress['type'] == 'c') {?>   <!--Сheckbox-->
+ <? if ($ress['name'] == 'Скидка') {?>
+    <?= $form->field($model2, 'f_'.$ress['id'], ['template' => '{error}{label}<div class="add_chex">{input}</div>'])->checkboxList(Yii::$app->userFunctions->arrayche($ress['values']))->label($ress['name'].Yii::$app->userFunctions->req($ress['req'])) ?><br>
+<? }?>
+<? }?>
+<? }?>
+  <? } ?> 
+  <? }?>
+<? }?>
+<?php Pjax::end(); ?>
+
+
+
+</div>
+
+
+
+
+
+
+
+
 <?= $form->field($model, 'auction', ['template' => '{error}{label}{input}'])->textInput(['type' => 'hidden'])->label(false)?>
+
+
 
 <?if(Yii::$app->userFunctions->board_shop() == true) {?>
 <div class="hr_add"><i class="fa fa-shop" aria-hidden="true"></i> Информация для магазина</div>	
@@ -311,7 +402,7 @@ echo  \kartik\file\FileInput::widget([
 		
 		'showUploadedThumbs' => true, // сохранять ли отображение загруженных миниатюр файлов в окне предварительного просмотра (для загрузки ajax) до тех пор, пока не будет нажата кнопка удаления / очистки. Значения по умолчанию для true. Если установлено значение « falseСледующая партия файлов, выбранных для загрузки», эти миниатюры будут удалены из предварительного просмотра.
         'allowedFileExtensions' => [ 'jpg' , 'gif' , 'png', 'jpeg'],
-		 'initialPreview'=> Yii::$app->userFunctions->files($dir_name),
+		 'initialPreview'=> Yii::$app->userFunctions2->files($dir_name),
 		 'initialPreviewAsData'=>true,
 		'initialPreviewConfig' => Yii::$app->userFunctions->previewconfig($dir_name),
 

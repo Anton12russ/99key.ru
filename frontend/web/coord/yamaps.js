@@ -191,7 +191,7 @@ function ajaxcoord() {
 		$.pjax({
         type       : 'POST',
         container  : '#pjaxFields',
-        data       : {Pjax_category:$('.catchang').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
+        data       : {Pjax_category:$('.blog-category').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
         push       : true,
         replace    : false,
         timeout    : 10000,

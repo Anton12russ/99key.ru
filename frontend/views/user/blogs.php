@@ -218,7 +218,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
                     <input style="min-width: 100%;"  type="number" data-max="<?=$day_serv?>" data-price="<?=$price_serv?>" value="<?=$day_serv?>" id="blog-count" class="form-control day" name="Blog[count]" placeholder="99" style="max-width: 100px; float: left;">
                     <label class="control-label" for="blog-count">Итого <span class="itog"><?$price_day = $price_serv*$day_serv; echo $price_day;?></span> руб.</label>
 				 </div>
-				 <a data-pjax=0 data-hrefs="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'top'])?>" href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'top'])?>&day=<?=$day_serv?>">Оплатить</a>
+				 <a data-pjax=0 href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'top'])?>" href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'top'])?>&day=<?=$day_serv?>">Оплатить</a>
 			 </div>
 			</div> 
 		   <?}?>
@@ -234,7 +234,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
                     <input style="min-width: 100%;"  type="number" data-max="<?=$day_serv?>" data-price="<?=$price_serv?>" value="<?=$day_serv?>" id="blog-count" class="form-control day" name="Blog[count]" placeholder="99" style="max-width: 100px; float: left;">
                     <label class="control-label" for="blog-count">Итого <span class="itog"><?$price_day = $price_serv*$day_serv; echo $price_day;?></span> руб.</label>
 				 </div>
-				  <a data-pjax=0 data-hrefs="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'bright'])?>" href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'bright'])?>&day=<?=$day_serv?>">Оплатить</a>
+				  <a data-pjax="0" href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'bright'])?>&day=<?=$day_serv?>">Оплатить</a>
 			  </div>	
             </div>	
           <?}?>			
@@ -249,7 +249,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
                     <input style="min-width: 100%;"  type="number" data-max="<?=$day_serv?>" data-price="<?=$price_serv?>" value="<?=$day_serv?>" id="blog-count" class="form-control day" name="Blog[count]" placeholder="99" style="max-width: 100px; float: left;">
                     <label class="control-label" for="blog-count">Итого <span class="itog"><?$price_day = $price_serv*$day_serv; echo $price_day;?></span> руб.</label>
 				 </div>
-				<a data-pjax=0 data-hrefs="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'block'])?>" href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'block'])?>&day=<?=$day_serv?>">Оплатить</a>
+				<a data-pjax="0" href="<?=Url::to(['payment/personal', 'blog_id' => $one->id, 'services' => 'block'])?>&day=<?=$day_serv?>">Оплатить</a>
 			   </div>
 		     </div>
 		  <?}?>
@@ -277,7 +277,7 @@ $shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);
     <div class="col-md-12 services activ">
           <div class="col-md-4" boolean="true" data-toggle="tooltip" data-placement="top" title="Объявление в указанной рубрике публикуется на платной соснове.">
 		        <div class="bright">
-		          <a style="border:0;" class="blank" data-href="<?=Url::to(['payment/personal', 'active' => $one->id])?>" href="#"> Активировать <br>
+		          <a style="border:0;" class="blank" href="<?=Url::to(['payment/personal', 'active' => $one->id])?>" > Активировать <br>
 		            Стоимость: <?=$price_serv?> <i class="fa <?=$rates_serv['text']?>" aria-hidden="true"></i> на (<?=$day_serv ?>) дней</a>
 			   </div>
 		     </div>

@@ -21,7 +21,7 @@ class DefaultController extends Controller
     {		
 		if($text) {
 			
-			
+		
          $sql = Blog::find()->select(['blog.title', 'blog.category']);  
 		 $sql->andFilterWhere(['like', 'title', $text]);
 		 $sql->andWhere(['>=', 'category', '0']);
@@ -39,18 +39,18 @@ class DefaultController extends Controller
 		 if(isset($_GET['auction']) && $_GET['auction']) {
 
 		    foreach($category as $cat) {
-			  if($this->catAuction($cat['id'])) {
-			      $blogi[] = array('category' => $cat['id'], 
-			      'day'=>Yii::$app->caches->setting()['express_add'], 
-			      'plat' => $this->platnaya($cat['id']), 
-			      'user_id' => Yii::$app->user->id);
+			  if(!$this->regionStop($cat['id'])) {
+			    if($this->catAuction($cat['id'])) {
+			         $blogi[] = array('category' => $cat['id'], 
+			         'day'=>Yii::$app->caches->setting()['express_add'], 
+			         'user_id' => Yii::$app->user->id);
+			    }
 			  }
 	        }
 		      foreach($blogs as $blog) {
 				if($this->catAuction($blog['category'])) {
 			      $blogi[] = array( 'category' => $blog['category'], 
 				  'day'=>Yii::$app->caches->setting()['express_add'], 
-				  'plat' => $this->platnaya($blog['category']), 
 				  'user_id' => Yii::$app->user->id);
 				}
 			   }
@@ -59,15 +59,15 @@ class DefaultController extends Controller
 		}else{
 
 			    foreach($category as $cat) {
-					$blogi[] = array('category' => $cat['id'], 
-					'day'=>Yii::$app->caches->setting()['express_add'], 
-					'plat' => $this->platnaya($cat['id']), 
-					'user_id' => Yii::$app->user->id);
+					if(!$this->regionStop($cat['id'])) {
+					   $blogi[] = array('category' => $cat['id'], 
+					   'day'=>Yii::$app->caches->setting()['express_add'], 
+					   'user_id' => Yii::$app->user->id);
+			     	}
 				 }
 				  foreach($blogs as $blog) {
 						  $blogi[] = array( 'category' => $blog['category'], 
 						  'day'=>Yii::$app->caches->setting()['express_add'], 
-						  'plat' => $this->platnaya($blog['category']), 
 						  'user_id' => Yii::$app->user->id);
 					 }
 
@@ -77,9 +77,17 @@ class DefaultController extends Controller
 	       return $this->render('index', compact('blogi', 'region', 'text'));
 		}
 
-		 
- 
-
+  public function regionStop($id)
+	{ 
+      //Проверяем, конечный ли регион
+      foreach(Yii::$app->caches->Category() as $res) {
+	      if ($res['parent'] == $id) {
+		      $parent = $res['id'];
+		      return true;
+	      }
+       }
+	   return false;
+	}
 	
 	public function catAuction($cat)
     {
@@ -96,25 +104,4 @@ class DefaultController extends Controller
 		}
 		return false;
 	}
-
-
-
-
-
-
-	public function platnaya($cat, $reg = '1')
-    {
-	
-		$reg = Yii::$app->userFunctions->catparent($reg, 'reg');
-		$cat = Yii::$app->userFunctions->catparent($cat, 'cat');
-		
-		$return = CatServices::find()->Where(['cat' => $cat])->asArray()->all();
-		foreach ($return as $res) {
-           if (in_array($res['reg'], $reg)) {
-			   //$ret = $res['price'];
-			   return $res['price']*Yii::$app->caches->setting()['express_add'];
-		   }
-		}		
-	    return false;
-    }
 }

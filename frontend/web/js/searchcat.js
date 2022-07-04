@@ -15,7 +15,7 @@ $(document).ready(function() {
 	catok();
 	$(document).on( 'pjax:success' , function(selector, xhr, status, selector, container) {
 		poiskcat();
-		catok();
+		//catok();
 		startCatModal();
 	});
  }); 
@@ -94,19 +94,18 @@ function addcat() {
 	  $(".searchcat-ajax").hide();
 	if(!$(this).attr('data-user')) {
         if(!$(this).attr('data-plat')) {
-			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
-		  $('.blog-category').val($(this).attr('data-id'));
+		
 	    }else{
           alert("Категория платная, вы можете подать экспресс объявление в платную категорию только после авторизации.");
 		}
 	}else{
 		if(!$(this).attr('data-plat')) {
-			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
-			$('.blog-category').val($(this).attr('data-id'));
+			
 		  }else{
-			if(location.pathname == 'expressadd' || location.pathname == 'expressupdate') {
+			if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
 			   alert("Категория платная, стоимость "+$(this).attr('data-plat')+'р. за '+$(this).attr('data-plat')+' дней.');
 			}
+			
 			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
 			$('.blog-category').val($(this).attr('data-id'));  
 		}
@@ -116,23 +115,16 @@ function addcat() {
 	});
  }
  function catok() {
+
+if(location.pathname != '/expressupdate' || location.pathname != '/expressadd') {
+	pjaxField($('.blog-category').attr('data-id'));
+}
  $('.catok').click(function() {
 
 	$('.blog-category').val(''); 
 	addcat();
  });
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

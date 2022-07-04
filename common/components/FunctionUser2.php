@@ -14,6 +14,7 @@ use common\models\MessageRoute;
 use common\models\Message;
 use common\models\Organization;
 use common\models\Shop;
+use common\models\CatServices;
 use common\models\Field;
 use common\models\Passanger;
 use yii;
@@ -22,6 +23,22 @@ class FunctionUser2 extends Component {
 
 	public static  $array;
 	
+
+	public function platnaya($cat, $reg = '1')
+    {
+	
+		$reg = Yii::$app->userFunctions->catparent($reg, 'reg');
+		$cat = Yii::$app->userFunctions->catparent($cat, 'cat');
+		
+		$return = CatServices::find()->Where(['cat' => $cat])->asArray()->all();
+		foreach ($return as $res) {
+           if (in_array($res['reg'], $reg)) {
+			   //$ret = $res['price'];
+			   return $res['price']*Yii::$app->caches->setting()['express_add'];
+		   }
+		}		
+	    return false;
+    }
 
 
 

@@ -16,6 +16,8 @@ $balance = 0;
 		<? } ?>
 		<!--Если объявление в платной категории-->
 	    <? if ($price_category) {?> 
+			<div class="alert alert-warning text-center">Объявление добавлено, но чтобы оно активировалось на (<?=$price_category['date']?> дней), его нужно оплатить.<br> Стоимость <strong><?=$price_category['sum']?></strong> руб.</div>
+         <br>
 		<!--
 		  <div class="alert alert-warning text-center">Объявление добавлено, но чтобы оно активировалось на (<?=$price_category['date']?> дней), его нужно оплатить.<br> Стоимость <strong><?=$price_category['sum']?></strong> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i></div>
          <br>
@@ -31,7 +33,7 @@ $balance = 0;
           <? if ($price_category['sum'] > $balance || Yii::$app->user->isGuest) { ?>
 		  <!--Показывать это условие, если это не гость-->
 		  <? if (!Yii::$app->user->isGuest) { ?>
-		     <div class="alert alert-danger err-balance display-block">Недостаточно средств на балансе (<? echo $price_category['sum']-$balance?> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i>), оплатить удобным способом?</div>
+		     <div class="alert alert-danger err-balance display-block">Недостаточно средств на балансе (<? echo $price_category['sum']-$balance?> руб.), оплатить удобным способом?</div>
 		  <? } ?>	
 	
 		  <div class="body-logo-pay center display-block">
@@ -98,7 +100,7 @@ $balance = 0;
 		  <? if (max($servPrice) > $balance || Yii::$app->user->isGuest) { ?>
 		  <!--Показывать это условие, если это не гость-->
 		  <? if (!Yii::$app->user->isGuest) { ?>
-		  <div class="alert alert-warning err-balance ">Недостаточно средств на балансе (<?=$balance?> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i>), оплатить удобным способом?</div>
+		       <div class="alert alert-warning err-balance ">Недостаточно средств на балансе (<?=$balance?> руб.), оплатить удобным способом?</div>
 		  <? } ?>
  <div class="pay-none">
 		  <div class="services-add"></div>

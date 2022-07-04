@@ -92,11 +92,6 @@ class ExpressAdd extends Action
 		//передаем эту переменную в шаблон, чтобы вывести сообщение с успешным размещением
 		$save['status'] = $model->status_id;
 		
-
-		
-		
-		
-		
         $model->date_add =  date('Y-m-d H:i:s');
 	
 		$model->date_del =  date('Y-m-d H:i:s', strtotime(' + '.Yii::$app->caches->setting()['express_add'].' day'));
@@ -105,6 +100,7 @@ class ExpressAdd extends Action
 		if(Yii::$app->user->id) {
 			$model->user_id = Yii::$app->user->id;
 		}
+		$user_id = $model->user_id;
 		//Сохраняем статичные поля, проверка внутри скрыта, чтобы не проверять повторно пользователя
        
 		$model->save(false);
@@ -151,9 +147,9 @@ if(!Yii::$app->user->id) {
 		
 		if ($price_category) {
 			$price_cat = array();
-			$sum_pay = (int)$price_category * (int)$price_datedel;
+			$sum_pay = (int)$price_category * (int)Yii::$app->caches->setting()['express_add'];
 			$price_cat['sum'] = $sum_pay;
-			$price_cat['date'] = $price_datedel;
+			$price_cat['date'] = Yii::$app->caches->setting()['express_add'];
 			$price_cat['id_payment'] = Yii::$app->userFunctions->addPayment($sum_pay, $model->id, $user_id);
 		}
 		

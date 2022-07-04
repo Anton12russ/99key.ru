@@ -31,8 +31,12 @@ foreach($rates as $res) {
 if($model->category) {
 	$catin = '<div class="category-click" data-toggle="modal" data-target="#categoryMenu">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
 }else{
-	$catin = false;
-}
+  if($model->title) {
+    $catin = '<div style="color: #FFF;" class="searchcat-ajax btn btn-success category-click" data-toggle="modal" data-target="#categoryMenu">Выбрат категорию из расширенного списка</div>';
+  }else{
+    $catin = '';
+  }
+  }
 ?>
 
 <?
@@ -74,7 +78,7 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <!--Поля объявления-->
 <div class="hr_add cat-st"><i class="fa fa-map-location-dot" aria-hidden="true"></i> Мето сделки</div>
 <?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+<?= $form->field($model, 'category', ['template' => '{error}{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
 
 <!--Обновление координаты--->
 <?= $form->field($model, 'coordlat', ['template' => '{input}'])->textInput(['id' => 'coord-lat','type' => 'hidden'])->label('') ?>

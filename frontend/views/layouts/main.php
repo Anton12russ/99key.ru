@@ -268,7 +268,7 @@ $mobile = check_mobile_device();
 		  <li><a href="<?=Url::to(['/expressadd'])?>">Добавить экспресс объявление</a></li>
 		  <li><a href="<?=Url::to(['/add'])?>">Добавить расширенное объявление</a></li>
 		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
-		  <?if(!isset($shop)) {?>
+		  <?if(!$shop) {?>
 		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>
 		  <?}?>
 		  <li><a href="<?=Url::to(['passanger/add'])?>"> Искать попутку / попутчика</a></li>
@@ -287,7 +287,7 @@ $mobile = check_mobile_device();
 		  <li><a href="<?=Url::to(['/expressadd'])?>">Экспресс объявление</a></li>
 		  <li><a href="<?=Url::to(['/add'])?>">Расширенное объявление</a></li>
 		  <?$shop = Yii::$app->userFunctions->shopMenu(Yii::$app->user->id);?>
-		  <?if(!isset($shop)) {?>
+		  <?if(!$shop) {?>
 		      <li><a href="<?=Url::to(['shop/add'])?>">Создать магазин</a></li>
 		  <?}?>
 		  <li><a href="<?=Url::to(['passanger/add'])?>"> Искать попутку / попутчика</a></li>

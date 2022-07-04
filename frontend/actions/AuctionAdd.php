@@ -41,7 +41,9 @@ class AuctionAdd extends Action
 			 
  //------------------------Проверяем, платная ли категория------------------//
 		$reg_price = Yii::$app->request->post('Pjax_region');	
-        $time_price	= Yii::$app->request->post('Pjax_time');
+		if(!$time_price = $model->auk_time) {
+            $time_price	= 1;
+	    }
 	    $price_category = $this->findMod($catid, $reg_price);	
 		
 		//Аукцион, открывать ли в этой категории

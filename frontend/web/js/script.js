@@ -1,4 +1,8 @@
 ﻿$(document).ready(function() {
+
+$(document).on( 'pjax:success' , function(selector, xhr, status, selector, container) {
+	signuploginpop();
+});
 signuploginpop();
 menu_add();
 	$('[data-toggle="tooltip"]').tooltip('enable');

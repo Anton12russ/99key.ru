@@ -33,13 +33,13 @@ class DefaultController extends Controller
 
          $cats = Category::find()->select(['name', 'id', 'parent']);
 		 $cats->andFilterWhere(['like', 'name', $text]);
-		 $category =$cats->orderBy('id ASC')->Limit(3)->all();
+		 $category = $cats->orderBy('id ASC')->Limit(3)->all();
 		 
    //Проверяем есть ли такая категория в платных
 		 if(isset($_GET['auction']) && $_GET['auction']) {
 
 		    foreach($category as $cat) {
-			  if(!$this->regionStop($cat['id'])) {
+			  if(!$this->catStop($cat['id'])) {
 			    if($this->catAuction($cat['id'])) {
 			         $blogi[] = array('category' => $cat['id'], 
 			         'day'=>Yii::$app->caches->setting()['express_add'], 
@@ -59,7 +59,7 @@ class DefaultController extends Controller
 		}else{
 
 			    foreach($category as $cat) {
-					if(!$this->regionStop($cat['id'])) {
+					if(!$this->catStop($cat['id'])) {
 					   $blogi[] = array('category' => $cat['id'], 
 					   'day'=>Yii::$app->caches->setting()['express_add'], 
 					   'user_id' => Yii::$app->user->id);
@@ -77,7 +77,7 @@ class DefaultController extends Controller
 	       return $this->render('index', compact('blogi', 'region', 'text'));
 		}
 
-  public function regionStop($id)
+  public function CatStop($id)
 	{ 
       //Проверяем, конечный ли регион
       foreach(Yii::$app->caches->Category() as $res) {

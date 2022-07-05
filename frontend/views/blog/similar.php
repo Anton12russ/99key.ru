@@ -21,6 +21,7 @@ $this->registerCssFile('/css/main.css', ['depends' => ['frontend\assets\AppAsset
 		<div class="main-bo-href body-href"  style="background-image: url(<? if ($one->imageBlogOne['image']) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlogOne['image'];?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo-main.png<? } ?>);">
 		<a  data-toggle="tooltip" data-placement="top" title="" data-original-title="Добавить в избранное" href="javascript:void(0);" class="notepad-act-plus" data-id="<?=$one->id?>"><?if (isset($notepad[$one->id])) {?><i class="fa fa-heart" aria-hidden="true"></i><?}else{?><i class="fa fa-heart-crack" aria-hidden="true"></i><? } ?></a>
 	    <a class="img_a" href="<?=$url?>"></a>
+		<? if($one->express) {?><div class="express_one">Экспресс</div><?}?>
 	    </div>
     	<h3>
 		<a data-toggle="tooltip" data-placement="top" title="<?=Yii::$app->userFunctions->substr_user($one->title, 150)?>" data-original-title="<?=Yii::$app->userFunctions->substr_user($one->title, 150)?>" class="cat-bo-href" href="<?=$url?>"><?=Yii::$app->userFunctions->substr_user($one->title, 20)?></a></h3>
@@ -35,7 +36,7 @@ $this->registerCssFile('/css/main.css', ['depends' => ['frontend\assets\AppAsset
 				   }
 				   if ($price_val) { 
 					echo $price_val/$rates[$rates_val]['value'];
-					echo '<i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
+					echo ' <i class="fa '.$rates[$rates_val]['text'].'" aria-hidden="true"></i>';  
 					}else{?> 
 						Цена не указана
 					<?}?> 

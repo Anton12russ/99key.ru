@@ -22,14 +22,15 @@ use yii;
 class FunctionUser2 extends Component { 	
 
 	public static  $array;
-	
+	public static  $catParentArray;
 
 	public function platnaya($cat, $reg = '1')
     {
-	
-		$reg = Yii::$app->userFunctions->catparent($reg, 'reg');
-		$cat = Yii::$app->userFunctions->catparent($cat, 'cat');
-		
+		self::$catParentArray = array();
+		$reg = $this->catparent($reg, 'reg');
+		self::$catParentArray = array();
+		$cat = $this->catparent($cat, 'cat');
+
 		$return = CatServices::find()->Where(['cat' => $cat])->asArray()->all();
 		foreach ($return as $res) {
            if (in_array($res['reg'], $reg)) {
@@ -40,6 +41,25 @@ class FunctionUser2 extends Component {
 	    return false;
     }
 
+
+
+	function catparent($cats_id, $act, $first = true) 
+	{
+		if ($act == 'cat'){
+		   $cats_id =  Category::findOne($cats_id);
+		}else{
+		   $cats_id =  Region::findOne($cats_id);
+		}
+	
+		if($cats_id['parent'] != 0 && $cats_id['parent'] != "")
+		 {
+			$this->catparent($cats_id['parent'], $act, false);
+		 }else{
+			
+		 }
+	   self::$catParentArray[] = $cats_id['id'];
+	  return  self::$catParentArray;
+	}
 
 
 	public function arrayNulle()
@@ -909,7 +929,7 @@ function address($text) {
 	
 	
 	
-		public function breadLine($cat, $cats_id, $region , $act = false, $first = true )
+	public function breadLine($cat, $cats_id, $region , $act = false, $first = true )
     {
 	$lin = '/product/auction';
     static $array = array();

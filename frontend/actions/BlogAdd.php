@@ -167,10 +167,10 @@ class BlogAdd extends Action
 			$model->username = Yii::$app->user->identity['username'];
 		}
 		
-		
-		 
+	
+	
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+			
 			
 		if ($model->dir_name) {$dir_name = $model->dir_name;}
         if (isset($model2_result)) {

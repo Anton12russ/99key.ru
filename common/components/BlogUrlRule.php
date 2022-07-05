@@ -22,7 +22,13 @@ class BlogUrlRule extends BaseObject implements UrlRuleInterface
 		if ($route === 'article/index') {	
            return   '/article';
         }
-		
+		if ($route === 'express/index') {	
+			return   '/express'.Yii::$app->userFunctions->region_url();
+		 }
+
+		 if ($route === 'auction/index') {	
+			return   '/auction'.Yii::$app->userFunctions->region_url();
+		 }
 		if ($route === 'shop/index') {	
            return   '/shop'.Yii::$app->userFunctions->region_url();
         }
@@ -329,9 +335,10 @@ if(isset($urli[0])) {
 
 		//Преобразуем URL в массив
 		$str = str_replace('shop/','',$pathInfo);
-		$str = str_replace('express/','',$pathInfo);
+		$str = str_replace('express/','',$str);
+		$str = str_replace('auction/','',$str);
 		$url = explode('/', $str);
-	
+	  
 		$url_shop = explode('/',$pathInfo);
         $url_dop = explode('/',$pathInfo);
 
@@ -339,6 +346,7 @@ if(isset($urli[0])) {
 		$cat_url_parent_art = explode('/',str_replace('article/','',$pathInfo));
 		$cat_url_parent_auction = explode('/',str_replace('auction/','',$pathInfo));
 		$cat_url_parent_express = explode('/',str_replace('express/','',$pathInfo));
+
 	   //Проверяем, если это модули или статичные страницы, отдаем куда нужно
 	}
 			//$url_reg = explode('/',str_replace('shop/','',$pathInfo));
@@ -346,6 +354,8 @@ if(isset($urli[0])) {
 	     	$region_arr = Region::find()->where(['url' =>$url[0]])->one();
 			if ($region_arr) {
 				array_shift($cat_url_parent); // Достаем регион, чтобы потом можно было отличить в функции категорию
+				array_shift($cat_url_parent_auction);
+				array_shift($cat_url_parent_express);
 				$region = $region_arr['id'];
 				$url_pach = $url;
 				array_shift($url_pach);
@@ -354,7 +364,7 @@ if(isset($urli[0])) {
 				//А если регион не один, вместе с категориями, то как обычно оставляем редирект сам на себя с поставкой куки.
 
 				if (!isset($region_none)) {
-				if (count($url) == 1 && $url_dop[0] != 'shop') {
+				if ((count($url) == 1 && $url_dop[0] != 'shop') && count($url) == 1 && $url_dop[0] != 'express' && count($url) == 1 && $url_dop[0] != 'auction') {
 									
 			         if (strval(Yii::$app->request->cookies['region']) != $region) 
 					{
@@ -550,7 +560,7 @@ if(!$customers['id']) {
 
 	if (isset($url_shop[0]) && $url_shop[0] == 'express' || $urls_shop == 'express') {
 		$customers =  Yii::$app->userFunctions->idUrl($urls, $cat_url_parent_express); 
-
+	
 	   if(!$customers['id']) {
 		   if(isset($region) && count($url_dop) > 2) {
 			   return false;  // данное правило не применимо
@@ -569,7 +579,7 @@ if(!$customers['id']) {
 					 Yii::$app->response->redirect('/'.$pathRedirect, 301)->send();
 				 }
 		   }
-
+	
 		return ['blog/express', [ // (Примечание 3)
 				 'category' => $customers['id'],
 				 'patch'    => $request->getPathInfo(),
@@ -588,8 +598,9 @@ if(!$customers['id']) {
  	//---Правило для shop---//
 
 	 if (isset($url_shop[0]) && $url_shop[0] == 'shop' || $urls_shop == 'shop') {
-     $customers =  Yii::$app->userFunctions->idUrl($urls, $cat_url_parent); 
 	
+     $customers =  Yii::$app->userFunctions->idUrl($urls, $cat_url_parent); 
+
 	if(!$customers['id']) {
 		if(isset($region) && count($url_dop) > 2) {
 		    return false;  // данное правило не применимо
@@ -607,7 +618,6 @@ if(!$customers['id']) {
 	              Yii::$app->response->redirect('/'.$pathRedirect, 301)->send();
 		      }
 	    }
-	
      return ['shop/index', [ // (Примечание 3)
               'category' => $customers['id'],
 			  'patch'    => $request->getPathInfo(),

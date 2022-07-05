@@ -78,10 +78,25 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 </div>
 
 <!--Поля объявления-->
-<div class="hr_add cat-st"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'category', ['template' => '{error}{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+<div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'class'=>'form-control'])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
+
+
+<div class="cat-st"></div>
+<div class="form-group">
+<label class="control-label">
+  Категория <span class="req_val">*</span>
+</label>
+<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
+<?=$catin?>
+</div>
+
+
+<br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+
+
 <?php if($time) { ?> <?= $form->field($model, 'date_del', ['template' => '{error}{label}{input}'])->dropDownList($time)?><?php } ?><br>
 
 

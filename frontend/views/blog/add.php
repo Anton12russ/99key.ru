@@ -38,10 +38,9 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js', ['depends' => [\yii\
 /*if(!$model2->f_481) {
 		$model2->f_481 = 0;	
 }*/
-if(!$model->auction){
-	$model->auction = 0;
-	
-}
+
+
+
 
 if($model->category) {
 	$catin = '<div class="category-click" data-toggle="modal" data-target="#categoryMenu">Выбрана категория: <strong>'.Yii::$app->caches->category()[$model->category]['name'].'</strong></div>';
@@ -52,7 +51,7 @@ if($model->category) {
     $catin = '';
   }
   }
-$model->auction = true;
+  $model->auction = '0';
 ?>
 
 
@@ -99,10 +98,25 @@ $model->auction = true;
 <?}?>
 
 <!--Поля объявления-->
-<div class="hr_add cat-st"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
-<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'.$catin])->textInput(['maxlength' => true, 'class'=>'form-control blog-title'])->label('Заголовок <span class="req_val">*</span>')?><br>
-<?= $form->field($model, 'category', ['template' => '{error}{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+<div class="hr_add"><i class="fa fa-square-info" aria-hidden="true"></i> Основная информация</div>
+<?= $form->field($model, 'title', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'class'=>'form-control'])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
+
+
+<div class="cat-st"></div>
+<div class="form-group">
+<label class="control-label">
+  Категория <span class="req_val">*</span>
+</label>
+<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
+<?=$catin?>
+</div>
+
+
+<br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+
+
 <?php if($time) { ?> <?= $form->field($model, 'date_del', ['template' => '{error}{label}{input}'])->dropDownList($time)?><?php } ?><br>
 
 <?if(isset($shopfield) && $shopfield) {
@@ -124,6 +138,7 @@ $model->auction = true;
 	<summary>Посмотреть карту <i class="fa fa-map-location-dot" aria-hidden="true"></i></summary>
 	<div id="YMapsIDadd"></div>
 </details>
+<?= $form->field($model, 'auction', ['template' => '{error}{label}{input}'])->textInput(['type' => 'hidden'])->label(false)?>
 
 
 <div class="field-none"  style="display: none;">
@@ -236,9 +251,6 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <? }?>
 <?php Pjax::end(); ?>
 </div>
-
-
-<?= $form->field($model, 'auction', ['template' => '{error}{label}{input}'])->textInput(['type' => 'hidden'])->label(false)?>
 
 <?if(Yii::$app->userFunctions->board_shop() == true) {?>
 <div class="hr_add"><i class="fa fa-shop" aria-hidden="true"></i> Информация для магазина</div>	

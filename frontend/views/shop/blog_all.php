@@ -52,7 +52,10 @@ $this->registerCssFile('/css/category.css', ['depends' => ['frontend\assets\AppA
 			  
     <div class="col-md-12">
 	  <div class="cat-board-body <? if ($turbo || isset($arr_services['bright'])){?>marker<?}?>">
-	    <a data-pjax=0 class="cat-bo-href" href="<?=$url?>"><div class="all_img <? if (isset($this->blocks['right'])){?>col-md-3  col-sm-4<? }else{ ?>col-md-2  col-sm-3<? } ?> col-xs-4" style="background-image: url(<? if (isset($one->imageBlog[0]['image'])) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlog[0]->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo_all.png<? } ?>);"></div></a>
+	    <a data-pjax=0 class="cat-bo-href" href="<?=$url?>">
+		<div class="all_img <? if (isset($this->blocks['right'])){?>col-md-3  col-sm-4<? }else{ ?>col-md-2  col-sm-3<? } ?> col-xs-4" style="background-image: url(<? if (isset($one->imageBlog[0]['image'])) {?> <?= Yii::getAlias('@blog_image_mini').'/'.$one->imageBlog[0]->image;?> <? }else{ ?><?= Yii::getAlias('@blog_image').'/'?>no-photo_all.png<? } ?>);">
+		<? if($one->express) {?><div class="express_one">Экспресс</div><?}?>
+	</div></a>
 	    <div class="all_body  <? if ($this->blocks['right']){?>col-md-9 col-sm-8<? }else{ ?>col-md-10 col-sm-9<? } ?> col-xs-8">
 	   <h3><a data-pjax=0 class="cat-bo-href" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?=Yii::$app->userFunctions->substr_user($one->title, 150)?>" href="<?=$url?>"><?=Yii::$app->userFunctions->substr_user($one->title, 100)?></a> 		  
 		  	<? if($one->auction != 0) {?>

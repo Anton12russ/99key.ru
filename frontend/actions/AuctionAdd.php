@@ -270,9 +270,9 @@ class AuctionAdd extends Action
 		
 		if ($price_category) {
 			$price_cat = array();
-			$sum_pay = (int)$price_category * (int)$price_datedel;
+			$sum_pay = (int)$price_category * (int)$model->auk_time;
 			$price_cat['sum'] = $sum_pay;
-			$price_cat['date'] = $price_datedel;
+			$price_cat['date'] = $model->auk_time;
 			$price_cat['id_payment'] = Yii::$app->userFunctions->addPayment($sum_pay, $model->id, $user_id);
 		}
 		

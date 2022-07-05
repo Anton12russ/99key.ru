@@ -42,7 +42,7 @@ $region = @Yii::$app->caches->region()[Yii::$app->request->cookies['region']->va
 
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 cat-list maintree">
      <div class="el_body el-auc">
-        <a href="/auction">
+        <a href="<?=Url::to(['auction/index'])?>">
 		  <img class="ln-shadow" src="/images_all/category/auction.png" alt="попутчики">		 
           <div class="cat_title_width"><div class="cat_title cat-auc">Аукцион <span class="cat_count count-auc">(<?=Yii::$app->userFunctions2->auctioncount(Yii::$app->request->cookies['region'])?>)</span></div> </div>
         </a>
@@ -80,8 +80,8 @@ $region = @Yii::$app->caches->region()[Yii::$app->request->cookies['region']->va
 
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 cat-list maintree">
      <div class="el_body el-auc">
-        <a href="/express">
-		    <img class="ln-shadow" src="/images_all/category/auction.png" alt="попутчики">		 
+        <a href="<?=Url::to(['express/index'])?>">
+		    <img class="ln-shadow" src="/images_all/category/bolt.png" alt="попутчики">		 
           <div class="cat_title_width"><div class="cat_title cat-auc">Экспресс объявления <span class="cat_count count-auc">(<?=Yii::$app->userFunctions2->expresscount(Yii::$app->request->cookies['region'])?>)</span></div> </div>
         </a>
       <span data-toggle="collapse" class="btn-cat-collapsed collapsed">   <span class=" icon-down-open-big"></span> </span>

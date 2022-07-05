@@ -15,7 +15,10 @@ $(document).ready(function() {
 	catok();
 	$(document).on( 'pjax:success' , function(selector, xhr, status, selector, container) {
 		poiskcat();
-		//catok();
+		if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
+			catok();
+		 }
+		
 		startCatModal();
 	});
  }); 
@@ -91,21 +94,25 @@ function addcat() {
  function clickcat() {
 
     $('.ul-click-cat').click(function() {
+		//Скрываем поле
+	  $('.blog-title').toggle(); 
 	  $(".searchcat-ajax").hide();
 	if(!$(this).attr('data-user')) {
         if(!$(this).attr('data-plat')) {
-		
+			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
+			$('.blog-category').val($(this).attr('data-id'));  
 	    }else{
           alert("Категория платная, вы можете подать экспресс объявление в платную категорию только после авторизации.");
 		}
 	}else{
+		
 		if(!$(this).attr('data-plat')) {
-			
+			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
+			$('.blog-category').val($(this).attr('data-id'));  
 		  }else{
 			if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
 			   alert("Категория платная, стоимость "+$(this).attr('data-plat')+'р. за '+$(this).attr('data-plat')+' дней.');
 			}
-			
 			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
 			$('.blog-category').val($(this).attr('data-id'));  
 		}
@@ -115,17 +122,15 @@ function addcat() {
 	});
  }
  function catok() {
-
-if(location.pathname != '/expressupdate' || location.pathname != '/expressadd') {
-	pjaxField($('.blog-category').attr('data-id'));
+if(location.pathname != '/expressupdate' && location.pathname != '/expressadd') {
+   pjaxField($('.blog-category').attr('data-id'));
 }
  $('.catok').click(function() {
-
+	$('.blog-title').toggle(); 
 	$('.blog-category').val(''); 
 	addcat();
  });
 }
-
 
 
 

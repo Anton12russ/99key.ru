@@ -67,20 +67,6 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <br>
 
 
-<div class="cat-st"></div>
-<div class="form-group">
-<label class="control-label">
-  Категория <span class="req_val">*</span>
-</label>
-<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
-<?=$catin?>
-</div>
-
-
-<br>
-<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
-
-
 <?if(isset($shopfield) && $shopfield) {
 	$coord = explode(',',$shopfield->field->coord);
 	$model->region = $shopfield->region;
@@ -101,6 +87,30 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 	<summary>Посмотреть карту <i class="fa fa-map-location-dot" aria-hidden="true"></i></summary>
 	<div id="YMapsIDadd"></div>
 </details>
+
+
+<!---------------------------Блок с выбором категорий--------------------------------------->
+<div class="cat-st"></div>
+<div class="form-group">
+<label class="control-label">
+  Категория
+</label>
+<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
+<?=$catin?>
+</div>
+
+
+<br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+
+<?php Pjax::begin([ 'id' => 'pjaxFields']); ?>
+   <?php if (isset($price_category['price']) && $price_category['price'] > 0) {?>
+         <div class="alert alert-info sum-info" data-sum="<?=$price_category['sum']?>" style="margin-top: 0px;">Размещение в эту рубрику, платное. <br>Стоимость активации, <strong><span class="price_category"><?=$price_category['price']?></span> <i class="fa <?=$rates_cat_val?>" aria-hidden="true"></i></strong>, на указанный срок (<span class="days"><?=$price_category['tyme']?></span> дней)</div>
+   <?php } ?>
+<?php Pjax::end(); ?>
+<!---------------------------Блок с выбором категорий--------------------------------------->
+
+
 <?= $form->field($model, 'phone', ['template' => '{error}{label}{input}'])->widget(\yii\widgets\MaskedInput::className(), ['mask' => Yii::$app->caches->setting()['mask']])->textInput()->label('Телефон <span class="req_val">*</span>');?>
  <br><?=$form->field($model, 'price', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true])->label('Цена')?><br>
 

@@ -80,21 +80,6 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <?= $form->field($model, 'title', ['template' => '{error}{label}{input}'])->textInput(['maxlength' => true, 'class'=>'form-control'])->label('Заголовок <span class="req_val">*</span>')?>
 <br>
 
-
-<div class="cat-st"></div>
-<div class="form-group">
-<label class="control-label">
-  Категория <span class="req_val">*</span>
-</label>
-<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
-<?=$catin?>
-</div>
-
-
-<br>
-<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
-
-
 <!--Обновление координаты--->
 <?= $form->field($model, 'coordlat', ['template' => '{input}'])->textInput(['id' => 'coord-lat','type' => 'hidden'])->label('') ?>
 <?= $form->field($model, 'coordlon', ['template' => '{input}'])->textInput(['id' => 'coord-lon','type' => 'hidden'])->label('') ?>
@@ -110,6 +95,23 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 
 
 <?php if($time) { ?> <?= $form->field($model, 'date_del', ['template' => '{input}'])->hiddenInput(['value' => 30])->label(false)?><?php } ?><br>
+
+
+
+<!------------------------------------------------------------------->
+<div class="cat-st"></div>
+<div class="form-group">
+<label class="control-label">
+  Категория <span class="req_val">*</span>
+</label>
+<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
+<?=$catin?>
+</div>
+
+<br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
+<!------------------------------------------------------------------->
+
 
 
 <?php Pjax::begin([ 'id' => 'pjaxFields']); ?>

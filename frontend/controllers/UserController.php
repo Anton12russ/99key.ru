@@ -2053,11 +2053,6 @@ foreach($rates as $rat) {
 	$ratest[$rat['id']] = $rat['text'];
 }
 
-	$query = Blog::find()->andWhere(['user_id' => Yii::$app->user->id])->orderBy(['id' => SORT_DESC]);	
-    $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->caches->setting()['max_count_page']]);
-	$product = $query->offset($pages->offset)
-    ->limit($pages->limit)
-    ->all();
 	    $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, Yii::$app->user->id);
         return $this->render('reserv', [

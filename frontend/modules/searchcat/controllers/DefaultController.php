@@ -48,11 +48,13 @@ class DefaultController extends Controller
 			  }
 	        }
 		      foreach($blogs as $blog) {
+				if(!$this->catStop($blog['category'])) {
 				if($this->catAuction($blog['category'])) {
 			      $blogi[] = array( 'category' => $blog['category'], 
 				  'day'=>Yii::$app->caches->setting()['express_add'], 
 				  'user_id' => Yii::$app->user->id);
 				}
+			   }
 			   }
 			
 
@@ -66,9 +68,11 @@ class DefaultController extends Controller
 			     	}
 				 }
 				  foreach($blogs as $blog) {
+				     if(!$this->catStop($blog['category'])) {
 						  $blogi[] = array( 'category' => $blog['category'], 
 						  'day'=>Yii::$app->caches->setting()['express_add'], 
 						  'user_id' => Yii::$app->user->id);
+					    }
 					 }
 
 		}

@@ -62,6 +62,16 @@ class ExpressAdd extends Action
 			$model->phone = Yii::$app->user->identity->phone;
 		}
 
+		$reg_price = Yii::$app->request->post('Pjax_region');	
+        $time_price	= Yii::$app->caches->setting()['express_add'];
+	    $price_category = $this->findMod($catid, $reg_price);
+		if (isset($price_category)) {
+			$price_cat = array();
+			$price_cat['price'] = (int)$price_category * (int)$time_price;
+			$price_cat['tyme'] = $time_price;
+			$price_cat['sum'] = $price_category ;
+		}
+
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 			

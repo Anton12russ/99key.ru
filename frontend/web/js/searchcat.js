@@ -15,10 +15,11 @@ $(document).ready(function() {
 	catok();
 	$(document).on( 'pjax:success' , function(selector, xhr, status, selector, container) {
 		poiskcat();
-		if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
-			catok();
-		 }
-		
+		if (container.container == '#pjaxContent') {
+		  if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
+		    	catok();
+		   }
+		}
 		startCatModal();
 	});
  }); 
@@ -92,7 +93,6 @@ function addcat() {
 }
 
  function clickcat() {
-
     $('.ul-click-cat').click(function() {
 		//Скрываем поле
 	  $('.blog-title').toggle(); 
@@ -103,6 +103,8 @@ function addcat() {
 			$('.blog-category').val($(this).attr('data-id'));  
 	    }else{
           alert("Категория платная, вы можете подать экспресс объявление в платную категорию только после авторизации.");
+		  $('.blog-title').toggle(); 
+		  $('.searchcat-ajax').toggle(); 
 		}
 	}else{
 		
@@ -111,7 +113,7 @@ function addcat() {
 			$('.blog-category').val($(this).attr('data-id'));  
 		  }else{
 			if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
-			   alert("Категория платная, стоимость "+$(this).attr('data-plat')+'р. за '+$(this).attr('data-plat')+' дней.');
+			   //alert("Категория платная, стоимость "+$(this).attr('data-plat')+'р. за '+$(this).attr('data-plat')+' дней.');
 			}
 			$(".cat-st").next().append('<div class="catok">Выбрана категория: <strong>'+$(this).children('.catspan').text()+'</strong></div>');
 			$('.blog-category').val($(this).attr('data-id'));  
@@ -122,9 +124,9 @@ function addcat() {
 	});
  }
  function catok() {
-if(location.pathname != '/expressupdate' && location.pathname != '/expressadd') {
-   pjaxField($('.blog-category').attr('data-id'));
-}
+if(location.pathname != '/expressupdate' && location.pathname != '/expressadd') {}
+   pjaxField();
+
  $('.catok').click(function() {
 	$('.blog-title').toggle(); 
 	$('.blog-category').val(''); 
@@ -196,17 +198,17 @@ $('.cat-ok').click(function(){
 	  $('.searchcat-ajax').remove();
 	  $('#categoryMenu').modal('hide')
 	          cat_click_cat();
-			  pjaxField($(this).attr('data-id'));
+			  pjaxField();
 });
 }
 
 
 
-function pjaxField(cat_id) {
+function pjaxField() {
 $.pjax({
   type       : 'POST',
   container  : '#pjaxFields',
-  data       : {Pjax_category:cat_id, Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
+  data       : {Pjax_category:$('.blog-category').val(), Pjax_time:$('#blog-date_del').val(), Pjax_region:$('.region-hidden').val()},
   push       : true,
   replace    : false,
   timeout    : 10000,

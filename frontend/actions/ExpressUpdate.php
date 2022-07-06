@@ -94,13 +94,15 @@ class ExpressUpdate extends Action
 		
 		$model->status_id = 0;	
 		//------------------------Проверяем, платная ли категория------------------//
-	    $price_category = $this->findMod($model->category, $model->region);
-		if ($price_category) {
-			$price_datedel = $model->date_del;
-			 $model->active = 0;
-		}	else{
-             $model->active = 1; 
-		}	
+		$reg_price = Yii::$app->request->post('Pjax_region');	
+        $time_price	= Yii::$app->caches->setting()['express_add'];
+	    $price_category = $this->findMod($catid, $reg_price);
+		if (isset($price_category)) {
+			$price_cat = array();
+			$price_cat['price'] = (int)$price_category * (int)$time_price;
+			$price_cat['tyme'] = $time_price;
+			$price_cat['sum'] = $price_category ;
+		}
 
 		
 		//передаем эту переменную в шаблон, чтобы вывести сообщение с успешным размещением

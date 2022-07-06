@@ -21,12 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	define("RATEST",  $ratest);
 
 ?>
-<style>
-.person-body {
-position: absolute;
-    z-index: 999;
-}
-</style>
+
 <div class="row">
 <div class="">
    <div class="col-md-3">

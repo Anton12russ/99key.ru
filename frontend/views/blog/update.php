@@ -83,18 +83,6 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 <br>
 
 
-<div class="cat-st"></div>
-<div class="form-group">
-<label class="control-label">
-  Категория <span class="req_val">*</span>
-</label>
-<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
-<?=$catin?>
-</div>
-
-
-<br>
-<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
 
 
 <?php if($time) { ?> <?= $form->field($model, 'date_del', ['template' => '{error}{label}{input}'])->dropDownList($time)?><?php } ?><br>
@@ -113,6 +101,18 @@ $this->registerJsFile('/assest_all/calendar2/jquery-ui.js',
 </details>
 
 
+<div class="cat-st"></div>
+<div class="form-group">
+<label class="control-label">
+  Категория <span class="req_val">*</span>
+</label>
+<input type="text" class="form-control blog-title" value="<?=Yii::$app->caches->category()[$model->category]['name']?>" maxlength="150" aria-required="true" <?if($catin){echo 'style="display: none;"';}?> >
+<?=$catin?>
+</div>
+
+
+<br>
+<?= $form->field($model, 'category', ['template' => '{input}'])->hiddenInput(['maxlength' => true, 'class'=>'form-control blog-category'])->label(false)?>
 
 
 <?php Pjax::begin([ 'id' => 'pjaxFields']); ?>

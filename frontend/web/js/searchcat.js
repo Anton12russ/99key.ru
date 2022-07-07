@@ -17,10 +17,11 @@ $(document).ready(function() {
 		poiskcat();
 		if (container.container == '#pjaxContent') {
 		  if(location.pathname == '/expressupdate' || location.pathname == '/expressadd') {
-		    	catok();
+		    	catok('true');
 		   }
+		   	startCatModal();
 		}
-		startCatModal();
+	
 	});
  }); 
  
@@ -41,6 +42,7 @@ $(document).ready(function() {
  
  function poiskcat() {
 	$('.blog-title').attr('autocomplete', 'off');
+	$(".blog-title").off();
    $(".blog-title").bind("keyup", function() {
 
     	if($('.blog-category').val() == '' || location.pathname == '/expressupdate') {
@@ -123,10 +125,10 @@ function addcat() {
 		catok();
 	});
  }
- function catok() {
-if(location.pathname != '/expressupdate' && location.pathname != '/expressadd') {}
+ function catok($act = false) {
+if($act != 'true') {
    pjaxField();
-
+}
  $('.catok').click(function() {
 	$('.blog-title').toggle(); 
 	$('.blog-category').val(''); 

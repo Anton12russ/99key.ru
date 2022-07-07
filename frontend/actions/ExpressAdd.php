@@ -264,10 +264,11 @@ if(!Yii::$app->user->id) {
 		$save['date_del'] = Yii::$app->caches->setting()['express_add'];
 		$save['status'] = 1; */
 		// ----------------------------------------------------------//
+
          return $this->controller->render('add_express', [
             'model' => $model,
 			'print' => $print,
-			'model_view' => $model_view,
+			//'model_view' => $model_view,
 			'dir_name' => $dir_name,
 			'save' => $save,
 			'key' => $key,

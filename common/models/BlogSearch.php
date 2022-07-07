@@ -42,16 +42,10 @@ class BlogSearch extends Blog
      */
     public function search($params, $user_id_reserv = false, $lot_success = false, $express = false)
     {
-		if(!$user_id_reserv) {
+		
            $query = Blog::find()->joinWith(@author)->joinWith('services');
-		}else{
-		   $query = Blog::find()->where(['reserv_user_id' => $user_id_reserv]);
-		   if($lot_success) {
-			   $query->andWhere(['auction' => 3]);
-		   }
-		   $query->joinWith(@author)->joinWith('services');
-		}
-
+     
+        $query->joinWith(@author)->joinWith('services');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -120,6 +114,12 @@ if ($this->category) {
 			->andFilterWhere(['like', 'date_del', $this->date_del])
             ->andFilterWhere(['=', 'url', $this->url])
 			;
+            if($user_id_reserv) {
+                $query->andWhere(['reserv_user_id' => $user_id_reserv]);
+                if($lot_success) {
+                    $query->andWhere(['auction' => 3]);
+                }
+             }
 
         return $dataProvider;
     }

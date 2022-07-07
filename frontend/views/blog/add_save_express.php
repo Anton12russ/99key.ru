@@ -15,7 +15,7 @@ $balance = 0;
 		<div class="alert alert-info text-center"> "Если вы хотите изменить публикацию, или продвигать ее, а также пользоваться всеми возможностями портала, <a class="signuppop" data-toggle="modal" data-target="#myModallogin" href="#">зарегистрируйтесь</a>."</div>
 		<? } ?>
 		<!--Если объявление в платной категории-->
-	    <? if ($price_category) {?> 
+	    <? if ($price_category['sum']) {?> 
 			<div class="alert alert-warning text-center">Объявление добавлено, но чтобы оно активировалось на (<?=$price_category['date']?> дней), его нужно оплатить.<br> Стоимость <strong><?=$price_category['sum']?></strong> руб.</div>
          <br>
 		<!--
